@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────
+   گنج‌ریز — Design Tokens
+   هماهنگ با طرح فیگما (Carrera y Carrera): سفید/خنثی با لهجهٔ قرمز
+   تایپوگرافی: Oswald (نمایشی لاتین) + Poppins (لاتین) + Vazirmatn (فارسی)
+   ────────────────────────────────────────────── */
+@theme {
+  --color-background: #ffffff;
+  --color-surface: #fafafa;        /* Alabaster */
+  --color-surface-alt: #f4f4f4;    /* Wild Sand */
+  --color-ink: #131313;            /* Cod Gray — متن اصلی */
+  --color-ink-deep: #0c0c0c;       /* تیره‌ترین — بنرها/فوتر */
+  --color-muted: #6e6e6e;          /* متن فرعی */
+  --color-faint: #a1a1a1;          /* Silver Chalice */
+  --color-line: #e6e6e6;           /* Mercury — خطوط */
+  --color-accent: #da291c;         /* Alizarin Crimson — قرمز برند */
+  --color-accent-light: #e2564b;   /* قرمز روشن (روی تیره) */
+  --color-accent-dark: #b21e13;    /* قرمز تیره (متن روی روشن) */
+  --color-success: #2d7d46;
+  --color-danger: #da291c;
+
+  --font-sans: var(--font-vazir), "Segoe UI", sans-serif;
+  --font-display: var(--font-oswald), var(--font-vazir), sans-serif;
+  --font-latin: var(--font-poppins), var(--font-vazir), sans-serif;
+
+  --tracking-label: 0.06em;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #fff;
+  }
+}
+
+@layer utilities {
+  /* عرض محتوای مرکزی — مطابق فیگما (container = 1536px) */
+  .container-lux {
+    width: 100%;
+    max-width: 1536px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-lux {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  /* لیبل لاتین آپرکیس با تریکینگ (مثل Carrera) */
+  .label-latin {
+    font-family: var(--font-latin);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+  }
+
+  /* تیتر نمایشی لاتین — Oswald */
+  .font-oswald {
+    font-family: var(--font-display);
+  }
+
+  /* لینک متنی — فقط نوشته با خط زیرین دائمی (هم‌رنگ متن).
+     روی هاور، خط یک دور از راست به چپ محو و دوباره کشیده می‌شود. */
+  .link-underline {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.55;
+  }
+  .link-underline:hover::after {
+    animation: underline-sweep 0.5s cubic-bezier(0.45, 0, 0.55, 1);
+  }
+
+  .img-zoom {
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .group:hover .img-zoom {
+    transform: scale(1.06);
+  }
+
+  .reveal {
+    animation: reveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* خط زیرین لینک: یک دور از راست به چپ محو می‌شود، سپس از همان سمت دوباره کشیده می‌شود */
+@keyframes underline-sweep {
+  /* فاز ۱: خط از راست به چپ جمع و محو می‌شود (origin چپ) */
+  0% {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+  49.9% {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  /* فاز ۲: خط دوباره از راست به چپ کشیده می‌شود (origin راست) */
+  50% {
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: right center;
+  }
+}
+
+/* لینک‌های منوی اصلی — خط زیرین فقط هنگام هاور، قرمز و کمی ضخیم‌تر
+   (خارج از @layer utilities تا توسط Tailwind حذف نشود) */
+.nav-link {
+  position: relative;
+  padding-bottom: 7px;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* اسکرول‌بار ظریف */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-faint);
+}

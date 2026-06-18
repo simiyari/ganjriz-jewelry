@@ -1,0 +1,31 @@
+import Image from "next/image";
+import { ENGAGEMENT } from "@/lib/site-data";
+import { DiscoverLink, Eyebrow } from "@/components/ui/SectionHeading";
+
+export default function EngagementSplit() {
+  return (
+    <section className="container-lux py-12 md:py-16">
+      <div className="grid items-stretch overflow-hidden md:grid-cols-2">
+        {/* پنل متن */}
+        <div className="order-2 flex flex-col items-center justify-center bg-surface px-7 py-12 text-center md:order-1 md:px-14 md:py-16">
+          <Eyebrow>{ENGAGEMENT.eyebrow}</Eyebrow>
+          <h2 className="text-[26px] font-semibold leading-snug text-ink md:text-[34px]">{ENGAGEMENT.title}</h2>
+          <p className="mt-5 max-w-md text-[15px] leading-8 text-muted">{ENGAGEMENT.body}</p>
+          <div className="mt-7">
+            <DiscoverLink href={ENGAGEMENT.href}>{ENGAGEMENT.cta}</DiscoverLink>
+          </div>
+        </div>
+        {/* تصویر جعبهٔ هدیه */}
+        <div className="relative order-1 aspect-[4/3] md:order-2 md:aspect-auto md:min-h-[540px]">
+          <Image
+            src={ENGAGEMENT.image}
+            alt={ENGAGEMENT.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
