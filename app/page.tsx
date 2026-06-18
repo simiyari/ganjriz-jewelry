@@ -8,7 +8,7 @@ import CollectionBanner from "@/components/home/CollectionBanner";
 import EngagementSplit from "@/components/home/EngagementSplit";
 import InstagramSection from "@/components/home/InstagramSection";
 import ServicesSection from "@/components/home/ServicesSection";
-import BoutiqueSection from "@/components/home/BoutiqueSection";
+import StoresSection from "@/components/home/StoresSection";
 
 export default function Home() {
   return (
@@ -23,7 +23,7 @@ export default function Home() {
         <EngagementSplit />
         <InstagramSection />
         <ServicesSection />
-        <BoutiqueSection />
+        <StoresSection />
       </main>
       <Footer />
     </>

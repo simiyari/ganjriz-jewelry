@@ -3,7 +3,7 @@ import { BOUTIQUE } from "@/lib/site-data";
 import { DiscoverLink } from "@/components/ui/SectionHeading";
 import { MapPinIcon } from "@/components/ui/icons";
 
-export default function BoutiqueSection() {
+export default function StoresSection() {
   return (
     <section className="container-lux pt-12 md:pt-16">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-ink-deep sm:aspect-[1488/605]">
@@ -18,7 +18,7 @@ export default function BoutiqueSection() {
       </div>
 
       <div className="flex flex-col items-center py-12 text-center md:py-16">
-        <span className="mb-3 inline-flex items-center gap-1.5 text-[11px] font-medium text-accent-dark">
+        <span dir="ltr" className="eyebrow-en mb-3.5 inline-flex items-center gap-1.5">
           <MapPinIcon className="h-4 w-4" />
           {BOUTIQUE.eyebrow}
         </span>

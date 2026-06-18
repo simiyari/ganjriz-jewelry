@@ -3,7 +3,7 @@
 /* ──────────────────────────────────────────────
    گنج‌ریز — Design Tokens
    هماهنگ با طرح فیگما (Carrera y Carrera): سفید/خنثی با لهجهٔ قرمز
-   تایپوگرافی: Oswald (نمایشی لاتین) + Poppins (لاتین) + Vazirmatn (فارسی)
+   تایپوگرافی: IRANYekan (فارسی) + Inter (انگلیسی/لاتین)
    ────────────────────────────────────────────── */
 @theme {
   --color-background: #ffffff;
@@ -20,9 +20,9 @@
   --color-success: #2d7d46;
   --color-danger: #da291c;
 
-  --font-sans: var(--font-vazir), "Segoe UI", sans-serif;
-  --font-display: var(--font-oswald), var(--font-vazir), sans-serif;
-  --font-latin: var(--font-poppins), var(--font-vazir), sans-serif;
+  --font-sans: var(--font-fa), "Segoe UI", sans-serif;        /* فارسی — IRANYekan */
+  --font-display: var(--font-en), var(--font-fa), sans-serif; /* لاتین نمایشی — Inter */
+  --font-latin: var(--font-en), var(--font-fa), sans-serif;   /* لاتین — Inter */
 
   --tracking-label: 0.06em;
 }
@@ -73,8 +73,8 @@
     letter-spacing: var(--tracking-label);
   }
 
-  /* تیتر نمایشی لاتین — Oswald */
-  .font-oswald {
+  /* تیتر/لیبل لاتین — Inter */
+  .font-en {
     font-family: var(--font-display);
   }
 
@@ -141,6 +141,26 @@
     transform: scaleX(1);
     transform-origin: right center;
   }
+}
+
+/* eyebrow لاتین بالای تیترها — Inter، آپرکیس، تریکینگ
+   .eyebrow-en روی پس‌زمینهٔ روشن (خاکستری تیره/مشکی کمرنگ)
+   .eyebrow-en-light روی پس‌زمینهٔ تیره/تصویر (روشن)
+   (خارج از @layer utilities تا توسط Tailwind حذف نشود) */
+.eyebrow-en,
+.eyebrow-en-light {
+  font-family: var(--font-en), var(--font-fa), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+}
+.eyebrow-en {
+  color: #3a3a3a; /* خاکستری تیره / مشکی کمرنگ */
+}
+.eyebrow-en-light {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* لینک‌های منوی اصلی — خط زیرین فقط هنگام هاور، قرمز و کمی ضخیم‌تر

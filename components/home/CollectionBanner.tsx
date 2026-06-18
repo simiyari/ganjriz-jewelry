@@ -15,7 +15,7 @@ export default function CollectionBanner() {
         />
         <div className="absolute inset-0 bg-black/30" />
         <div className="relative flex h-full flex-col items-center justify-center px-6 text-center text-white">
-          <span className="mb-3 text-[12px] font-medium text-white/80">
+          <span dir="ltr" className="eyebrow-en-light mb-3.5 block">
             {COLLECTION_BANNER.eyebrow}
           </span>
           <h2 className="text-4xl font-medium sm:text-5xl md:text-6xl">

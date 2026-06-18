@@ -19,29 +19,50 @@ export function DiscoverLink({
   );
 }
 
-export function Eyebrow({ children }: { children: React.ReactNode }) {
+export function Eyebrow({
+  children,
+  onDark = false,
+}: {
+  children: React.ReactNode;
+  /** روی پس‌زمینهٔ تیره/تصویر — رنگ روشن به‌جای خاکستری تیره */
+  onDark?: boolean;
+}) {
   return (
-    <span className="mb-3 block text-[11px] font-semibold text-accent-dark">{children}</span>
+    <span dir="ltr" className={`${onDark ? "eyebrow-en-light" : "eyebrow-en"} mb-3.5 block`}>
+      {children}
+    </span>
   );
 }
 
 export default function SectionHeading({
   title,
+  eyebrow,
   link,
   align = "center",
 }: {
   title: string;
+  /** لیبل لاتین کوتاه بالای تیتر (مثل OUR CREATIONS) */
+  eyebrow?: string;
   link?: { href: string; label: string };
   align?: "center" | "start";
 }) {
   return (
     <div
-      className={`flex flex-col gap-4 ${
+      className={`flex flex-col ${
         align === "center" ? "items-center text-center" : "items-start text-start"
       }`}
     >
+      {eyebrow && (
+        <span dir="ltr" className="eyebrow-en mb-3.5">
+          {eyebrow}
+        </span>
+      )}
       <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{title}</h2>
-      {link && <DiscoverLink href={link.href}>{link.label}</DiscoverLink>}
+      {link && (
+        <div className="mt-4">
+          <DiscoverLink href={link.href}>{link.label}</DiscoverLink>
+        </div>
+      )}
     </div>
   );
 }

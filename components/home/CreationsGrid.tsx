@@ -7,6 +7,7 @@ export default function CreationsGrid() {
   return (
     <section className="container-lux py-12 md:py-16">
       <SectionHeading
+        eyebrow="Our Creations"
         title="گزیده‌ای از ساخته‌های ما"
         link={{ href: "/products", label: "مشاهدهٔ همهٔ محصولات" }}
       />

@@ -6,6 +6,7 @@ export default function ServicesSection() {
   return (
     <section className="container-lux py-12 md:py-16">
       <div className="mb-10 flex flex-col items-center text-center">
+        <span dir="ltr" className="eyebrow-en mb-3.5">Our Services</span>
         <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">خدمات گنج‌ریز</h2>
       </div>
 

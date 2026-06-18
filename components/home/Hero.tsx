@@ -17,7 +17,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/40" />
 
       <div className="container-lux relative flex h-full flex-col items-center justify-end pb-16 text-center md:pb-24">
-        <span className="font-oswald mb-4 text-[12px] font-medium uppercase tracking-[0.3em] text-white/85">
+        <span className="font-en mb-4 text-[12px] font-medium uppercase tracking-[0.3em] text-white/85">
           {SITE.nameLatin} FINE JEWELRY
         </span>
         <h1 className="max-w-2xl text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">

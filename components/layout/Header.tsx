@@ -21,7 +21,7 @@ function Logo({ className = "" }: { className?: string }) {
       <span className="text-[26px] font-semibold leading-none text-accent sm:text-[30px]">
         {SITE.name}
       </span>
-      <span className="font-oswald mt-1.5 text-[9px] font-medium uppercase tracking-[0.22em] text-ink/65">
+      <span className="font-en mt-1.5 text-[9px] font-medium uppercase tracking-[0.22em] text-ink/65">
         {SITE.nameLatin} fine jewelry
       </span>
     </Link>
@@ -107,7 +107,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* نوار بالایی — نرخ طلا + زبان + بوتیک */}
+      {/* نوار بالایی — نرخ طلا + زبان + شعبه */}
       <div className="hidden border-b border-line bg-surface md:block">
         <div className="container-lux grid h-9 grid-cols-3 items-center">
           <div className="flex justify-start">
@@ -117,7 +117,7 @@ export default function Header() {
           <div className="flex items-center justify-end gap-4 text-[11px] text-muted">
             <Link href="/stores" className="flex items-center gap-1.5 transition-colors hover:text-ink">
               <MapPinIcon className="h-3.5 w-3.5" />
-              یافتن بوتیک
+              یافتن شعبه
             </Link>
             <span className="text-line">|</span>
             <button type="button" className="transition-colors hover:text-ink">
@@ -269,7 +269,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
             className="mb-4 flex items-center gap-2 text-sm text-muted"
           >
             <MapPinIcon className="h-4 w-4" />
-            یافتن بوتیک
+            یافتن شعبه
           </Link>
           <div className="flex items-center gap-3">
             {SOCIAL_LINKS.map((s) => {

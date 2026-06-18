@@ -6,6 +6,7 @@ export default function InstagramSection() {
   return (
     <section className="py-12 md:py-16">
       <div className="container-lux flex flex-col items-center text-center">
+        <span dir="ltr" className="eyebrow-en mb-3.5">Follow Us</span>
         <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{INSTAGRAM.title}</h2>
         <p className="mt-3 max-w-md text-[15px] leading-8 text-muted">{INSTAGRAM.description}</p>
       </div>

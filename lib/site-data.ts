@@ -27,7 +27,7 @@ export const NAV_LINKS = [
 /** دو بلوک ویژه بالای صفحه (مشابه Circulos / Angel Letters) */
 export const FEATURE_DUO = [
   {
-    eyebrow: "مجموعهٔ ویژه",
+    eyebrow: "Featured Collection",
     title: "شعلهٔ زر",
     description: "درخششی از طلای ناب، الهام‌گرفته از رقص نور و آتش",
     href: "/collections/flame",
@@ -35,7 +35,7 @@ export const FEATURE_DUO = [
     align: "end" as const,
   },
   {
-    eyebrow: "سفارشی‌سازی",
+    eyebrow: "Made to Order",
     title: "پلاک حروف من",
     description: "نام و حرف دلخواهت را با طلای ۱۸ عیار جاودانه کن",
     href: "/collections/letters",
@@ -58,9 +58,9 @@ export const CATEGORIES = [
 
 /** بخش میراث و اصالت */
 export const HERITAGE = {
-  eyebrow: "اصالت و اعتماد",
+  eyebrow: "Heritage & Trust",
   title: "بیش از ۴۰ سال میراث جواهرسازی",
-  body: "از کارگاه‌های سنتی بازار تا بوتیک مدرن امروز؛ گنج‌ریز با تکیه بر هنر زرگران ایرانی و استانداردهای روز، هر قطعه را با وسواس می‌سازد. کیفیت بی‌نقص، عیار تضمین‌شده و طراحی ماندگار، امضای ماست.",
+  body: "از کارگاه‌های سنتی بازار تا جواهری مدرن امروز؛ گنج‌ریز با تکیه بر هنر زرگران ایرانی و استانداردهای روز، هر قطعه را با وسواس می‌سازد. کیفیت بی‌نقص، عیار تضمین‌شده و طراحی ماندگار، امضای ماست.",
   href: "/about",
   cta: "آشنایی با تاریخچه",
   image: img("1515562141207-7a88fb7ce338", 1100),
@@ -68,7 +68,7 @@ export const HERITAGE = {
 
 /** بنر تمام‌عرض مجموعه (مشابه Orquideas) */
 export const COLLECTION_BANNER = {
-  eyebrow: "مجموعه",
+  eyebrow: "Collection",
   title: "ارکیده",
   description: "ظرافت گل‌های شرقی در جواهراتی که با هر حرکت می‌درخشند",
   href: "/collections/orchid",
@@ -78,7 +78,7 @@ export const COLLECTION_BANNER = {
 
 /** حلقه‌های نامزدی + جعبهٔ هدیه */
 export const ENGAGEMENT = {
-  eyebrow: "لحظه‌های ماندگار",
+  eyebrow: "Forever Moments",
   title: "حلقه‌های نامزدی",
   body: "بله‌ی شما شایستهٔ درخششی ابدی است. حلقه‌های نامزدی گنج‌ریز با نگین‌های دست‌چین و طراحی اختصاصی، روایت‌گر آغاز یک زندگی تازه‌اند. امکان ساخت سفارشی و حکاکی نام فراهم است.",
   href: "/collections/engagement",
@@ -105,7 +105,7 @@ export const INSTAGRAM = {
   ],
 } as const;
 
-/** خدمات بوتیک (۳ ستون) */
+/** خدمات جواهری (۳ ستون) */
 export const SERVICES = [
   {
     title: "رزرو وقت حضوری",
@@ -130,12 +130,12 @@ export const SERVICES = [
   },
 ] as const;
 
-/** بوتیک */
+/** جواهری‌ها (شعبه‌ها) */
 export const BOUTIQUE = {
-  eyebrow: "حضوری ما را ببینید",
-  title: "بوتیک‌های گنج‌ریز",
-  description: "دنیای گنج‌ریز را از نزدیک تجربه کنید؛ نشانی بوتیک‌ها و نمایندگی‌های مجاز.",
-  cta: "یافتن بوتیک",
+  eyebrow: "Visit Us",
+  title: "جواهری‌های گنج‌ریز",
+  description: "دنیای گنج‌ریز را از نزدیک تجربه کنید؛ نشانی شعبه‌ها و نمایندگی‌های مجاز.",
+  cta: "یافتن شعبه",
   href: "/stores",
   image: img("1441986300917-64674bd600d8", 1800),
 } as const;
@@ -157,13 +157,13 @@ export const FOOTER_COLUMNS = [
     links: [
       { label: "دربارهٔ ما", href: "/about" },
       { label: "تاریخچه", href: "/about#history" },
-      { label: "بوتیک‌ها", href: "/stores" },
+      { label: "شعبه‌ها", href: "/stores" },
       { label: "وبلاگ", href: "/blog" },
       { label: "فرصت‌های شغلی", href: "/careers" },
     ],
   },
   {
-    title: "خدمات بوتیک",
+    title: "خدمات جواهری",
     links: [
       { label: "رزرو وقت حضوری", href: "/appointment" },
       { label: "بسته‌بندی هدیه", href: "/packaging" },

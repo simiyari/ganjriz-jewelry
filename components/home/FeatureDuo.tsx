@@ -22,9 +22,7 @@ export default function FeatureDuo() {
             <div
               className={`absolute inset-x-0 bottom-0 flex flex-col items-center p-7 text-center text-white md:p-9`}
             >
-              <Eyebrow>
-                <span className="text-accent-light">{item.eyebrow}</span>
-              </Eyebrow>
+              <Eyebrow onDark>{item.eyebrow}</Eyebrow>
               <h3 className="text-2xl font-semibold md:text-[30px]">{item.title}</h3>
               <p className="mt-2.5 max-w-xs text-[15px] leading-7 text-white/85">{item.description}</p>
               <div className="mt-5">
