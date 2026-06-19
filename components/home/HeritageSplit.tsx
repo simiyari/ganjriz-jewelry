@@ -6,7 +6,7 @@ import { asset } from "@/lib/asset";
 export default function HeritageSplit() {
   return (
     <section className="container-lux py-12 md:py-16">
-      <div className="grid items-stretch overflow-hidden bg-royal text-white md:grid-cols-2">
+      <div className="grid items-start overflow-hidden bg-royal text-white md:grid-cols-2 md:items-stretch">
         <div className="relative aspect-[3/2] md:aspect-auto md:min-h-[500px]">
           <Image
             src={asset(HERITAGE.image)}

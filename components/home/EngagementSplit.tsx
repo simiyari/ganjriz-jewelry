@@ -6,7 +6,7 @@ import { asset } from "@/lib/asset";
 export default function EngagementSplit() {
   return (
     <section className="container-lux py-12 md:py-16">
-      <div className="grid items-stretch overflow-hidden md:grid-cols-2">
+      <div className="grid items-start overflow-hidden md:grid-cols-2 md:items-stretch">
         {/* پنل متن */}
         <div className="order-2 flex flex-col items-center justify-center bg-royal text-white px-7 py-12 text-center md:order-1 md:px-14 md:py-16">
           <Eyebrow onDark>{ENGAGEMENT.eyebrow}</Eyebrow>
