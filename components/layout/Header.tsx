@@ -32,20 +32,22 @@ function IconButton({
   label,
   children,
   badge,
+  className = "",
 }: {
   label: string;
   children: React.ReactNode;
   badge?: string;
+  className?: string;
 }) {
   return (
     <button
       type="button"
       aria-label={label}
-      className="relative grid h-9 w-9 place-items-center text-ink transition-colors hover:text-accent-dark"
+      className={`relative grid h-9 w-9 place-items-center text-ink transition-colors hover:text-accent-dark ${className}`}
     >
       {children}
       {badge && (
-        <span className="absolute -top-0.5 -left-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-accent px-1 text-[9px] font-bold text-white">
+        <span className="absolute -top-0.5 -right-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-accent px-1 pt-px text-[9px] font-bold leading-none text-white">
           {badge}
         </span>
       )}
@@ -141,7 +143,7 @@ export default function Header() {
             hideLogoBar ? "md:h-0" : "md:h-20"
           }`}
         >
-          <div className="container-lux grid h-16 grid-cols-3 items-center md:h-20">
+          <div className="container-lux grid h-16 shrink-0 grid-cols-3 items-center md:h-20">
           {/* راست: منوی موبایل / جستجو دسکتاپ */}
           <div className="flex items-center justify-start gap-1">
             <button
@@ -152,7 +154,7 @@ export default function Header() {
             >
               <MenuIcon className="h-6 w-6" />
             </button>
-            <div className="hidden md:block">
+            <div className="hidden md:block -mr-2">
               <IconButton label="جستجو">
                 <SearchIcon className="h-5 w-5" />
               </IconButton>
@@ -181,7 +183,7 @@ export default function Header() {
                 <UserIcon className="h-5 w-5" />
               </IconButton>
             </div>
-            <IconButton label="سبد خرید" badge="۲">
+            <IconButton label="سبد خرید" badge="۲" className="-ml-2">
               <BagIcon className="h-5 w-5" />
             </IconButton>
           </div>

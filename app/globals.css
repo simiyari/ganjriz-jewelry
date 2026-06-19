@@ -157,7 +157,7 @@
   line-height: 1;
 }
 .eyebrow-en {
-  color: #3a3a3a; /* خاکستری تیره / مشکی کمرنگ */
+  color: #6e6e6e; /* همان رنگ متنِ کم‌رنگِ زیر عنوان‌ها (text-muted) */
 }
 .eyebrow-en-light {
   color: rgba(255, 255, 255, 0.85);

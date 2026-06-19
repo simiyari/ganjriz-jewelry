@@ -45,3 +45,4 @@ next-env.d.ts
 /.graphify_python
 /.claude/
 /.fig-ref/
+/.imgtmp/

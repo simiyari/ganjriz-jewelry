@@ -6,7 +6,7 @@ export default function Hero() {
   return (
     <section className="relative h-[78vh] min-h-[480px] w-full overflow-hidden bg-ink-deep md:h-[88vh]">
       <Image
-        src={img("1611601322175-ef8ec8c85f01", 1920)}
+        src={img("1585960622850-ed33c41d6418", 1920)}
         alt="جواهرات لوکس گنج‌ریز"
         fill
         priority

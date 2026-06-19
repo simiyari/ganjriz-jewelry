@@ -7,7 +7,7 @@ export default function EngagementSplit() {
     <section className="container-lux py-12 md:py-16">
       <div className="grid items-stretch overflow-hidden md:grid-cols-2">
         {/* پنل متن */}
-        <div className="order-2 flex flex-col items-center justify-center bg-surface px-7 py-12 text-center md:order-1 md:px-14 md:py-16">
+        <div className="order-2 flex flex-col items-center justify-center bg-surface-alt px-7 py-12 text-center md:order-1 md:px-14 md:py-16">
           <Eyebrow>{ENGAGEMENT.eyebrow}</Eyebrow>
           <h2 className="text-[26px] font-semibold leading-snug text-ink md:text-[34px]">{ENGAGEMENT.title}</h2>
           <p className="mt-5 max-w-md text-[15px] leading-8 text-muted">{ENGAGEMENT.body}</p>
