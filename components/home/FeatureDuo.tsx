@@ -1,15 +1,17 @@
 import Image from "next/image";
+import Link from "next/link";
 import { FEATURE_DUO } from "@/lib/site-data";
-import { DiscoverLink, Eyebrow } from "@/components/ui/SectionHeading";
+import { DiscoverCue, Eyebrow } from "@/components/ui/SectionHeading";
 
 export default function FeatureDuo() {
   return (
     <section className="container-lux py-12 md:py-16">
       <div className="grid gap-3 md:grid-cols-2">
         {FEATURE_DUO.map((item) => (
-          <article
+          <Link
             key={item.title}
-            className="group relative aspect-[4/5] overflow-hidden bg-surface sm:aspect-[27/25]"
+            href={item.href}
+            className="group relative block aspect-[4/5] overflow-hidden bg-surface sm:aspect-[27/25]"
           >
             <Image
               src={item.image}
@@ -26,12 +28,10 @@ export default function FeatureDuo() {
               <h3 className="text-2xl font-semibold md:text-[30px]">{item.title}</h3>
               <p className="mt-2.5 max-w-xs text-[15px] leading-7 text-white/85">{item.description}</p>
               <div className="mt-5">
-                <DiscoverLink href={item.href} className="text-white">
-                  کشف کنید
-                </DiscoverLink>
+                <DiscoverCue tone="white">کشف کنید</DiscoverCue>
               </div>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
     </section>

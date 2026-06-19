@@ -21,7 +21,7 @@ function Logo({ className = "" }: { className?: string }) {
       <span className="text-[26px] font-semibold leading-none text-accent sm:text-[30px]">
         {SITE.name}
       </span>
-      <span className="font-en mt-1.5 text-[9px] font-medium uppercase tracking-[0.22em] text-ink/65">
+      <span className="font-en mt-1.5 whitespace-nowrap text-center text-[8px] font-medium uppercase tracking-[0.18em] text-ink/65 sm:text-[9px] sm:tracking-[0.22em]">
         {SITE.nameLatin} fine jewelry
       </span>
     </Link>
@@ -200,7 +200,7 @@ export default function Header() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="nav-link text-[13px] font-medium text-ink"
+                  className="nav-link text-[13px] font-medium text-ink transition-colors duration-300 hover:text-accent"
                 >
                   {link.label}
                 </Link>

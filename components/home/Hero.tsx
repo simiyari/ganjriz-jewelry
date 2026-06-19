@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { img, SITE } from "@/lib/site-data";
+import { SITE } from "@/lib/site-data";
 import { DiscoverLink } from "@/components/ui/SectionHeading";
 
 export default function Hero() {
   return (
     <section className="relative h-[78vh] min-h-[480px] w-full overflow-hidden bg-ink-deep md:h-[88vh]">
       <Image
-        src={img("1585960622850-ed33c41d6418", 1920)}
+        src="/hero.jpg"
         alt="جواهرات لوکس گنج‌ریز"
         fill
         priority
@@ -27,7 +27,7 @@ export default function Hero() {
           مجموعه‌ای از طلا و جواهرات دست‌ساز، با قیمت‌گذاری شفاف بر اساس نرخ روز طلا
         </p>
         <div className="mt-8 text-white">
-          <DiscoverLink href="/products" className="text-white">
+          <DiscoverLink href="/products" tone="white">
             مشاهدهٔ مجموعه
           </DiscoverLink>
         </div>

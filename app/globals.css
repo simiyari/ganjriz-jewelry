@@ -2,7 +2,7 @@
 
 /* ──────────────────────────────────────────────
    گنج‌ریز — Design Tokens
-   هماهنگ با طرح فیگما (Carrera y Carrera): سفید/خنثی با لهجهٔ قرمز
+   پالت دیلامانی (Dilamani): سفید/خنثی با آبیِ سلطنتی (برند) و لهجهٔ طلایی
    تایپوگرافی: IRANYekan (فارسی) + Inter (انگلیسی/لاتین)
    ────────────────────────────────────────────── */
 @theme {
@@ -14,11 +14,20 @@
   --color-muted: #6e6e6e;          /* متن فرعی */
   --color-faint: #a1a1a1;          /* Silver Chalice */
   --color-line: #e6e6e6;           /* Mercury — خطوط */
-  --color-accent: #da291c;         /* Alizarin Crimson — قرمز برند */
-  --color-accent-light: #e2564b;   /* قرمز روشن (روی تیره) */
-  --color-accent-dark: #b21e13;    /* قرمز تیره (متن روی روشن) */
+  /* آبیِ سلطنتی — رنگ اصلی برند (لوگو، هاور، پس‌زمینهٔ سکشن‌های آبی) */
+  --color-accent: #1a4da0;         /* Royal Blue */
+  --color-accent-light: #4d76c9;   /* آبی روشن (روی تیره) */
+  --color-accent-dark: #143c82;    /* آبی تیره (هاور روی روشن) */
+  --color-royal: #1a4da0;          /* پس‌زمینهٔ سکشن‌های آبی */
+  --color-royal-dark: #163f87;     /* آبی عمیق‌تر — فوتر */
+
+  /* طلایی — لهجهٔ دوم (دکمه‌ها و لینک‌ها روی پس‌زمینهٔ آبی) */
+  --color-gold: #c9a227;
+  --color-gold-light: #e3c36b;
+  --color-gold-dark: #a07d1c;
+
   --color-success: #2d7d46;
-  --color-danger: #da291c;
+  --color-danger: #c0392b;         /* قرمز — کاهش قیمت/ناموجود */
 
   --font-sans: var(--font-fa), "Segoe UI", sans-serif;        /* فارسی — IRANYekan */
   --font-display: var(--font-en), var(--font-fa), sans-serif; /* لاتین نمایشی — Inter */
@@ -110,6 +119,12 @@
   }
 }
 
+/* وقتی موس روی کل کارت (.group) می‌آید، افکت خط زیر CTA هم فعال شود.
+   بیرون از @layer تا توسط Tailwind tree-shake نشود. */
+.group:hover .link-underline-cue::after {
+  animation: underline-sweep 0.5s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
 @keyframes reveal {
   from {
     opacity: 0;
@@ -163,7 +178,7 @@
   color: rgba(255, 255, 255, 0.85);
 }
 
-/* لینک‌های منوی اصلی — خط زیرین فقط هنگام هاور، قرمز و کمی ضخیم‌تر
+/* لینک‌های منوی اصلی — خط زیرین فقط هنگام هاور، آبی و کمی ضخیم‌تر
    (خارج از @layer utilities تا توسط Tailwind حذف نشود) */
 .nav-link {
   position: relative;

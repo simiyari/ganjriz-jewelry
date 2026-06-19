@@ -4,18 +4,44 @@ export function DiscoverLink({
   href,
   children,
   className = "",
+  tone = "ink",
 }: {
   href: string;
   children: React.ReactNode;
   className?: string;
+  /** ink = پس‌زمینهٔ روشن (متن تیره، هاور آبی) | white = پس‌زمینهٔ تیره/آبی (متن سفید) */
+  tone?: "ink" | "white";
 }) {
+  const color = tone === "white" ? "text-white" : "text-ink hover:text-accent";
   return (
     <Link
       href={href}
-      className={`link-underline text-[13px] font-medium text-ink ${className}`}
+      className={`link-underline text-[13px] font-medium transition-colors duration-300 ${color} ${className}`}
     >
       {children}
     </Link>
+  );
+}
+
+/** نسخهٔ غیرلینکی DiscoverLink — وقتی کل کارت یک <Link> است،
+ *  این فقط ظاهر CTA را می‌سازد و افکتش با هاور روی کارت (.group) فعال می‌شود. */
+export function DiscoverCue({
+  children,
+  className = "",
+  tone = "ink",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  tone?: "ink" | "white";
+}) {
+  const color =
+    tone === "white" ? "text-white" : "text-ink group-hover:text-accent";
+  return (
+    <span
+      className={`link-underline link-underline-cue text-[13px] font-medium transition-colors duration-300 ${color} ${className}`}
+    >
+      {children}
+    </span>
   );
 }
 

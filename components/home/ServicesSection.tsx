@@ -1,6 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SERVICES } from "@/lib/site-data";
-import { DiscoverLink } from "@/components/ui/SectionHeading";
+import { DiscoverCue } from "@/components/ui/SectionHeading";
 
 export default function ServicesSection() {
   return (
@@ -12,7 +13,7 @@ export default function ServicesSection() {
 
       <div className="grid gap-8 sm:grid-cols-2 md:gap-7 lg:grid-cols-3">
         {SERVICES.map((service) => (
-          <article key={service.title} className="group flex flex-col text-center">
+          <Link key={service.title} href={service.href} className="group flex flex-col text-center">
             <div className="relative aspect-[4/3] overflow-hidden bg-surface">
               <Image
                 src={service.image}
@@ -27,9 +28,9 @@ export default function ServicesSection() {
               {service.description}
             </p>
             <div className="mt-5">
-              <DiscoverLink href={service.href}>{service.cta}</DiscoverLink>
+              <DiscoverCue>{service.cta}</DiscoverCue>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
     </section>

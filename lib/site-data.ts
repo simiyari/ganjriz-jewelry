@@ -31,7 +31,7 @@ export const FEATURE_DUO = [
     title: "شعلهٔ طلایی",
     description: "درخششی از طلای ناب، الهام‌گرفته از رقص نور و آتش",
     href: "/collections/flame",
-    image: img("1606760227091-3dd870d97f1d", 1100),
+    image: "/shole-talayi.jpg",
     align: "end" as const,
   },
   {
@@ -39,21 +39,17 @@ export const FEATURE_DUO = [
     title: "پلاکِ نام",
     description: "نام یا حرفِ دلخواه خود را با طلای ۱۸ عیار جاودانه کنید",
     href: "/collections/letters",
-    image: img("1670541481909-0b2c047fb45a", 1100),
+    image: "/pelak-nam.jpg",
     align: "center" as const,
   },
 ] as const;
 
-/** شبکهٔ دسته‌بندی محصولات (۲ ردیف × ۴ ستون) */
+/** شبکهٔ دسته‌بندی محصولات (یک ردیف ۴ ستونه — مطابق دیلامانی) */
 export const CATEGORIES = [
-  { title: "انگشتر", slug: "ring", image: img("1589207212797-cfd546dea0fe", 700) },
-  { title: "دستبند", slug: "bracelet", image: img("1689397136362-dce64e557fcc", 700) },
-  { title: "گردنبند", slug: "necklace", image: img("1685970731194-e27b477e87ba", 700) },
-  { title: "النگو", slug: "bangle", image: img("1758995116383-f51775896add", 700) },
-  { title: "گوشواره", slug: "earring", image: img("1615655114865-4cc1bda5901e", 700) },
-  { title: "سکه و شمش", slug: "coin", image: img("1624365168785-c65be9114821", 700) },
-  { title: "آویز", slug: "pendant", image: img("1611085583191-a3b181a88401", 700) },
-  { title: "سرویس کامل", slug: "set", image: img("1600862754152-80a263dd564f", 700) },
+  { title: "انگشتر", slug: "ring", image: "/categories/ring.jpg" },
+  { title: "گردنبند", slug: "necklace", image: "/categories/necklace.jpg" },
+  { title: "گوشواره", slug: "earring", image: "/categories/earring.jpg" },
+  { title: "دستبند و النگو", slug: "bracelet", image: "/categories/bracelet.jpg" },
 ] as const;
 
 /** بخش میراث و اصالت */

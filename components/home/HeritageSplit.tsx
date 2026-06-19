@@ -5,7 +5,7 @@ import { DiscoverLink, Eyebrow } from "@/components/ui/SectionHeading";
 export default function HeritageSplit() {
   return (
     <section className="container-lux py-12 md:py-16">
-      <div className="grid items-stretch overflow-hidden bg-surface-alt md:grid-cols-2">
+      <div className="grid items-stretch overflow-hidden bg-royal text-white md:grid-cols-2">
         <div className="relative aspect-[3/2] md:aspect-auto md:min-h-[500px]">
           <Image
             src={HERITAGE.image}
@@ -16,13 +16,13 @@ export default function HeritageSplit() {
           />
         </div>
         <div className="flex flex-col items-center justify-center px-7 py-12 text-center md:px-14 md:py-16">
-          <Eyebrow>{HERITAGE.eyebrow}</Eyebrow>
-          <h2 className="max-w-md text-[26px] font-semibold leading-snug text-ink md:text-[34px]">
+          <Eyebrow onDark>{HERITAGE.eyebrow}</Eyebrow>
+          <h2 className="max-w-md text-[26px] font-semibold leading-snug text-white md:text-[34px]">
             {HERITAGE.title}
           </h2>
-          <p className="mt-5 max-w-md text-[15px] leading-8 text-muted">{HERITAGE.body}</p>
+          <p className="mt-5 max-w-md text-[15px] leading-8 text-white/75">{HERITAGE.body}</p>
           <div className="mt-7">
-            <DiscoverLink href={HERITAGE.href}>{HERITAGE.cta}</DiscoverLink>
+            <DiscoverLink href={HERITAGE.href} tone="white">{HERITAGE.cta}</DiscoverLink>
           </div>
         </div>
       </div>

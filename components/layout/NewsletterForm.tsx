@@ -16,7 +16,7 @@ export default function NewsletterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-md">
-      <div className="flex items-center border-b border-white/25 transition-colors focus-within:border-white">
+      <div className="flex items-center border-b border-white/25 transition-colors focus-within:border-accent">
         <input
           type="email"
           required
@@ -34,7 +34,7 @@ export default function NewsletterForm() {
         </button>
       </div>
       <p
-        className={`mt-2 text-xs text-accent-light transition-opacity duration-300 ${
+        className={`mt-2 text-xs text-success transition-opacity duration-300 ${
           done ? "opacity-100" : "opacity-0"
         }`}
       >

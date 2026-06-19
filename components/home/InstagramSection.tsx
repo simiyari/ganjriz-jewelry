@@ -39,10 +39,11 @@ export default function InstagramSection() {
       <div className="mt-9 flex justify-center">
         <a
           href={INSTAGRAM.href}
-          className="inline-flex items-center gap-2 bg-ink px-9 py-3.5 text-[12px] font-medium uppercase tracking-wide text-white transition-colors hover:bg-[#2a2a2a]"
+          dir="ltr"
+          className="font-en inline-flex items-center gap-2 bg-ink px-9 py-3.5 text-[12px] font-medium uppercase tracking-wide text-white transition-colors hover:bg-[#2a2a2a]"
         >
           <InstagramIcon className="h-4 w-4" />
-          <span dir="ltr">@{INSTAGRAM.handle}</span>
+          <span>{INSTAGRAM.handle}</span>
         </a>
       </div>
     </section>

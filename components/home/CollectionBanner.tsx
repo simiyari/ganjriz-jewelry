@@ -25,7 +25,7 @@ export default function CollectionBanner() {
             {COLLECTION_BANNER.description}
           </p>
           <div className="mt-7">
-            <DiscoverLink href={COLLECTION_BANNER.href} className="text-white">
+            <DiscoverLink href={COLLECTION_BANNER.href} tone="white">
               {COLLECTION_BANNER.cta}
             </DiscoverLink>
           </div>
