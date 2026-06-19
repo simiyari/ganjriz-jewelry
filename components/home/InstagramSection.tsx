@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { INSTAGRAM } from "@/lib/site-data";
 import { InstagramIcon } from "@/components/ui/icons";
+import { asset } from "@/lib/asset";
 
 export default function InstagramSection() {
   return (
@@ -22,7 +23,7 @@ export default function InstagramSection() {
               className="group relative aspect-square w-[130px] shrink-0 overflow-hidden bg-surface md:w-auto md:flex-1"
             >
               <Image
-                src={tile}
+                src={asset(tile)}
                 alt=""
                 fill
                 sizes="(max-width: 768px) 130px, 200px"

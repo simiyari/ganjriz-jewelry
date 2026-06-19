@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FEATURE_DUO } from "@/lib/site-data";
 import { DiscoverCue, Eyebrow } from "@/components/ui/SectionHeading";
+import { asset } from "@/lib/asset";
 
 export default function FeatureDuo() {
   return (
@@ -14,7 +15,7 @@ export default function FeatureDuo() {
             className="group relative block aspect-[4/5] overflow-hidden bg-surface sm:aspect-[27/25]"
           >
             <Image
-              src={item.image}
+              src={asset(item.image)}
               alt={item.title}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"

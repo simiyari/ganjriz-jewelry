@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { SITE } from "@/lib/site-data";
 import { DiscoverLink } from "@/components/ui/SectionHeading";
+import { asset } from "@/lib/asset";
 
 export default function Hero() {
   return (
     <section className="relative h-[78vh] min-h-[480px] w-full overflow-hidden bg-ink-deep md:h-[88vh]">
       <Image
-        src="/hero.jpg"
+        src={asset("/hero.jpg")}
         alt="جواهرات لوکس گنج‌ریز"
         fill
         priority

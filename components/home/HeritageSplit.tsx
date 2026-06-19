@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { HERITAGE } from "@/lib/site-data";
 import { DiscoverLink, Eyebrow } from "@/components/ui/SectionHeading";
+import { asset } from "@/lib/asset";
 
 export default function HeritageSplit() {
   return (
@@ -8,7 +9,7 @@ export default function HeritageSplit() {
       <div className="grid items-stretch overflow-hidden bg-royal text-white md:grid-cols-2">
         <div className="relative aspect-[3/2] md:aspect-auto md:min-h-[500px]">
           <Image
-            src={HERITAGE.image}
+            src={asset(HERITAGE.image)}
             alt={HERITAGE.title}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"

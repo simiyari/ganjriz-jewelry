@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CATEGORIES } from "@/lib/site-data";
 import SectionHeading from "@/components/ui/SectionHeading";
+import { asset } from "@/lib/asset";
 
 export default function CreationsGrid() {
   return (
@@ -17,7 +18,7 @@ export default function CreationsGrid() {
           <Link key={cat.slug} href={`/category/${cat.slug}`} className="group flex flex-col">
             <div className="relative aspect-square overflow-hidden bg-surface">
               <Image
-                src={cat.image}
+                src={asset(cat.image)}
                 alt={cat.title}
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"

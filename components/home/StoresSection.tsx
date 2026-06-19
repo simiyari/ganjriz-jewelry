@@ -2,12 +2,13 @@ import Image from "next/image";
 import { BOUTIQUE } from "@/lib/site-data";
 import { DiscoverLink } from "@/components/ui/SectionHeading";
 import { MapPinIcon } from "@/components/ui/icons";
+import { asset } from "@/lib/asset";
 
 export default function StoresSection() {
   return (
     <div className="relative w-full overflow-hidden bg-ink-deep">
       <Image
-        src={BOUTIQUE.image}
+        src={asset(BOUTIQUE.image)}
         alt={BOUTIQUE.title}
         fill
         sizes="100vw"

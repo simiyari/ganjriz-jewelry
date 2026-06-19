@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SERVICES } from "@/lib/site-data";
 import { DiscoverCue } from "@/components/ui/SectionHeading";
+import { asset } from "@/lib/asset";
 
 export default function ServicesSection() {
   return (
@@ -16,7 +17,7 @@ export default function ServicesSection() {
           <Link key={service.title} href={service.href} className="group flex flex-col text-center">
             <div className="relative aspect-[4/3] overflow-hidden bg-surface">
               <Image
-                src={service.image}
+                src={asset(service.image)}
                 alt={service.title}
                 fill
                 sizes="(max-width: 1024px) 50vw, 33vw"

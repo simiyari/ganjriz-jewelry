@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ENGAGEMENT } from "@/lib/site-data";
 import { DiscoverLink, Eyebrow } from "@/components/ui/SectionHeading";
+import { asset } from "@/lib/asset";
 
 export default function EngagementSplit() {
   return (
@@ -18,7 +19,7 @@ export default function EngagementSplit() {
         {/* تصویر جعبهٔ هدیه */}
         <div className="relative order-1 aspect-[4/3] md:order-2 md:aspect-auto md:min-h-[540px]">
           <Image
-            src={ENGAGEMENT.image}
+            src={asset(ENGAGEMENT.image)}
             alt={ENGAGEMENT.title}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"

@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { COLLECTION_BANNER } from "@/lib/site-data";
 import { DiscoverLink } from "@/components/ui/SectionHeading";
+import { asset } from "@/lib/asset";
 
 export default function CollectionBanner() {
   return (
     <section className="container-lux py-12 md:py-16">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-ink-deep sm:aspect-[16/7]">
         <Image
-          src={COLLECTION_BANNER.image}
+          src={asset(COLLECTION_BANNER.image)}
           alt={COLLECTION_BANNER.title}
           fill
           sizes="(max-width: 1536px) 100vw, 1536px"
