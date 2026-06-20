@@ -48,13 +48,15 @@ export function DiscoverCue({
 export function Eyebrow({
   children,
   onDark = false,
+  className = "",
 }: {
   children: React.ReactNode;
   /** روی پس‌زمینهٔ تیره/تصویر — رنگ روشن به‌جای خاکستری تیره */
   onDark?: boolean;
+  className?: string;
 }) {
   return (
-    <span dir="ltr" className={`${onDark ? "eyebrow-en-light" : "eyebrow-en"} mb-3.5 block`}>
+    <span dir="ltr" className={`${onDark ? "eyebrow-en-light" : "eyebrow-en"} mb-3.5 block ${className}`}>
       {children}
     </span>
   );
@@ -65,18 +67,20 @@ export default function SectionHeading({
   eyebrow,
   link,
   align = "center",
+  className = "",
 }: {
   title: string;
   /** لیبل لاتین کوتاه بالای تیتر (مثل OUR CREATIONS) */
   eyebrow?: string;
   link?: { href: string; label: string };
   align?: "center" | "start";
+  className?: string;
 }) {
   return (
     <div
       className={`flex flex-col ${
         align === "center" ? "items-center text-center" : "items-start text-start"
-      }`}
+      } ${className}`}
     >
       {eyebrow && (
         <span dir="ltr" className="eyebrow-en mb-3.5">

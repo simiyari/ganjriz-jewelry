@@ -16,7 +16,7 @@ export default function NewsletterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-md">
-      <div className="flex items-center border-b border-white/25 transition-colors focus-within:border-accent">
+      <div className="flex items-center border-b border-white/25 transition-colors duration-300 ease-out focus-within:border-accent">
         <input
           type="email"
           required
@@ -28,7 +28,7 @@ export default function NewsletterForm() {
         />
         <button
           type="submit"
-          className="shrink-0 py-2 text-[13px] font-medium text-white transition-colors duration-500 ease-out hover:text-accent-light"
+          className="shrink-0 py-2 text-[13px] font-medium text-white transition-colors duration-300 ease-out hover:text-accent"
         >
           عضویت
         </button>

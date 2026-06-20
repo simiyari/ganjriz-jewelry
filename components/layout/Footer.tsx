@@ -1,10 +1,22 @@
 import Link from "next/link";
 import { LEGAL_LINKS, SITE } from "@/lib/site-data";
 import FooterColumns from "./FooterColumns";
+import NewsletterForm from "./NewsletterForm";
 
 export default function Footer() {
   return (
-    <footer className="bg-ink-deep text-white/70">
+    <footer className="bg-ink text-white/70">
+      {/* نوار خبرنامه — هم‌رنگ فوتر، با خط جداکننده از ستون‌ها */}
+      <div className="border-b border-white/10">
+        <div className="container-lux flex flex-col items-center gap-5 py-12 text-center">
+          <h2 className="text-xl font-semibold text-white sm:text-2xl">عضویت در خبرنامهٔ گنج‌ریز</h2>
+          <p className="max-w-md text-[15px] leading-8 text-white/60">
+            از مجموعه‌های تازه، رویدادها و پیشنهادهای ویژه پیش از همه باخبر شوید.
+          </p>
+          <NewsletterForm />
+        </div>
+      </div>
+
       {/* ستون‌ها — در موبایل آکاردونی، در دسکتاپ گرید */}
       <FooterColumns />
 
@@ -22,7 +34,7 @@ export default function Footer() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-xs text-white/50 transition-colors hover:text-white"
+                  className="footer-link text-xs text-white/50 transition-colors duration-300 ease-out hover:text-white"
                 >
                   {link.label}
                 </Link>

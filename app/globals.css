@@ -15,11 +15,12 @@
   --color-faint: #a1a1a1;          /* Silver Chalice */
   --color-line: #e6e6e6;           /* Mercury — خطوط */
   /* آبیِ سلطنتی — رنگ اصلی برند (لوگو، هاور، پس‌زمینهٔ سکشن‌های آبی) */
-  --color-accent: #1a4da0;         /* Royal Blue */
-  --color-accent-light: #4d76c9;   /* آبی روشن (روی تیره) */
-  --color-accent-dark: #143c82;    /* آبی تیره (هاور روی روشن) */
+  --color-accent: #008840;         /* سبز برند — لوگو و هاورها */
+  --color-accent-light: #2e9e63;   /* سبز روشن (هاور روی پس‌زمینهٔ تیره) */
+  --color-accent-dark: #008840;    /* سبز هاور روی پس‌زمینهٔ روشن */
   --color-royal: #1a4da0;          /* پس‌زمینهٔ سکشن‌های آبی */
   --color-royal-dark: #163f87;     /* آبی عمیق‌تر — فوتر */
+  --color-navy: #000e28;           /* سرمه‌ای تیره — فوتر و پنل‌های تیره */
 
   /* طلایی — لهجهٔ دوم (دکمه‌ها و لینک‌ها روی پس‌زمینهٔ آبی) */
   --color-gold: #c9a227;
@@ -125,6 +126,30 @@
   animation: underline-sweep 0.5s cubic-bezier(0.45, 0, 0.55, 1);
 }
 
+/* ──────────────────────────────────────────────
+   Scroll reveal — دقیقاً مطابق Carrera y Carrera
+   حالت اولیه: opacity 0 و ۳۰px پایین‌تر. با افزودن کلاس
+   .fx-reveal-visible طی ۰٫۹۹ثانیه با همان easing کارررا سر جا می‌آید.
+   transition فقط روی حالت visible است (عیناً مثل Carrera) تا
+   حالت اولیه بدون transition باشد. خارج از @layer تا حذف نشود.
+   ────────────────────────────────────────────── */
+.fx-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.fx-reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: 0.99s cubic-bezier(0.5, 0, 0, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 @keyframes reveal {
   from {
     opacity: 0;
@@ -197,6 +222,35 @@
 }
 .nav-link:hover::after {
   transform: scaleX(1);
+}
+
+/* لینک‌های متنیِ فوتر — هنگام هاور رنگ روشن می‌شود و هم‌زمان یک خط زیر
+   به همان نرمی (۰٫۵ ثانیه، ease-out) از وسط باز می‌شود. رنگ خط = currentColor
+   تا با روشن‌شدن متن هماهنگ بماند. خارج از @layer تا توسط Tailwind حذف نشود. */
+.footer-link {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+.footer-link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease-out;
+}
+.footer-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* وردمارک لوگو — Trajan Pro Bold (لاتین). فالبک به Inter برای حروفی که
+   Trajan ندارد. خارج از @layer تا توسط Tailwind حذف نشود. */
+.font-trajan {
+  font-family: var(--font-trajan), var(--font-en), serif;
 }
 
 /* اسکرول‌بار ظریف */

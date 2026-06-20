@@ -12,7 +12,7 @@ export default function FeatureDuo() {
           <Link
             key={item.title}
             href={item.href}
-            className="group relative block aspect-[4/5] overflow-hidden bg-surface sm:aspect-[27/25]"
+            className="fx-reveal group relative block aspect-[4/5] overflow-hidden bg-surface sm:aspect-[27/25]"
           >
             <Image
               src={asset(item.image)}

@@ -6,7 +6,7 @@ import { asset } from "@/lib/asset";
 export default function InstagramSection() {
   return (
     <section className="py-12 md:py-16">
-      <div className="container-lux flex flex-col items-center text-center">
+      <div className="fx-reveal container-lux flex flex-col items-center text-center">
         <span dir="ltr" className="eyebrow-en mb-3.5">Follow Us</span>
         <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{INSTAGRAM.title}</h2>
         <p className="mt-3 max-w-md text-[15px] leading-8 text-muted">{INSTAGRAM.description}</p>
@@ -20,7 +20,7 @@ export default function InstagramSection() {
               key={i}
               href={INSTAGRAM.href}
               aria-label={`اینستاگرام گنج‌ریز ${i + 1}`}
-              className="group relative aspect-square w-[130px] shrink-0 overflow-hidden bg-surface md:w-auto md:flex-1"
+              className="fx-reveal group relative aspect-square w-[130px] shrink-0 overflow-hidden bg-surface md:w-auto md:flex-1"
             >
               <Image
                 src={asset(tile)}
@@ -37,7 +37,7 @@ export default function InstagramSection() {
         </div>
       </div>
 
-      <div className="mt-9 flex justify-center">
+      <div className="fx-reveal mt-9 flex justify-center">
         <a
           href={INSTAGRAM.href}
           dir="ltr"

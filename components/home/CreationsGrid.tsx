@@ -11,11 +11,12 @@ export default function CreationsGrid() {
         eyebrow="Our Creations"
         title="گزیده‌ای از ساخته‌های ما"
         link={{ href: "/products", label: "مشاهدهٔ همهٔ محصولات" }}
+        className="fx-reveal"
       />
 
       <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4">
         {CATEGORIES.map((cat) => (
-          <Link key={cat.slug} href={`/category/${cat.slug}`} className="group flex flex-col">
+          <Link key={cat.slug} href={`/category/${cat.slug}`} className="fx-reveal group flex flex-col">
             <div className="relative aspect-square overflow-hidden bg-surface">
               <Image
                 src={asset(cat.image)}

@@ -85,7 +85,7 @@ export default function FooterColumns() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-[13px] text-white/60 transition-colors hover:text-white"
+                  className="footer-link text-[13px] text-white/60 transition-colors duration-300 ease-out hover:text-white"
                 >
                   {link.label}
                 </Link>
@@ -106,7 +106,7 @@ export default function FooterColumns() {
                 key={s.label}
                 href={s.href}
                 aria-label={s.label}
-                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-accent hover:text-accent-light"
+                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/70 transition-colors duration-300 ease-out hover:border-accent hover:text-accent-light"
               >
                 <Icon className="h-4 w-4" />
               </a>

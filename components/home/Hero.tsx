@@ -1,21 +1,35 @@
-import Image from "next/image";
 import { SITE } from "@/lib/site-data";
 import { DiscoverLink } from "@/components/ui/SectionHeading";
 import { asset } from "@/lib/asset";
 
+/**
+ * ویدیوی پس‌زمینهٔ هیرو.
+ * فایل ویدیو را با همین نام داخل پوشهٔ public بگذار: public/hero.mp4
+ * (اختیاری: public/hero.webm هم بگذاری، مرورگرها نسخهٔ سبک‌تر را انتخاب می‌کنند)
+ * تا وقتی ویدیو لود شود یا اگر اصلاً وجود نداشته باشد، عکس poster (hero.jpg) نمایش داده می‌شود.
+ */
+const HERO_VIDEO = "/hero.mp4";
+const HERO_POSTER = "/hero.jpg";
+
 export default function Hero() {
   return (
     <section className="relative h-[78vh] min-h-[480px] w-full overflow-hidden bg-ink-deep md:h-[88vh]">
-      <Image
-        src={asset("/hero.jpg")}
-        alt="جواهرات لوکس گنج‌ریز"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center"
-      />
-      {/* پوشش گرادیانی برای خوانایی متن */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/40" />
+      {/* ویدیوی پس‌زمینه — بی‌صدا، خودکار، تکرارشونده (سازگار با iOS) */}
+      <video
+        className="absolute inset-0 h-full w-full object-cover object-center"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster={asset(HERO_POSTER)}
+        aria-hidden="true"
+      >
+        <source src={asset(HERO_VIDEO)} type="video/mp4" />
+      </video>
+
+      {/* پوشش گرادیانی فقط از پایین تا محدودهٔ متن — بالای تصویر شفاف می‌ماند */}
+      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
       <div className="container-lux relative flex h-full flex-col items-center justify-end pb-16 text-center md:pb-24">
         <span className="font-en mb-4 text-[12px] font-medium uppercase tracking-[0.3em] text-white/85">

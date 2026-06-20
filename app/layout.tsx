@@ -21,6 +21,16 @@ const inter = localFont({
   ],
 });
 
+// فونت وردمارک لوگو — Trajan Pro (لاتین، تمام‌حروفِ بزرگِ کتیبه‌ای)
+const trajan = localFont({
+  variable: "--font-trajan",
+  display: "swap",
+  src: [
+    { path: "../public/fonts/trajan-pro/TrajanPro-Regular.ttf", weight: "400", style: "normal" },
+    { path: "../public/fonts/trajan-pro/TrajanPro-Bold.otf", weight: "700", style: "normal" },
+  ],
+});
+
 export const metadata: Metadata = {
   title: {
     default: "گنج‌ریز | جواهری آنلاین طلا و جواهر",
@@ -40,7 +50,7 @@ export default function RootLayout({
     <html
       lang="fa"
       dir="rtl"
-      className={`${iranYekan.variable} ${inter.variable} h-full`}
+      className={`${iranYekan.variable} ${inter.variable} ${trajan.variable} h-full`}
     >
       <body className="min-h-full bg-background text-ink antialiased">{children}</body>
     </html>

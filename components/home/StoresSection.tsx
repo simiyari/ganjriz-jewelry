@@ -6,27 +6,29 @@ import { asset } from "@/lib/asset";
 
 export default function StoresSection() {
   return (
-    <div className="relative w-full overflow-hidden bg-ink-deep">
-      <Image
-        src={asset(BOUTIQUE.image)}
-        alt={BOUTIQUE.title}
-        fill
-        sizes="100vw"
-        className="object-cover object-center"
-      />
-      <div className="absolute inset-0 bg-black/45" />
+    <section className="container-lux pt-12 md:pt-16">
+      <div className="fx-reveal relative aspect-[3/4] w-full overflow-hidden bg-ink-deep sm:aspect-[1488/605]">
+        <Image
+          src={asset(BOUTIQUE.image)}
+          alt={BOUTIQUE.title}
+          fill
+          sizes="(max-width: 1536px) 100vw, 1488px"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-black/20" />
+      </div>
 
-      <div className="relative flex flex-col items-center px-6 py-12 text-center text-white md:py-16">
-        <span dir="ltr" className="eyebrow-en-light mb-3.5 inline-flex items-center gap-1.5">
+      <div className="flex flex-col items-center py-12 text-center md:py-16">
+        <span dir="ltr" className="fx-reveal eyebrow-en mb-3.5 inline-flex items-center gap-1.5">
           <MapPinIcon className="h-4 w-4" />
           {BOUTIQUE.eyebrow}
         </span>
-        <h2 className="text-2xl font-semibold leading-snug text-white sm:text-[28px]">{BOUTIQUE.title}</h2>
-        <p className="mt-3 max-w-lg text-[15px] leading-8 text-white/85">{BOUTIQUE.description}</p>
-        <div className="mt-6">
-          <DiscoverLink href={BOUTIQUE.href} tone="white">{BOUTIQUE.cta}</DiscoverLink>
+        <h2 className="fx-reveal text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{BOUTIQUE.title}</h2>
+        <p className="fx-reveal mt-3 max-w-lg text-[15px] leading-8 text-muted">{BOUTIQUE.description}</p>
+        <div className="fx-reveal mt-6">
+          <DiscoverLink href={BOUTIQUE.href}>{BOUTIQUE.cta}</DiscoverLink>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

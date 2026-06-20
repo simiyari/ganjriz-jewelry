@@ -17,12 +17,16 @@ import {
 
 function Logo({ className = "" }: { className?: string }) {
   return (
-    <Link href="/" className={`group inline-flex flex-col items-center ${className}`}>
-      <span className="text-[26px] font-semibold leading-none text-accent sm:text-[30px]">
-        {SITE.name}
+    <Link
+      href="/"
+      aria-label="GANJRIZ JEWELLERY"
+      className={`group inline-flex flex-col items-center ${className}`}
+    >
+      <span className="font-trajan whitespace-nowrap text-[15px] font-bold uppercase leading-none tracking-[0.06em] text-accent sm:text-[22px] sm:tracking-[0.15em]">
+        GANJRIZ JEWELLERY
       </span>
-      <span className="font-en mt-1.5 whitespace-nowrap text-center text-[8px] font-medium uppercase tracking-[0.18em] text-ink/65 sm:text-[9px] sm:tracking-[0.22em]">
-        {SITE.nameLatin} fine jewelry
+      <span className="font-en mt-1.5 whitespace-nowrap text-[7.5px] font-medium uppercase tracking-[0.2em] text-ink/60 sm:text-[9px]">
+        THE LAST STEP OF LUXURY
       </span>
     </Link>
   );
@@ -43,7 +47,7 @@ function IconButton({
     <button
       type="button"
       aria-label={label}
-      className={`relative grid h-9 w-9 place-items-center text-ink transition-colors hover:text-accent-dark ${className}`}
+      className={`relative grid h-9 w-9 place-items-center text-ink transition-colors duration-300 ease-out hover:text-accent-dark ${className}`}
     >
       {children}
       {badge && (
@@ -117,12 +121,12 @@ export default function Header() {
           </div>
           <p className="text-center text-[11px] text-muted">ارسال امن و بیمه‌شده به سراسر کشور</p>
           <div className="flex items-center justify-end gap-4 text-[11px] text-muted">
-            <Link href="/stores" className="flex items-center gap-1.5 transition-colors hover:text-ink">
+            <Link href="/stores" className="flex items-center gap-1.5 transition-colors duration-300 ease-out hover:text-ink">
               <MapPinIcon className="h-3.5 w-3.5" />
               یافتن شعبه
             </Link>
             <span className="text-line">|</span>
-            <button type="button" className="transition-colors hover:text-ink">
+            <button type="button" className="transition-colors duration-300 ease-out hover:text-ink">
               فارسی
             </button>
           </div>
@@ -200,7 +204,7 @@ export default function Header() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="nav-link text-[13px] font-medium text-ink transition-colors duration-300 hover:text-accent"
+                  className="nav-link text-[13px] font-medium text-ink transition-colors duration-300 ease-out hover:text-accent"
                 >
                   {link.label}
                 </Link>
@@ -255,7 +259,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
                 <Link
                   href={link.href}
                   onClick={onClose}
-                  className="flex items-center justify-between rounded-lg px-3 py-3.5 text-[15px] text-ink transition-colors hover:bg-surface"
+                  className="flex items-center justify-between rounded-lg px-3 py-3.5 text-[15px] text-ink transition-colors duration-300 ease-out hover:bg-surface"
                 >
                   {link.label}
                 </Link>
@@ -281,7 +285,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="grid h-9 w-9 place-items-center rounded-full border border-line text-ink transition-colors hover:border-accent hover:text-accent-dark"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-line text-ink transition-colors duration-300 ease-out hover:border-accent hover:text-accent-dark"
                 >
                   <Icon className="h-4 w-4" />
                 </a>

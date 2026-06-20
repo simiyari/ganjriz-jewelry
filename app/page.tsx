@@ -9,6 +9,7 @@ import EngagementSplit from "@/components/home/EngagementSplit";
 import InstagramSection from "@/components/home/InstagramSection";
 import ServicesSection from "@/components/home/ServicesSection";
 import StoresSection from "@/components/home/StoresSection";
+import RevealInit from "@/components/ui/RevealInit";
 
 export default function Home() {
   return (
@@ -26,6 +27,8 @@ export default function Home() {
         <StoresSection />
       </main>
       <Footer />
+      {/* مدیریتِ سراسری انیمیشن اسکرول — عناصرِ دارای کلاس fx-reveal را زیر نظر می‌گیرد */}
+      <RevealInit />
     </>
   );
 }
