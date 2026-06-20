@@ -56,8 +56,8 @@
   }
 
   ::selection {
-    background: var(--color-accent);
-    color: #fff;
+    background: #b5a414;
+    color: #1a1a1a;
   }
 }
 

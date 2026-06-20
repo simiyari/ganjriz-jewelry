@@ -22,7 +22,7 @@ function Logo({ className = "" }: { className?: string }) {
       aria-label="GANJRIZ JEWELLERY"
       className={`group inline-flex flex-col items-center ${className}`}
     >
-      <span className="font-trajan whitespace-nowrap text-[15px] font-bold uppercase leading-none tracking-[0.06em] text-accent sm:text-[22px] sm:tracking-[0.15em]">
+      <span className="font-trajan whitespace-nowrap text-[15px] font-bold uppercase leading-none tracking-[0.06em] text-[#b5a414] sm:text-[22px] sm:tracking-[0.15em]">
         GANJRIZ JEWELLERY
       </span>
       <span className="font-en mt-1.5 whitespace-nowrap text-[7.5px] font-medium uppercase tracking-[0.2em] text-ink/60 sm:text-[9px]">
