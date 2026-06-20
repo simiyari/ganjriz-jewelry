@@ -15,7 +15,6 @@ export default function StoresSection() {
           sizes="(max-width: 1536px) 100vw, 1488px"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-black/20" />
       </div>
 
       <div className="flex flex-col items-center py-12 text-center md:py-16">

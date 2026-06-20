@@ -35,10 +35,10 @@ export const FEATURE_DUO = [
     align: "end" as const,
   },
   {
-    eyebrow: "Made to Order",
-    title: "پلاکِ نام",
-    description: "نام یا حرفِ دلخواه خود را با طلای ۱۸ عیار جاودانه کنید",
-    href: "/collections/letters",
+    eyebrow: "Complete Set",
+    title: "سرویسِ کامل",
+    description: "گردنبند، گوشواره، دستبند و انگشترِ هماهنگ در یک سرویسِ کاملِ طلای ۱۸ عیار",
+    href: "/collections/sets",
     image: "/pelak-nam.jpg",
     align: "center" as const,
   },
@@ -65,11 +65,11 @@ export const HERITAGE = {
 /** بنر تمام‌عرض مجموعه (مشابه Orquideas) */
 export const COLLECTION_BANNER = {
   eyebrow: "Collection",
-  title: "ارکیده",
-  description: "ظرافت گل‌های شرقی در جواهراتی که با هر حرکت می‌درخشند",
-  href: "/collections/orchid",
+  title: "PANTER",
+  description: "الهام‌گرفته از وقار و چابکیِ پلنگ؛ خطوطی جسور و درخششی بی‌باک در طلای ۱۸ عیار",
+  href: "/collections/panther",
   cta: "کشف مجموعه",
-  image: img("1524504388940-b1c1722653e1", 1800),
+  image: "/collection-banner.jpg",
 } as const;
 
 /** حلقه‌های نامزدی + جعبهٔ هدیه */
@@ -89,12 +89,13 @@ export const INSTAGRAM = {
   description: "ما را در اینستاگرام دنبال کنید و از تازه‌ترین طرح‌ها باخبر شوید",
   href: "https://instagram.com",
   cta: "دنبال کنید",
+  // عکس‌های فیک محلی برای نمایش؛ بعداً جای آن‌ها فید واقعی اینستاگرام می‌نشیند.
   tiles: [
-    img("1561828995-aa79a2db86dd", 500),
-    img("1631050165122-626a1377fbce", 500),
-    img("1655255114527-d0a834d9a774", 500),
-    img("1682823544362-b751e260e33c", 500),
-    img("1586878341523-7acb55eb8c12", 500),
+    "/instagram/1.jpg",
+    "/instagram/2.jpg",
+    "/instagram/3.jpg",
+    "/instagram/4.jpg",
+    "/instagram/5.jpg",
   ],
 } as const;
 
@@ -105,21 +106,21 @@ export const SERVICES = [
     description: "در فضایی خصوصی و آرام، با مشاورهٔ کارشناسان ما قطعهٔ دلخواه خود را انتخاب کنید.",
     cta: "رزرو وقت",
     href: "/appointment",
-    image: img("1576723417715-6b408c988c23", 800),
+    image: "/services/appointment.jpg",
   },
   {
     title: "بسته‌بندی لوکس",
     description: "هر سفارش در جعبهٔ نفیس گنج‌ریز و با روبان طلایی به دست شما می‌رسد.",
     cta: "دربارهٔ بسته‌بندی",
     href: "/packaging",
-    image: img("1686575131650-e02f84970212", 800),
+    image: "/services/packaging.jpg",
   },
   {
     title: "شخصی‌سازی",
     description: "حکاکی نام، انتخاب عیار و طراحی اختصاصی برای ساخت قطعه‌ای یکتا.",
     cta: "بیشتر بدانید",
     href: "/personalization",
-    image: img("1611955167811-4711904bb9f8", 800),
+    image: "/services/personalization.jpg",
   },
 ] as const;
 

@@ -248,9 +248,19 @@
 }
 
 /* وردمارک لوگو — Trajan Pro Bold (لاتین). فالبک به Inter برای حروفی که
-   Trajan ندارد. خارج از @layer تا توسط Tailwind حذف نشود. */
+   Trajan ندارد. خارج از @layer تا توسط Tailwind حذف نشود.
+   Trajan فقط وزن Bold دارد؛ برای حجیم‌ترشدن، استروکِ هم‌رنگ روی گلیف‌ها
+   کشیده می‌شود (paint-order تا فیل تمیز روی استروک بنشیند). روی موبایل
+   استروک ضخیم‌تر است تا در سایز کوچک‌تر هم پررنگ دیده شود. */
 .font-trajan {
   font-family: var(--font-trajan), var(--font-en), serif;
+  -webkit-text-stroke: 0.6px currentColor;
+  paint-order: stroke fill;
+}
+@media (min-width: 640px) {
+  .font-trajan {
+    -webkit-text-stroke-width: 0.5px;
+  }
 }
 
 /* اسکرول‌بار ظریف */
