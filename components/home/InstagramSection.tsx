@@ -14,19 +14,19 @@ export default function InstagramSection() {
 
       {/* نوار تایل‌ها — تمام‌عرض روی دسکتاپ، اسکرول افقی روی موبایل */}
       <div className="container-lux mt-8">
-        <div className="-mx-5 flex gap-3 overflow-x-auto px-5 pb-1 md:mx-0 md:overflow-visible md:px-0 [scrollbar-width:none]">
+        <div className="-mx-5 flex gap-3 overflow-x-auto overflow-y-hidden px-5 [touch-action:pan-x] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0">
           {INSTAGRAM.tiles.map((tile, i) => (
             <a
               key={i}
               href={INSTAGRAM.href}
               aria-label={`اینستاگرام گنج‌ریز ${i + 1}`}
-              className="fx-reveal group relative aspect-square w-[130px] shrink-0 overflow-hidden bg-surface md:w-auto md:flex-1"
+              className="group relative aspect-square w-[calc((100vw-44px)/2.25)] shrink-0 overflow-hidden bg-surface md:w-auto md:flex-1"
             >
               <Image
                 src={asset(tile)}
                 alt=""
                 fill
-                sizes="(max-width: 768px) 130px, 200px"
+                sizes="(max-width: 768px) 45vw, 200px"
                 className="img-zoom object-cover"
               />
               <span className="absolute inset-0 grid place-items-center bg-black/0 text-white opacity-0 transition-all duration-300 group-hover:bg-black/35 group-hover:opacity-100">
