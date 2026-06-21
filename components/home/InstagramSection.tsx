@@ -14,7 +14,7 @@ export default function InstagramSection() {
 
       {/* نوار تایل‌ها — تمام‌عرض روی دسکتاپ، اسکرول افقی روی موبایل */}
       <div className="container-lux mt-10">
-        <div className="-mx-5 flex gap-3 overflow-x-auto overflow-y-hidden px-5 [touch-action:pan-x] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0">
+        <div className="-mx-4 flex gap-3 overflow-x-auto overflow-y-hidden px-4 [touch-action:pan-x] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0">
           {INSTAGRAM.tiles.map((tile, i) => (
             <a
               key={i}
