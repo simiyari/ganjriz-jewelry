@@ -105,8 +105,11 @@ export default function IntroSplash() {
     const finish = () => {
       if (pageRoot) gsap.set(pageRoot, { clearProps: "all" });
       document.body.style.overflow = "";
+      // اسکرول را آزاد کن (هیرو دیگر قفل نمی‌کند) و به هیرو خبر بده که حالا — با
+      // تأخیری مناسب — می‌تواند متنش را نرم ظاهر کند.
+      lenis?.start();
+      window.dispatchEvent(new Event("gj:intro-done"));
       setShow(false);
-      // اسکرول را آزاد نمی‌کنیم — هیرو خودش تا اولین اسکرول قفل نگه می‌دارد.
     };
 
     if (reduced) {
@@ -127,6 +130,7 @@ export default function IntroSplash() {
     tl.to(content, { opacity: 0, y: -30, scale: 1.06, duration: 0.6, ease: "power2.in" }, 0);
 
     // ۲) صفحهٔ اصلی از زیر، از scale 1.1 و از مرکزِ ویوپورت سرِ جای خود می‌نشیند (push-in نرم).
+    //    هم‌زمان با محوِ پرده (۱.۳s) تمام می‌شود تا بازهٔ مرده/قفل پس از رفتنِ سفید نسازد.
     if (pageRoot) {
       gsap.set(pageRoot, {
         transformOrigin: `50% ${originY}px`,
@@ -135,17 +139,17 @@ export default function IntroSplash() {
       tl.fromTo(
         pageRoot,
         { scale: 1.1, opacity: 0.5 },
-        { scale: 1, opacity: 1, duration: 1.45, ease: "expo.out" },
+        { scale: 1, opacity: 1, duration: 1.2, ease: "expo.out" },
         0.1,
       );
     }
 
-    // ۳) خودِ پردهٔ سفید از مرکز کمی بیشتر زوم می‌شود و fade out می‌گردد و صفحه را آشکار می‌کند.
-    tl.to(
-      overlay,
-      { opacity: 0, scale: 1.2, duration: 1.15, ease: "power2.inOut", transformOrigin: "50% 50%" },
-      0.2,
-    );
+    // ۳) خودِ پردهٔ سفید از مرکز کمی بیشتر زوم می‌شود و هم‌زمان محو می‌گردد و صفحه را
+    //    آشکار می‌کند. زوم با power2.inOut (نرم)، اما محوْ «خطی» (ease none) است تا
+    //    «محوِ دیده‌شده» دقیقاً با پایانِ تایم‌لاین یکی شود؛ وگرنه دُمِ کندِ ease-out
+    //    باعث می‌شد سفید زودتر نامرئی شود ولی اسکرول ~۲۵۰ms دیرتر آزاد گردد (حسِ قفل).
+    tl.to(overlay, { scale: 1.2, duration: 1.1, ease: "power2.inOut", transformOrigin: "50% 50%" }, 0.2);
+    tl.to(overlay, { opacity: 0, duration: 1.1, ease: "none" }, 0.2);
   };
 
   return (

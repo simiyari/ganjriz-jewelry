@@ -1,48 +1,42 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useLenis } from "lenis/react";
-import gsap from "gsap";
-import { Observer } from "gsap/Observer";
 import { SITE } from "@/lib/site-data";
 import { DiscoverLink } from "@/components/ui/SectionHeading";
 import { asset } from "@/lib/asset";
 
 /**
- * هیروی «یک‌اسکرول» (scroll-jacked reveal).
+ * هیروی صفحهٔ اصلی — متنِ روی ویدیو خودش (بدونِ نیاز به اسکرول) با تایمینگِ نرم
+ * ظاهر می‌شود و صفحه آزادانه اسکرول می‌شود (نه scroll-jack و نه قفلِ اسکرول).
  *
- * فایل ویدیو: public/hero.mp4 (poster: hero.jpg).
+ * هماهنگی با پردهٔ ورودی (IntroSplash):
+ *   • تا وقتی پردهٔ سفید روی صفحه است، تایمرِ ظهورِ متن «شروع نمی‌شود» تا متن پشتِ
+ *     پرده از قبل ظاهر نشده باشد. پرده در پایانِ خروج رویدادِ `gj:intro-done` را
+ *     می‌فرستد؛ هیرو با شنیدنِ آن و یک تأخیرِ مناسب، خط‌ها را پلکانی نرم می‌آورد.
+ *   • اگر اصلاً پرده‌ای در کار نباشد (مثلاً ورود از طریقِ ناوبریِ داخلیِ SPA به خانه)،
+ *     هیرو خودش با تأخیری کوتاه پس از mount متن را می‌آورد.
  *
- * رفتار:
- *   • هنگامِ ورود به صفحه هیچ متنی دیده نمی‌شود و اسکرولِ صفحه موقتاً «قفل»
- *     می‌شود (Lenis pause + GSAP Observer).
- *   • با «اولین حرکتِ اسکرول» همهٔ خط‌ها با یک اسکرول، پشت‌سرهم (پلکانی) و با
- *     همان افکتِ بقیهٔ سایت ظاهر می‌شوند — نه چند اسکرولِ جدا برای هر خط.
- *   • به‌محضِ کامل‌شدنِ ظهورِ آخرین خط، Observer رها و Lenis دوباره فعال می‌شود؛
- *     از آن‌جا به بعد صفحه عادی اسکرول می‌شود و کاربر به پایینِ سایت می‌رود.
- *   • ویدیو بدونِ زوم، در اندازهٔ طبیعی پخش می‌شود (object-cover).
- *
- * انیمیشنِ هر خط «زمان‌محور» است (CSS transition, globals.css) با همان مقادیرِ
- * بقیهٔ سایت (.fx-reveal: 0.99s). با prefers-reduced-motion یا ورود از وسطِ صفحه:
- * بدونِ قفل، همه‌چیز نمایش داده می‌شود.
+ * انیمیشنِ هر خط «زمان‌محور» است (CSS transition در globals.css، کلاسِ .hero-line)
+ * با مقادیرِ یکسان با بقیهٔ سایت. با prefers-reduced-motion خط‌ها از طریقِ CSS
+ * همیشه نمایان‌اند و هیچ تایمری اجرا نمی‌شود.
  */
 const HERO_VIDEO = "/hero.mp4";
 const HERO_POSTER = "/hero.jpg";
 
-// مدتِ انیمیشنِ ظهورِ یک خط (≈ .fx-reveal: ۰٫۹۹s).
-const LINE_ANIM_MS = 1050;
-// فاصلهٔ پلکانیِ ظهورِ هر خط نسبت به خطِ قبل (همه با یک اسکرول، ولی یکی‌یکی).
+// فاصلهٔ پلکانیِ ظهورِ هر خط نسبت به خطِ قبل.
 const STEP_STAGGER_MS = 200;
+// تأخیرِ مناسب پس از «اتمامِ ورود» (محو شدنِ پرده) تا متن نرم بیاید.
+const AFTER_INTRO_DELAY_MS = 200;
+// تأخیرِ کوتاه وقتی پرده‌ای در کار نیست (ورود مستقیم بدونِ پرده).
+const NO_INTRO_DELAY_MS = 350;
 
-// بازخوانیِ صفحه همیشه از بالا شروع شود (نه بازگردانیِ موقعیتِ قبلی مرورگر) تا
-// هیرو درست از حالتِ «بدونِ متن» آغاز شود.
+// بازخوانیِ صفحه همیشه از بالا شروع شود (نه بازگردانیِ موقعیتِ قبلیِ مرورگر).
 if (typeof window !== "undefined" && "scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }
 
 export default function Hero() {
   const contentRef = useRef<HTMLDivElement>(null);
-  const lenis = useLenis();
 
   useEffect(() => {
     const content = contentRef.current;
@@ -50,71 +44,35 @@ export default function Hero() {
     const lines = Array.from(content.querySelectorAll<HTMLElement>(".hero-line"));
     if (lines.length === 0) return;
 
-    const showAll = () => lines.forEach((el) => el.classList.add("is-in"));
+    // با prefers-reduced-motion خط‌ها از طریقِ CSS همیشه نمایان‌اند — کاری لازم نیست.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    // reduced-motion → بدونِ قفل، همه دیده شوند
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      showAll();
-      return;
-    }
-
-    // برای قفلِ اسکرول حین ظهور به نمونهٔ Lenis نیاز است؛ تا آماده نشده، صبر کن
-    // (افکت با تغییرِ lenis دوباره اجرا می‌شود).
-    if (!lenis) return;
-
-    gsap.registerPlugin(Observer);
-
-    const N = lines.length;
-    let triggered = false; // اولین اسکرول، رشتهٔ ظهور را شروع کرده؟
-    let observer: Observer | undefined;
     const timers: number[] = [];
 
-    const release = () => {
-      observer?.kill();
-      lenis.start(); // اسکرولِ عادی برمی‌گردد → کاربر به پایینِ سایت می‌رود
-    };
-
-    // اولین حرکتِ اسکرول: همهٔ خط‌ها را با یک اسکرول، پلکانی ظاهر کن و سپس
-    // درست بعد از کامل‌شدنِ آخرین خط اسکرول را آزاد کن.
-    const reveal = () => {
-      if (triggered) return;
-      triggered = true;
+    // خط‌ها را یکی‌یکی (پلکانی) نرم ظاهر کن.
+    const revealStagger = () => {
       lines.forEach((el, i) => {
         timers.push(window.setTimeout(() => el.classList.add("is-in"), i * STEP_STAGGER_MS));
       });
-      const total = (N - 1) * STEP_STAGGER_MS + LINE_ANIM_MS;
-      timers.push(window.setTimeout(release, total));
     };
 
-    // قطعی از بالای صفحه شروع کن و اسکرول را تا پایانِ ظهورِ متن قفل کن
-    lenis.scrollTo(0, { immediate: true });
-    lenis.stop();
-
-    observer = Observer.create({
-      target: window,
-      type: "wheel,touch",
-      tolerance: 10,
-      preventDefault: true,
-      onUp: reveal, // هر حرکتِ اسکرول → شروعِ ظهورِ همهٔ خط‌ها (فقط بارِ اول اثر دارد)
-      onDown: reveal,
-    });
-
-    // دسترس‌پذیریِ صفحه‌کلید — هر کلیدِ ناوبری همان رشتهٔ ظهور را آغاز می‌کند
-    const onKey = (e: KeyboardEvent) => {
-      if (["ArrowDown", "PageDown", " ", "Spacebar", "ArrowUp", "PageUp"].includes(e.key)) {
-        e.preventDefault();
-        reveal();
-      }
+    // اگر پردهٔ ورودی روی صفحه است، تا «اتمامِ ورود» صبر کن؛ وگرنه مستقیم شروع کن.
+    const splashPresent = !!document.getElementById("intro-splash");
+    const onIntroDone = () => {
+      timers.push(window.setTimeout(revealStagger, AFTER_INTRO_DELAY_MS));
     };
-    window.addEventListener("keydown", onKey);
+
+    if (splashPresent) {
+      window.addEventListener("gj:intro-done", onIntroDone, { once: true });
+    } else {
+      timers.push(window.setTimeout(revealStagger, NO_INTRO_DELAY_MS));
+    }
 
     return () => {
+      window.removeEventListener("gj:intro-done", onIntroDone);
       timers.forEach((t) => window.clearTimeout(t));
-      window.removeEventListener("keydown", onKey);
-      observer?.kill();
-      lenis.start(); // مبادا اسکرول قفل بماند
     };
-  }, [lenis]);
+  }, []);
 
   return (
     <section className="hero-shell w-full bg-ink-deep">
