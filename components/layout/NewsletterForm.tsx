@@ -16,7 +16,7 @@ export default function NewsletterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-md">
-      <div className="flex items-center border-b border-white/25 transition-colors duration-300 ease-out hover:border-[#b5a414] focus-within:border-[#b5a414]">
+      <div className="flex items-center border-b border-white/25 transition-colors duration-300 ease-out focus-within:border-white">
         <input
           type="email"
           required

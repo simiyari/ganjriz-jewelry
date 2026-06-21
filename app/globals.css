@@ -43,8 +43,15 @@
   }
 
   html {
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+  }
+
+  /* اسکرولِ نرمِ بومیِ مرورگر فقط وقتی Lenis در کنترل نیست (مثلاً وقتی
+     prefers-reduced-motion روشن است و Lenis سوار نمی‌شود). وقتی Lenis فعال
+     می‌شود کلاسِ .lenis روی <html> می‌نشیند و این قانون کنار می‌رود تا با
+     موتورِ اسکرولِ Lenis تداخل نکند. */
+  html:not(.lenis) {
+    scroll-behavior: smooth;
   }
 
   body {
@@ -67,7 +74,7 @@
     width: 100%;
     max-width: 1536px;
     margin-inline: auto;
-    padding-inline: 1.25rem;
+    padding-inline: 1rem;
   }
 
   @media (min-width: 768px) {
@@ -150,6 +157,42 @@
   }
 }
 
+/* ──────────────────────────────────────────────
+   هیروی معمولی: یک بخشِ ساده زیرِ هدر که مثلِ بقیهٔ صفحه عادی اسکرول می‌شود
+   (نه sticky/پارالکس و نه scroll-jack). ارتفاع = یک ویوپورت منهای ارتفاعِ نوبار،
+   تا درست یک صفحه را پر کند. خط‌های متن روی load یکی‌یکی نرم ظاهر می‌شوند
+   (منطق در components/home/Hero.tsx). خارج از @layer تا Tailwind tree-shake نکند.
+   ────────────────────────────────────────────── */
+.hero-shell {
+  position: relative;
+  height: calc(100vh - 65px); /* زیرِ نوبارِ موبایل (۶۵px) */
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .hero-shell {
+    height: calc(100vh - 167px); /* زیرِ نوبارِ دسکتاپ (۱۶۷px) */
+  }
+}
+.hero-line {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.99s cubic-bezier(0.5, 0, 0, 1),
+    transform 0.99s cubic-bezier(0.5, 0, 0, 1);
+  will-change: opacity, transform;
+}
+.hero-line.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-line {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+}
+
 @keyframes reveal {
   from {
     opacity: 0;
@@ -218,7 +261,8 @@
   background: var(--color-accent);
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  /* همان تایمینگِ خطِ زیرِ لینک‌های فوتر (.footer-link) — 0.3s ease-out */
+  transition: transform 0.3s ease-out;
 }
 .nav-link:hover::after {
   transform: scaleX(1);
@@ -249,18 +293,56 @@
 
 /* وردمارک لوگو — Trajan Pro Bold (لاتین). فالبک به Inter برای حروفی که
    Trajan ندارد. خارج از @layer تا توسط Tailwind حذف نشود.
-   Trajan فقط وزن Bold دارد؛ برای حجیم‌ترشدن، استروکِ هم‌رنگ روی گلیف‌ها
-   کشیده می‌شود (paint-order تا فیل تمیز روی استروک بنشیند). روی موبایل
-   استروک ضخیم‌تر است تا در سایز کوچک‌تر هم پررنگ دیده شود. */
+   وزنِ Bold از خودِ فایلِ فونت (TrajanPro-Bold.otf = ۷۰۰) می‌آید؛ بدونِ
+   استروکِ اضافه تا extra-bold دیده نشود. */
 .font-trajan {
   font-family: var(--font-trajan), var(--font-en), serif;
-  -webkit-text-stroke: 0.6px currentColor;
-  paint-order: stroke fill;
 }
-@media (min-width: 640px) {
-  .font-trajan {
-    -webkit-text-stroke-width: 0.5px;
+
+/* ──────────────────────────────────────────────
+   Intro Splash — پردهٔ ورودیِ سفید (components/ui/IntroSplash.tsx)
+   حالتِ اولیهٔ آیتم‌ها پنهان است تا انیمیشنِ ورودِ GSAP بدونِ پرشِ حالتِ نهایی
+   اجرا شود. پرده روی هر بارگذاریِ کاملِ صفحه نمایش داده می‌شود (گیت در کامپوننت).
+   خارج از @layer تا Tailwind آن را tree-shake نکند.
+   ────────────────────────────────────────────── */
+#intro-splash .intro-item {
+  opacity: 0;
+  transform: translateY(26px);
+}
+@media (prefers-reduced-motion: reduce) {
+  #intro-splash .intro-item {
+    opacity: 1;
+    transform: none;
   }
+}
+
+/* ──────────────────────────────────────────────
+   Lenis — اسکرولِ نرم (smooth scroll)
+   قوانینِ پایه‌ای که Lenis هنگام فعال‌شدن لازم دارد. کلاس‌های .lenis* را
+   خودِ Lenis در زمانِ اجرا روی <html> می‌گذارد؛ پس این قوانین باید بیرون از
+   @layer باشند تا Tailwind آن‌ها را tree-shake نکند. (برابرِ lenis/dist/lenis.css)
+   ────────────────────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+.lenis.lenis-autoToggle {
+  transition-property: overflow;
+  transition-duration: 1ms;
+  transition-behavior: allow-discrete;
 }
 
 /* اسکرول‌بار ظریف */

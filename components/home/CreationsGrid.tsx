@@ -6,7 +6,7 @@ import { asset } from "@/lib/asset";
 
 export default function CreationsGrid() {
   return (
-    <section className="container-lux py-12 md:py-16">
+    <section className="container-lux py-8 md:py-[60px]">
       <SectionHeading
         eyebrow="Our Creations"
         title="گزیده‌ای از ساخته‌های ما"
@@ -14,7 +14,7 @@ export default function CreationsGrid() {
         className="fx-reveal"
       />
 
-      <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4">
+      <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-8 lg:grid-cols-4">
         {CATEGORIES.map((cat) => (
           <Link key={cat.slug} href={`/category/${cat.slug}`} className="fx-reveal group flex flex-col">
             <div className="relative aspect-square overflow-hidden bg-surface">

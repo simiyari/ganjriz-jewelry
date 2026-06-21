@@ -5,7 +5,7 @@ import { asset } from "@/lib/asset";
 
 export default function CollectionBanner() {
   return (
-    <section className="container-lux py-12 md:py-16">
+    <section className="py-8 md:py-[60px] md:mx-auto md:max-w-[1536px] md:px-6">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-ink-deep sm:aspect-[16/7]">
         <Image
           src={asset(COLLECTION_BANNER.image)}
@@ -22,7 +22,7 @@ export default function CollectionBanner() {
           <h2 className="fx-reveal text-4xl font-medium sm:text-5xl md:text-6xl">
             {COLLECTION_BANNER.title}
           </h2>
-          <p className="fx-reveal mt-4 max-w-md text-[15px] leading-8 text-white/85 sm:text-base">
+          <p className="fx-reveal mt-4 max-w-md text-[15px] leading-8 text-white/85">
             {COLLECTION_BANNER.description}
           </p>
           <div className="fx-reveal mt-7">

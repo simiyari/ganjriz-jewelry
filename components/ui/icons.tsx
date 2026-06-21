@@ -115,6 +115,14 @@ export function ChevronRightIcon(props: IconProps) {
   );
 }
 
+export function PhoneIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M6.5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5L15.5 16l4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A15 15 0 0 1 4 6.6 1.5 1.5 0 0 1 5.5 5h1Z" />
+    </svg>
+  );
+}
+
 export function InstagramIcon(props: IconProps) {
   return (
     <svg {...base} {...props}>

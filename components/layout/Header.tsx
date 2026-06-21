@@ -7,10 +7,12 @@ import { NAV_LINKS, SITE, SOCIAL_LINKS } from "@/lib/site-data";
 import { SOCIAL_ICONS } from "@/components/ui/icons";
 import {
   BagIcon,
+  ChevronLeftIcon,
   CloseIcon,
   HeartIcon,
   MapPinIcon,
   MenuIcon,
+  PhoneIcon,
   SearchIcon,
   UserIcon,
 } from "@/components/ui/icons";
@@ -85,8 +87,9 @@ export default function Header() {
       const delta = y - lastScrollY.current;
       lastScrollY.current = y;
       if (performance.now() < cooldownUntil) return;
+      // نزدیکِ بالای صفحه (شاملِ هیرو که اسکرولش هنگام ظهورِ متن قفل است) باز بماند
       if (y < 100) {
-        apply(false); // نزدیک بالای صفحه همیشه نمایش داده شود
+        apply(false);
       } else if (delta > 3) {
         apply(true); // اسکرول به پایین → جمع شود
       } else if (delta < -3) {
@@ -135,8 +138,8 @@ export default function Header() {
 
       {/* نوار اصلی — لوگو و آیکون‌ها */}
       <div
-        className={`bg-background/95 backdrop-blur transition-shadow duration-300 ${
-          scrolled ? "shadow-[0_1px_0_0_var(--color-line),0_12px_28px_-24px_rgba(0,0,0,0.35)]" : "border-b border-line"
+        className={`bg-background/95 backdrop-blur border-b border-line transition-shadow duration-300 ${
+          scrolled ? "shadow-[0_12px_28px_-24px_rgba(0,0,0,0.35)]" : ""
         }`}
       >
         {/* نوار لوگو/آیکون‌ها — هنگام جمع‌شدن کل بلوک نرم به سمت بالا سُر می‌خورد
@@ -220,77 +223,103 @@ export default function Header() {
   );
 }
 
+// فهرستِ «امکانات» در بخشِ تیرهٔ منوی موبایل (مثل My Account / Wishlist مرجع)
+const DRAWER_ACCOUNT_LINKS = [
+  { label: "حساب کاربری", href: "/login", icon: UserIcon },
+  { label: "علاقه‌مندی‌ها", href: "/dashboard/favorites", icon: HeartIcon },
+  { label: "یافتن شعبه", href: "/stores", icon: MapPinIcon },
+  { label: "تماس با ما", href: "/contact", icon: PhoneIcon },
+] as const;
+
 function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <div className={`md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}>
-      {/* پوشش تیره */}
-      <div
-        onClick={onClose}
-        className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-300 ${
-          open ? "opacity-100" : "opacity-0"
-        }`}
-      />
-      {/* پنل کشویی از سمت راست */}
+      {/* پنلِ تمام‌صفحه — از سمت راست سُر می‌خورد */}
       <aside
-        className={`fixed inset-y-0 right-0 z-50 flex w-[82%] max-w-sm flex-col bg-background shadow-2xl transition-transform duration-300 ${
+        className={`fixed inset-0 z-50 flex w-full flex-col overflow-y-auto bg-background transition-transform duration-300 ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-line px-5 py-4">
-          <span className="text-lg font-medium">{SITE.name}</span>
+        {/* سرتیتر — نام برند وسط، دکمهٔ بستن */}
+        <div className="relative flex h-16 shrink-0 items-center justify-center border-b border-line px-5">
+          <span className="text-lg font-semibold text-ink">{SITE.name}</span>
           <button
             type="button"
             aria-label="بستن منو"
             onClick={onClose}
-            className="grid h-9 w-9 place-items-center text-ink"
+            className="absolute left-4 grid h-9 w-9 place-items-center text-ink"
           >
             <CloseIcon className="h-6 w-6" />
           </button>
         </div>
 
-        <div className="border-b border-line bg-surface px-5 py-3">
+        {/* نرخ طلا — بدونِ تغییر */}
+        <div className="shrink-0 border-b border-line bg-surface px-5 py-3">
           <GoldTicker />
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-2 py-2">
+        {/* لینک‌های اصلی — روی سفید، با فلش و خطِ جداکننده */}
+        <nav className="shrink-0 px-5">
           <ul className="flex flex-col">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={onClose}
-                  className="flex items-center justify-between rounded-lg px-3 py-3.5 text-[15px] text-ink transition-colors duration-300 ease-out hover:bg-surface"
+                  className="group flex items-center justify-between py-4 text-[15px] font-medium tracking-wide text-ink transition-colors duration-300 ease-out hover:text-accent-dark"
                 >
                   {link.label}
+                  <ChevronLeftIcon className="h-4 w-4 text-muted transition-colors duration-300 group-hover:text-accent-dark" />
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
 
-        <div className="border-t border-line px-5 py-4">
-          <Link
-            href="/stores"
-            onClick={onClose}
-            className="mb-4 flex items-center gap-2 text-sm text-muted"
-          >
-            <MapPinIcon className="h-4 w-4" />
-            یافتن شعبه
-          </Link>
-          <div className="flex items-center gap-3">
-            {SOCIAL_LINKS.map((s) => {
-              const Icon = SOCIAL_ICONS[s.icon];
-              return (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  aria-label={s.label}
-                  className="grid h-9 w-9 place-items-center rounded-full border border-line text-ink transition-colors duration-300 ease-out hover:border-accent hover:text-accent-dark"
+        {/* بخشِ تیره — امکانات (حساب کاربری، علاقه‌مندی‌ها، …) و زبان و شبکه‌ها */}
+        <div className="flex flex-1 flex-col bg-ink text-white">
+          <ul className="flex flex-col px-5 py-3">
+            {DRAWER_ACCOUNT_LINKS.map(({ label, href, icon: Icon }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  onClick={onClose}
+                  className="flex items-center gap-3.5 py-3.5 text-[15px] font-medium text-white transition-colors duration-300 ease-out hover:text-accent-light"
                 >
-                  <Icon className="h-4 w-4" />
-                </a>
-              );
-            })}
+                  <Icon className="h-5 w-5 shrink-0" />
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* زبان */}
+          <div className="border-t border-white/10 px-5 py-5">
+            <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-white/40">
+              زبان
+            </span>
+            <div className="mt-2 flex items-center justify-between border-b border-white/25 pb-2">
+              <span className="text-sm font-medium text-white">فارسی</span>
+            </div>
+          </div>
+
+          {/* شبکه‌های اجتماعی */}
+          <div className="mt-auto border-t border-white/10 px-5 py-5">
+            <div className="flex items-center gap-3">
+              {SOCIAL_LINKS.map((s) => {
+                const Icon = SOCIAL_ICONS[s.icon];
+                return (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    aria-label={s.label}
+                    className="grid h-9 w-9 place-items-center rounded-full border border-white/20 text-white transition-colors duration-300 ease-out hover:border-accent-light hover:text-accent-light"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                );
+              })}
+            </div>
           </div>
         </div>
       </aside>

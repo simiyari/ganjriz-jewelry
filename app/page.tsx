@@ -17,14 +17,17 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <FeatureDuo />
-        <CreationsGrid />
-        <HeritageSplit />
-        <CollectionBanner />
-        <EngagementSplit />
-        <InstagramSection />
-        <ServicesSection />
-        <StoresSection />
+        {/* محتوای صفحهٔ زیرِ هیرو */}
+        <div className="relative bg-background">
+          <FeatureDuo />
+          <CreationsGrid />
+          <HeritageSplit />
+          <CollectionBanner />
+          <EngagementSplit />
+          <InstagramSection />
+          <ServicesSection />
+          <StoresSection />
+        </div>
       </main>
       <Footer />
       {/* مدیریتِ سراسری انیمیشن اسکرول — عناصرِ دارای کلاس fx-reveal را زیر نظر می‌گیرد */}

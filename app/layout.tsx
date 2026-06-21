@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import SmoothScroll from "@/components/ui/SmoothScroll";
+import IntroSplash from "@/components/ui/IntroSplash";
 
 // فونت فارسی — ایران‌یکان (variable font، اعداد فارسی)
 const iranYekan = localFont({
@@ -52,7 +54,16 @@ export default function RootLayout({
       dir="rtl"
       className={`${iranYekan.variable} ${inter.variable} ${trajan.variable} h-full`}
     >
-      <body className="min-h-full bg-background text-ink antialiased">{children}</body>
+      <body className="min-h-full bg-background text-ink antialiased">
+        {/* بدونِ جاوااسکریپت اصلاً پرده نمایش داده نشود تا سایت قابل‌استفاده بماند. */}
+        <noscript>
+          <style>{"#intro-splash{display:none!important}"}</style>
+        </noscript>
+        <SmoothScroll>
+          <div id="page-root">{children}</div>
+          <IntroSplash />
+        </SmoothScroll>
+      </body>
     </html>
   );
 }

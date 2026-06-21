@@ -5,15 +5,15 @@ import { asset } from "@/lib/asset";
 
 export default function InstagramSection() {
   return (
-    <section className="py-12 md:py-16">
+    <section className="py-8 md:py-[60px]">
       <div className="fx-reveal container-lux flex flex-col items-center text-center">
         <span dir="ltr" className="eyebrow-en mb-3.5">Follow Us</span>
         <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{INSTAGRAM.title}</h2>
-        <p className="mt-3 max-w-md text-[15px] leading-8 text-muted">{INSTAGRAM.description}</p>
+        <p className="mt-4 max-w-md text-[15px] leading-8 text-muted">{INSTAGRAM.description}</p>
       </div>
 
       {/* نوار تایل‌ها — تمام‌عرض روی دسکتاپ، اسکرول افقی روی موبایل */}
-      <div className="container-lux mt-8">
+      <div className="container-lux mt-10">
         <div className="-mx-5 flex gap-3 overflow-x-auto overflow-y-hidden px-5 [touch-action:pan-x] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0">
           {INSTAGRAM.tiles.map((tile, i) => (
             <a

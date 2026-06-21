@@ -6,13 +6,13 @@ import { asset } from "@/lib/asset";
 
 export default function FeatureDuo() {
   return (
-    <section className="container-lux py-12 md:py-16">
+    <section className="container-lux pt-4 pb-8 md:pt-8 md:pb-[60px]">
       <div className="grid gap-3 md:grid-cols-2">
         {FEATURE_DUO.map((item) => (
           <Link
             key={item.title}
             href={item.href}
-            className="fx-reveal group relative block aspect-[4/5] overflow-hidden bg-surface sm:aspect-[27/25]"
+            className="fx-reveal group relative block aspect-square overflow-hidden bg-surface"
           >
             <Image
               src={asset(item.image)}
@@ -27,8 +27,8 @@ export default function FeatureDuo() {
             >
               <Eyebrow onDark>{item.eyebrow}</Eyebrow>
               <h3 className="text-2xl font-semibold md:text-[30px]">{item.title}</h3>
-              <p className="mt-2.5 max-w-xs text-[15px] leading-7 text-white/85">{item.description}</p>
-              <div className="mt-5">
+              <p className="mt-4 max-w-xs text-[15px] leading-8 text-white/85">{item.description}</p>
+              <div className="mt-7">
                 <DiscoverCue tone="white">کشف کنید</DiscoverCue>
               </div>
             </div>
