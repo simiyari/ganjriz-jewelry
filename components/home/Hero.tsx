@@ -23,10 +23,13 @@ import { asset } from "@/lib/asset";
 const HERO_VIDEO = "/hero.mp4";
 const HERO_POSTER = "/hero.jpg";
 
-// فاصلهٔ پلکانیِ ظهورِ هر خط نسبت به خطِ قبل.
-const STEP_STAGGER_MS = 200;
-// تأخیرِ مناسب پس از «اتمامِ ورود» (محو شدنِ پرده) تا متن نرم بیاید.
-const AFTER_INTRO_DELAY_MS = 200;
+// هیرو در دو مرحله بالا می‌آید: مرحلهٔ ۰ (eyebrow + تیترِ «زیبایی، برای همیشه») اول،
+// سپس مرحلهٔ ۱ (متنِ زیر + دکمهٔ «مشاهدهٔ مجموعه») با این فاصله. داخلِ هر مرحله
+// خط‌ها با هم می‌آیند (نه پلکانیِ خط‌به‌خط)؛ مرحلهٔ هر خط با data-hero-stage تعیین می‌شود.
+const STAGE_GAP_MS = 400;
+// تأخیرِ کوتاه پس از «اتمامِ ورود» (محو شدنِ پردهٔ سفید) تا متن نرم بیاید.
+// کم نگه داشته شده تا متنِ هیرو کمی زودتر بعد از پردهٔ خوش‌آمد ظاهر شود.
+const AFTER_INTRO_DELAY_MS = 100;
 // تأخیرِ کوتاه وقتی پرده‌ای در کار نیست (ورود مستقیم بدونِ پرده).
 const NO_INTRO_DELAY_MS = 350;
 
@@ -49,10 +52,11 @@ export default function Hero() {
 
     const timers: number[] = [];
 
-    // خط‌ها را یکی‌یکی (پلکانی) نرم ظاهر کن.
+    // خط‌ها را دو-مرحله‌ای بیاور: اول تیتر (stage 0)، بعد متن/دکمه (stage 1).
     const revealStagger = () => {
-      lines.forEach((el, i) => {
-        timers.push(window.setTimeout(() => el.classList.add("is-in"), i * STEP_STAGGER_MS));
+      lines.forEach((el) => {
+        const stage = Number(el.dataset.heroStage) || 0;
+        timers.push(window.setTimeout(() => el.classList.add("is-in"), stage * STAGE_GAP_MS));
       });
     };
 
@@ -97,16 +101,16 @@ export default function Hero() {
         ref={contentRef}
         className="container-lux relative flex h-full flex-col items-center justify-end pb-16 text-center md:pb-24"
       >
-        <span dir="ltr" className="hero-line eyebrow-en-light mb-3.5">
+        <span dir="ltr" data-hero-stage={0} className="hero-line eyebrow-en-light mb-3.5">
           {SITE.nameLatin} FINE JEWELRY
         </span>
-        <h1 className="hero-line max-w-2xl text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
+        <h1 data-hero-stage={0} className="hero-line max-w-2xl text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
           {SITE.tagline}
         </h1>
-        <p className="hero-line mt-4 max-w-md text-[15px] leading-8 text-white/80">
+        <p data-hero-stage={1} className="hero-line mt-4 max-w-md text-[15px] leading-8 text-white/80">
           مجموعه‌ای از طلا و جواهرات دست‌ساز، با قیمت‌گذاری شفاف بر اساس نرخ روز طلا
         </p>
-        <div className="hero-line mt-7 text-white">
+        <div data-hero-stage={1} className="hero-line mt-7 text-white">
           <DiscoverLink href="/products" tone="white">
             مشاهدهٔ مجموعه
           </DiscoverLink>

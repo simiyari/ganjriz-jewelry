@@ -15,17 +15,18 @@ export default function CollectionBanner() {
           className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-black/30" />
-        <div className="relative flex h-full flex-col items-center justify-center px-6 text-center text-white">
-          <span dir="ltr" className="fx-reveal eyebrow-en-light mb-3.5 block">
+        {/* کلِ بلوکِ متن «یک‌پارچه» بالا می‌آید (مثل کپشنِ FeatureDuo)، نه خط‌به‌خط. */}
+        <div className="fx-reveal relative flex h-full flex-col items-center justify-center px-6 text-center text-white">
+          <span dir="ltr" className="eyebrow-en-light mb-3.5 block">
             {COLLECTION_BANNER.eyebrow}
           </span>
-          <h2 className="fx-reveal text-4xl font-medium sm:text-5xl md:text-6xl">
+          <h2 className="text-4xl font-medium sm:text-5xl md:text-6xl">
             {COLLECTION_BANNER.title}
           </h2>
-          <p className="fx-reveal mt-4 max-w-md text-[15px] leading-8 text-white/85">
+          <p className="mt-4 max-w-md text-[15px] leading-8 text-white/85">
             {COLLECTION_BANNER.description}
           </p>
-          <div className="fx-reveal mt-7">
+          <div className="mt-7">
             <DiscoverLink href={COLLECTION_BANNER.href} tone="white">
               {COLLECTION_BANNER.cta}
             </DiscoverLink>

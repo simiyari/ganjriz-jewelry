@@ -12,7 +12,7 @@ export default function FeatureDuo() {
           <Link
             key={item.title}
             href={item.href}
-            className="fx-reveal group relative block aspect-square overflow-hidden bg-surface"
+            className="group relative block aspect-square overflow-hidden bg-surface"
           >
             <Image
               src={asset(item.image)}
@@ -21,9 +21,12 @@ export default function FeatureDuo() {
               sizes="(max-width: 768px) 100vw, 50vw"
               className="img-zoom object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            {/* نوشته‌ها جدا از عکس ظاهر می‌شوند: اول عکس می‌آید، سپس با اسکرولِ
+                پایین این بخش که به کفِ کادر چسبیده دیرتر وارد دید می‌شود و
+                fx-reveal آن را محو-و-بالاآمدن می‌کند. */}
             <div
-              className={`absolute inset-x-0 bottom-0 flex flex-col items-center p-7 text-center text-white md:p-9`}
+              className={`fx-reveal absolute inset-x-0 bottom-0 flex flex-col items-center p-7 text-center text-white md:p-9`}
             >
               <Eyebrow onDark>{item.eyebrow}</Eyebrow>
               <h3 className="text-2xl font-semibold md:text-[30px]">{item.title}</h3>

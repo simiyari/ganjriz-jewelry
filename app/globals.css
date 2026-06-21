@@ -134,20 +134,26 @@
 }
 
 /* ──────────────────────────────────────────────
-   Scroll reveal — دقیقاً مطابق Carrera y Carrera
-   حالت اولیه: opacity 0 و ۳۰px پایین‌تر. با افزودن کلاس
-   .fx-reveal-visible طی ۰٫۹۹ثانیه با همان easing کارررا سر جا می‌آید.
-   transition فقط روی حالت visible است (عیناً مثل Carrera) تا
-   حالت اولیه بدون transition باشد. خارج از @layer تا حذف نشود.
+   Scroll reveal — ظهورِ نرمِ متن‌ها هنگام اسکرول.
+   حالت اولیه: opacity 0 و ۲۴px پایین‌تر. با افزودن .fx-reveal-visible طی ۰٫۹ثانیه
+   با easeOutExpo (cubic-bezier(0.16,1,0.3,1)) نرم سر جا می‌نشیند.
+   چرا ease-out و نه ease-in-out قبلی (cubic-bezier(0.5,0,0,1))؟ آن منحنی سرعتش
+   در آغاز صفر بود (یک مکثِ کوتاه) و بعد ناگهان در میانه شتاب می‌گرفت → حسِ «تقه».
+   easeOutQuart بلافاصله ولی ملایم حرکت می‌کند و آرام ته می‌کشد (بدونِ مکث/تقه).
+   easeOutExpoِ قبلی زیادی «جلو-بار» بود و تند حس می‌شد؛ Quart حرکت را یکنواخت‌تر
+   پخش می‌کند و با ۱٫۱s نرم‌تر/کندتر است.
+   transition فقط روی حالت visible است تا حالت اولیه بدون transition باشد.
+   خارج از @layer تا Tailwind حذفش نکند.
    ────────────────────────────────────────────── */
 .fx-reveal {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(24px);
 }
 .fx-reveal-visible {
   opacity: 1;
   transform: translateY(0);
-  transition: 0.99s cubic-bezier(0.5, 0, 0, 1);
+  transition: transform 1.1s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 1.1s cubic-bezier(0.25, 1, 0.5, 1);
 }
 @media (prefers-reduced-motion: reduce) {
   .fx-reveal {
@@ -175,9 +181,10 @@
 }
 .hero-line {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.99s cubic-bezier(0.5, 0, 0, 1),
-    transform 0.99s cubic-bezier(0.5, 0, 0, 1);
+  transform: translateY(24px);
+  /* همان easeOutQuartِ scroll-reveal — نرم، کند و بدونِ مکث/تقه */
+  transition: opacity 1.1s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 1.1s cubic-bezier(0.25, 1, 0.5, 1);
   will-change: opacity, transform;
 }
 .hero-line.is-in {
