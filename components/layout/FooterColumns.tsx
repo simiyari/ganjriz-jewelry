@@ -3,24 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FOOTER_COLUMNS, SOCIAL_LINKS } from "@/lib/site-data";
-import { SOCIAL_ICONS } from "@/components/ui/icons";
-
-function Chevron({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-}
+import { SOCIAL_ICONS, ChevronDownIcon } from "@/components/ui/icons";
 
 /** ستون لینک — در موبایل آکاردونی (کلیک روی تیتر باز/بسته می‌کند)،
  *  در دسکتاپ همیشه باز و چیدمان عادی ستونی. چیدمان همیشه start (راست در RTL). */
@@ -44,7 +27,8 @@ function AccordionItem({
         className="flex w-full items-center justify-between py-4 text-start sm:pointer-events-none sm:py-0"
       >
         <h3 className="text-[13px] font-semibold text-white">{title}</h3>
-        <Chevron
+        <ChevronDownIcon
+          aria-hidden
           className={`h-4 w-4 shrink-0 text-white/50 transition-transform duration-300 sm:hidden ${
             open ? "rotate-180" : ""
           }`}

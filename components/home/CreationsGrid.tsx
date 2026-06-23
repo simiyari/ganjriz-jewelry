@@ -11,7 +11,7 @@ export default function CreationsGrid() {
         eyebrow="Our Creations"
         title="گزیده‌ای از ساخته‌های ما"
         link={{ href: "/products", label: "مشاهدهٔ همهٔ محصولات" }}
-        className="fx-reveal"
+        reveal
       />
 
       <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-8 lg:grid-cols-4">
@@ -26,10 +26,10 @@ export default function CreationsGrid() {
                 className="img-zoom object-cover"
               />
             </div>
-            <span className="mt-4 text-center text-sm font-medium text-ink transition-colors duration-300 group-hover:text-accent">
+            <span className="mt-4 text-center text-sm font-medium text-ink transition-colors duration-300 group-hover:text-[#9e9100]">
               <span className="relative inline-block pb-1">
                 {cat.title}
-                <span className="absolute inset-x-0 bottom-0 h-px origin-right scale-x-0 bg-accent transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100" />
+                <span className="absolute inset-x-0 bottom-0 h-px origin-right scale-x-0 bg-[#9e9100] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100" />
               </span>
             </span>
           </Link>

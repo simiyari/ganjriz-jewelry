@@ -15,21 +15,25 @@ export default function CollectionBanner() {
           className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-black/30" />
-        {/* کلِ بلوکِ متن «یک‌پارچه» بالا می‌آید (مثل کپشنِ FeatureDuo)، نه خط‌به‌خط. */}
-        <div className="fx-reveal relative flex h-full flex-col items-center justify-center px-6 text-center text-white">
-          <span dir="ltr" className="eyebrow-en-light mb-3.5 block">
-            {COLLECTION_BANNER.eyebrow}
-          </span>
-          <h2 className="text-4xl font-medium sm:text-5xl md:text-6xl">
-            {COLLECTION_BANNER.title}
-          </h2>
-          <p className="mt-4 max-w-md text-[15px] leading-8 text-white/85">
-            {COLLECTION_BANNER.description}
-          </p>
-          <div className="mt-7">
-            <DiscoverLink href={COLLECTION_BANNER.href} tone="white">
-              {COLLECTION_BANNER.cta}
-            </DiscoverLink>
+        {/* دو-مرحله‌ای: اول ای‌برو + تیتر، بعد متن + دکمه. */}
+        <div className="relative flex h-full flex-col items-center justify-center px-6 text-center text-white">
+          <div className="fx-reveal flex w-full flex-col items-center">
+            <span dir="ltr" className="eyebrow-en-light mb-3.5 block">
+              {COLLECTION_BANNER.eyebrow}
+            </span>
+            <h2 className="text-4xl font-medium sm:text-5xl md:text-6xl">
+              {COLLECTION_BANNER.title}
+            </h2>
+          </div>
+          <div data-reveal-late className="fx-reveal flex w-full flex-col items-center">
+            <p className="mt-4 max-w-md text-[15px] leading-8 text-white/85">
+              {COLLECTION_BANNER.description}
+            </p>
+            <div className="mt-7">
+              <DiscoverLink href={COLLECTION_BANNER.href} tone="white">
+                {COLLECTION_BANNER.cta}
+              </DiscoverLink>
+            </div>
           </div>
         </div>
       </div>

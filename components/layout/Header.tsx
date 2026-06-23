@@ -68,6 +68,21 @@ export default function Header() {
   const [hideLogoBar, setHideLogoBar] = useState(false);
   const lastScrollY = useRef(0);
   const hideRef = useRef(false);
+  const headerRef = useRef<HTMLElement>(null);
+
+  // ارتفاعِ زندهٔ هدر را به‌صورتِ متغیرِ CSS (`--header-h`) منتشر می‌کند تا
+  // عناصرِ استیکیِ صفحات (مثلِ نوارِ ابزار و فیلترِ صفحهٔ محصولات) درست زیرِ هدر
+  // بنشینند و هنگامِ جمع/بازشدنِ نوارِ لوگو هم‌گام با آن بالا/پایین بروند.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const set = () =>
+      document.documentElement.style.setProperty("--header-h", `${el.offsetHeight}px`);
+    set();
+    const ro = new ResizeObserver(set);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     let ticking = false;
@@ -115,7 +130,7 @@ export default function Header() {
   }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-50">
+    <header ref={headerRef} className="sticky top-0 z-50">
       {/* نوار بالایی — نرخ طلا + زبان + شعبه */}
       <div className="hidden border-b border-line bg-surface md:block">
         <div className="container-lux grid h-9 grid-cols-3 items-center">

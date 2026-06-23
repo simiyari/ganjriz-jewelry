@@ -7,13 +7,17 @@ export default function EngagementSplit() {
   return (
     <section className="py-8 px-4 md:py-[60px] md:mx-auto md:max-w-[1536px] md:px-6">
       <div className="grid items-start overflow-hidden bg-[#002511] md:grid-cols-2 md:items-stretch">
-        {/* پنل متن — کلِ بلوک «یک‌پارچه» بالا می‌آید (مثل کپشنِ FeatureDuo)، نه خط‌به‌خط. */}
-        <div className="fx-reveal order-2 flex flex-col items-center justify-center px-7 py-12 text-center md:order-1 md:px-14 md:py-16">
-          <Eyebrow onDark>{ENGAGEMENT.eyebrow}</Eyebrow>
-          <h2 className="text-[26px] font-semibold leading-snug text-white md:text-[34px]">{ENGAGEMENT.title}</h2>
-          <p className="mt-4 max-w-md text-[15px] leading-8 text-white/70">{ENGAGEMENT.body}</p>
-          <div className="mt-7">
-            <DiscoverLink href={ENGAGEMENT.href} tone="white">{ENGAGEMENT.cta}</DiscoverLink>
+        {/* پنل متن — دو-مرحله‌ای: اول ای‌برو + تیتر، بعد متن + دکمه. */}
+        <div className="order-2 flex flex-col items-center justify-center px-7 py-12 text-center md:order-1 md:px-14 md:py-16">
+          <div className="fx-reveal flex w-full flex-col items-center">
+            <Eyebrow onDark>{ENGAGEMENT.eyebrow}</Eyebrow>
+            <h2 className="text-[26px] font-semibold leading-snug text-white md:text-[34px]">{ENGAGEMENT.title}</h2>
+          </div>
+          <div data-reveal-late className="fx-reveal flex w-full flex-col items-center">
+            <p className="mt-4 max-w-md text-[15px] leading-8 text-white/70">{ENGAGEMENT.body}</p>
+            <div className="mt-7">
+              <DiscoverLink href={ENGAGEMENT.href} tone="white">{ENGAGEMENT.cta}</DiscoverLink>
+            </div>
           </div>
         </div>
         {/* تصویر جعبهٔ هدیه */}

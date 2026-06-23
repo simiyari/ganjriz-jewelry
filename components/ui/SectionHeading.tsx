@@ -12,7 +12,7 @@ export function DiscoverLink({
   /** ink = پس‌زمینهٔ روشن (متن تیره، هاور آبی) | white = پس‌زمینهٔ تیره/آبی (متن سفید) */
   tone?: "ink" | "white";
 }) {
-  const color = tone === "white" ? "text-white" : "text-ink hover:text-accent";
+  const color = tone === "white" ? "text-white" : "text-ink hover:text-[#9e9100]";
   return (
     <Link
       href={href}
@@ -35,7 +35,7 @@ export function DiscoverCue({
   tone?: "ink" | "white";
 }) {
   const color =
-    tone === "white" ? "text-white" : "text-ink group-hover:text-accent";
+    tone === "white" ? "text-white" : "text-ink group-hover:text-[#9e9100]";
   return (
     <span
       className={`link-underline link-underline-cue text-[13px] font-medium transition-colors duration-300 ${color} ${className}`}
@@ -68,6 +68,7 @@ export default function SectionHeading({
   link,
   align = "center",
   className = "",
+  reveal = false,
 }: {
   title: string;
   /** لیبل لاتین کوتاه بالای تیتر (مثل OUR CREATIONS) */
@@ -75,21 +76,26 @@ export default function SectionHeading({
   link?: { href: string; label: string };
   align?: "center" | "start";
   className?: string;
+  /** اگر true، دو-مرحله‌ای با fx-reveal می‌آید: اول ای‌برو+تیتر، بعد لینک. */
+  reveal?: boolean;
 }) {
+  const alignCls =
+    align === "center" ? "items-center text-center" : "items-start text-start";
+  const fx = reveal ? "fx-reveal " : "";
   return (
-    <div
-      className={`flex flex-col ${
-        align === "center" ? "items-center text-center" : "items-start text-start"
-      } ${className}`}
-    >
-      {eyebrow && (
-        <span dir="ltr" className="eyebrow-en mb-3.5">
-          {eyebrow}
-        </span>
-      )}
-      <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{title}</h2>
+    <div className={`flex flex-col ${alignCls} ${className}`}>
+      {/* مرحلهٔ ۱: ای‌برو + تیتر */}
+      <div className={`${fx}flex w-full flex-col ${alignCls}`}>
+        {eyebrow && (
+          <span dir="ltr" className="eyebrow-en mb-3.5">
+            {eyebrow}
+          </span>
+        )}
+        <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{title}</h2>
+      </div>
+      {/* مرحلهٔ ۲: لینک (با چند استپ اسکرولِ بیشتر، بعد از تیتر) */}
       {link && (
-        <div className="mt-4">
+        <div data-reveal-late className={`${fx}mt-4`}>
           <DiscoverLink href={link.href}>{link.label}</DiscoverLink>
         </div>
       )}

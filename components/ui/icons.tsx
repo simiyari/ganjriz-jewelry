@@ -1,155 +1,72 @@
-import type { SVGProps } from "react";
+/**
+ * آیکون‌های سایت — همگی از Phosphor Icons (phosphoricons.com) برای یک‌دستیِ کامل.
+ * از مسیرِ `/ssr` وارد می‌شوند تا در Server Components هم بدونِ مرزِ client کار کنند.
+ * وزنِ پیش‌فرضِ Phosphor «regular» است (خطِ تمیز و ظریف، هماهنگ با حسِ مینیمالِ برند)؛
+ * برای حالتِ پُر (مثلِ قلبِ علاقه‌مندی) از prop‌ِ `weight="fill"` استفاده کنید.
+ *
+ * ⚠️ هر آیکونِ تازه در سایت هم باید از همین‌جا و از Phosphor بیاید تا یک‌دست بماند.
+ * نام‌های ما به نامِ Phosphor نگاشت شده‌اند؛ تغییرِ نگاشت فقط همین‌جا انجام می‌شود.
+ */
+import {
+  MagnifyingGlassIcon as PhSearch,
+  HeartIcon as PhHeart,
+  UserIcon as PhUser,
+  HandbagIcon as PhBag,
+  ListIcon as PhMenu,
+  XIcon as PhClose,
+  MapPinIcon as PhMapPin,
+  TrendUpIcon as PhTrendUp,
+  TrendDownIcon as PhTrendDown,
+  ArrowLeftIcon as PhArrow,
+  CaretLeftIcon as PhCaretLeft,
+  CaretRightIcon as PhCaretRight,
+  CaretDownIcon as PhCaretDown,
+  PhoneIcon as PhPhone,
+  CalendarBlankIcon as PhCalendar,
+  EnvelopeSimpleIcon as PhMail,
+  FileTextIcon as PhDocument,
+  InfoIcon as PhInfo,
+  FadersHorizontalIcon as PhFilter,
+  SquaresFourIcon as PhGridTwo,
+  SquareIcon as PhGridOne,
+  CheckIcon as PhCheck,
+  InstagramLogoIcon as PhInstagram,
+  TelegramLogoIcon as PhTelegram,
+  WhatsappLogoIcon as PhWhatsapp,
+} from "@phosphor-icons/react/ssr";
 
-type IconProps = SVGProps<SVGSVGElement>;
+// ── هدر / ناوبری ──
+export const SearchIcon = PhSearch;
+export const HeartIcon = PhHeart;
+export const UserIcon = PhUser;
+export const BagIcon = PhBag;
+export const MenuIcon = PhMenu;
+export const CloseIcon = PhClose;
 
-const base = {
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 1.5,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-  viewBox: "0 0 24 24",
-};
+// ── عمومی ──
+export const MapPinIcon = PhMapPin;
+export const TrendUpIcon = PhTrendUp;
+export const TrendDownIcon = PhTrendDown;
+export const ArrowIcon = PhArrow; // RTL: رو به چپ = ادامه
+export const ChevronLeftIcon = PhCaretLeft;
+export const ChevronRightIcon = PhCaretRight;
+export const ChevronDownIcon = PhCaretDown;
+export const PhoneIcon = PhPhone;
+export const CalendarIcon = PhCalendar;
+export const MailIcon = PhMail;
+export const DocumentIcon = PhDocument;
+export const InfoIcon = PhInfo;
 
-export function SearchIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <circle cx="11" cy="11" r="7" />
-      <path d="m20 20-3.5-3.5" />
-    </svg>
-  );
-}
+// ── صفحهٔ محصولات ──
+export const FilterIcon = PhFilter;
+export const GridTwoIcon = PhGridTwo;
+export const GridOneIcon = PhGridOne;
+export const CheckIcon = PhCheck;
 
-export function HeartIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M12 20.5C5.5 16.5 3 12.5 3 8.8 3 6.1 5 4 7.6 4c1.7 0 3.2.9 4.4 2.4C13.2 4.9 14.7 4 16.4 4 19 4 21 6.1 21 8.8c0 3.7-2.5 7.7-9 11.7Z" />
-    </svg>
-  );
-}
-
-export function UserIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <circle cx="12" cy="8" r="4" />
-      <path d="M4 20c1.4-3.6 4.4-5.5 8-5.5s6.6 1.9 8 5.5" />
-    </svg>
-  );
-}
-
-export function BagIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M6 8h12l-.9 11.2a1.6 1.6 0 0 1-1.6 1.5H8.5a1.6 1.6 0 0 1-1.6-1.5L6 8Z" />
-      <path d="M9 8V6.5a3 3 0 0 1 6 0V8" />
-    </svg>
-  );
-}
-
-export function MenuIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M4 7h16M4 12h16M4 17h16" />
-    </svg>
-  );
-}
-
-export function CloseIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M6 6l12 12M18 6 6 18" />
-    </svg>
-  );
-}
-
-export function MapPinIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" />
-      <circle cx="12" cy="10" r="2.5" />
-    </svg>
-  );
-}
-
-export function TrendUpIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M4 16.5 10 10l3.5 3.5L20 7" />
-      <path d="M15 7h5v5" />
-    </svg>
-  );
-}
-
-export function TrendDownIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M4 7.5 10 14l3.5-3.5L20 17" />
-      <path d="M15 17h5v-5" />
-    </svg>
-  );
-}
-
-/** فلش — در RTL به‌صورت پیش‌فرض رو به چپ (ادامه) */
-export function ArrowIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M19 12H5" />
-      <path d="m12 5-7 7 7 7" />
-    </svg>
-  );
-}
-
-export function ChevronLeftIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="m15 5-7 7 7 7" />
-    </svg>
-  );
-}
-
-export function ChevronRightIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="m9 5 7 7-7 7" />
-    </svg>
-  );
-}
-
-export function PhoneIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M6.5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5L15.5 16l4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A15 15 0 0 1 4 6.6 1.5 1.5 0 0 1 5.5 5h1Z" />
-    </svg>
-  );
-}
-
-export function InstagramIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17" cy="7" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-export function TelegramIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M21 4 3 11l5 2 2 6 3-4 5 4 3-15Z" />
-      <path d="m8 13 8-5-5 7" />
-    </svg>
-  );
-}
-
-export function WhatsappIcon(props: IconProps) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20Z" />
-      <path d="M9 9c0 4 2 6 6 6" />
-    </svg>
-  );
-}
+// ── شبکه‌های اجتماعی ──
+export const InstagramIcon = PhInstagram;
+export const TelegramIcon = PhTelegram;
+export const WhatsappIcon = PhWhatsapp;
 
 export const SOCIAL_ICONS = {
   instagram: InstagramIcon,

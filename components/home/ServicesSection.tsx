@@ -14,8 +14,10 @@ export default function ServicesSection() {
 
       <div className="grid gap-x-3 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {SERVICES.map((service) => (
-          <Link key={service.title} href={service.href} className="fx-reveal group flex flex-col text-center">
-            <div className="relative aspect-[4/3] overflow-hidden bg-surface">
+          // اول عکس می‌آید (استپ ۰، دونه‌دونه بینِ سه کارت)، و با کمی اسکرولِ
+          // بیشتر نوشته‌ها (استپ ۱) — آن‌ها هم دونه‌دونه مثلِ عکس‌ها.
+          <Link key={service.title} href={service.href} className="group flex flex-col text-center">
+            <div className="fx-reveal relative aspect-[4/3] overflow-hidden bg-surface">
               <Image
                 src={asset(service.image)}
                 alt={service.title}
@@ -24,12 +26,14 @@ export default function ServicesSection() {
                 className="img-zoom object-cover"
               />
             </div>
-            <h3 className="mt-4 text-lg font-semibold text-ink">{service.title}</h3>
-            <p className="mx-auto mt-3 max-w-xs text-[15px] leading-8 text-muted">
-              {service.description}
-            </p>
-            <div className="mt-5">
-              <DiscoverCue>{service.cta}</DiscoverCue>
+            <div className="fx-reveal" data-reveal-step={1}>
+              <h3 className="mt-4 text-lg font-semibold text-ink">{service.title}</h3>
+              <p className="mx-auto mt-3 max-w-xs text-[15px] leading-8 text-muted">
+                {service.description}
+              </p>
+              <div className="mt-5">
+                <DiscoverCue>{service.cta}</DiscoverCue>
+              </div>
             </div>
           </Link>
         ))}

@@ -6,10 +6,15 @@ import { asset } from "@/lib/asset";
 export default function InstagramSection() {
   return (
     <section className="py-8 md:py-[60px]">
-      <div className="fx-reveal container-lux flex flex-col items-center text-center">
-        <span dir="ltr" className="eyebrow-en mb-3.5">Follow Us</span>
-        <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{INSTAGRAM.title}</h2>
-        <p className="mt-4 max-w-md text-[15px] leading-8 text-muted">{INSTAGRAM.description}</p>
+      {/* دو-مرحله‌ای: اول ای‌برو + تیتر، بعد متن. */}
+      <div className="container-lux flex flex-col items-center text-center">
+        <div className="fx-reveal flex w-full flex-col items-center">
+          <span dir="ltr" className="eyebrow-en mb-3.5">Follow Us</span>
+          <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{INSTAGRAM.title}</h2>
+        </div>
+        <div data-reveal-late className="fx-reveal flex w-full flex-col items-center">
+          <p className="mt-4 max-w-md text-[15px] leading-8 text-muted">{INSTAGRAM.description}</p>
+        </div>
       </div>
 
       {/* نوار تایل‌ها — تمام‌عرض روی دسکتاپ، اسکرول افقی روی موبایل */}

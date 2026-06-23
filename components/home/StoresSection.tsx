@@ -17,16 +17,20 @@ export default function StoresSection() {
         />
       </div>
 
-      {/* کلِ بلوکِ متن «یک‌پارچه» بالا می‌آید (مثل کپشنِ FeatureDuo)، نه خط‌به‌خط. */}
-      <div className="fx-reveal flex flex-col items-center pt-10 pb-12 text-center md:pb-24">
-        <span dir="ltr" className="eyebrow-en mb-3.5 inline-flex items-center gap-1.5">
-          <MapPinIcon className="h-4 w-4" />
-          {BOUTIQUE.eyebrow}
-        </span>
-        <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{BOUTIQUE.title}</h2>
-        <p className="mt-4 max-w-lg text-[15px] leading-8 text-muted">{BOUTIQUE.description}</p>
-        <div className="mt-7">
-          <DiscoverLink href={BOUTIQUE.href}>{BOUTIQUE.cta}</DiscoverLink>
+      {/* دو-مرحله‌ای: اول ای‌برو + تیتر، بعد متن + دکمه. */}
+      <div className="flex flex-col items-center pt-10 pb-12 text-center md:pb-24">
+        <div className="fx-reveal flex w-full flex-col items-center">
+          <span dir="ltr" className="eyebrow-en mb-3.5 inline-flex items-center gap-1.5">
+            <MapPinIcon className="h-4 w-4" />
+            {BOUTIQUE.eyebrow}
+          </span>
+          <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{BOUTIQUE.title}</h2>
+        </div>
+        <div data-reveal-late className="fx-reveal flex w-full flex-col items-center">
+          <p className="mt-4 max-w-lg text-[15px] leading-8 text-muted">{BOUTIQUE.description}</p>
+          <div className="mt-7">
+            <DiscoverLink href={BOUTIQUE.href}>{BOUTIQUE.cta}</DiscoverLink>
+          </div>
         </div>
       </div>
     </section>
