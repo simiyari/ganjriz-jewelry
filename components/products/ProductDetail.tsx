@@ -23,6 +23,7 @@ import {
   PRODUCT_SECTIONS,
 } from "@/lib/product-detail";
 import { faNumber } from "@/lib/format";
+import { useCart } from "@/components/cart/CartContext";
 import { asset } from "@/lib/asset";
 import {
   HeartIcon,
@@ -35,6 +36,7 @@ import {
   ChevronDownIcon,
   ChevronLeftIcon,
 } from "@/components/ui/icons";
+import SizeGuide from "./SizeGuide";
 
 // تایمینگِ حرکت‌ها — همان منحنیِ بقیهٔ سایت (جمع/بازشدنِ نوارِ هدر و آکاردئونِ فیلتر)
 const EASE = "cubic-bezier(0.4,0,0.2,1)";
@@ -221,13 +223,23 @@ function MobileGallery({
   );
 }
 
-export default function ProductDetail({ product }: { product: Product }) {
+export default function ProductDetail({
+  product,
+  crumb = { href: "/products", label: "جواهرات" },
+}: {
+  product: Product;
+  /** حلقهٔ میانیِ مسیرِ راهنما — «جواهرات» برای محصولات، «جواهر لوکس» برای صفحهٔ لوکس */
+  crumb?: { href: string; label: string };
+}) {
   const gallery = productGallery(product);
   const specs = productSpecs(product);
+  const cart = useCart();
   const [liked, setLiked] = useState(false);
   const [color, setColor] = useState<GoldColor>(product.colors[0]);
   const [open, setOpen] = useState<Record<string, boolean>>({ details: true });
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
+  const [ringSize, setRingSize] = useState<number | null>(null);
   const toggle = (k: string) => setOpen((o) => ({ ...o, [k]: !o[k] }));
 
   // پاپ‌آپِ بزرگ‌نمایی — قفلِ اسکرول + بستن با Escape
@@ -328,8 +340,8 @@ export default function ProductDetail({ product }: { product: Product }) {
               خانه
             </Link>
             <span>/</span>
-            <Link href="/products" className="transition-colors duration-300 hover:text-ink">
-              جواهرات
+            <Link href={crumb.href} className="transition-colors duration-300 hover:text-ink">
+              {crumb.label}
             </Link>
             <span>/</span>
             <span className="text-muted">{product.title}</span>
@@ -381,14 +393,20 @@ export default function ProductDetail({ product }: { product: Product }) {
             <span className="text-[14px] text-muted">تومان</span>
           </div>
 
-          {/* باکسِ راهنمای سایز (شرطی) + باکسِ مالیات */}
+          {/* باکسِ انتخاب سایز (شرطی) + باکسِ مالیات */}
           <div className="mt-5 space-y-2.5">
             {hasSize(product) && (
               <button
                 type="button"
+                onClick={() => setSizeGuideOpen(true)}
                 className="flex w-full items-center justify-between border border-line px-4 py-3.5 text-[13px] font-medium text-ink transition-colors duration-300 hover:border-ink"
               >
-                راهنمای سایز
+                <span className="flex items-center gap-2">
+                  انتخاب سایز
+                  {ringSize !== null && (
+                    <span className="text-muted">· سایزِ {faNumber(ringSize)}</span>
+                  )}
+                </span>
                 <ChevronLeftIcon className="h-4 w-4 text-muted" />
               </button>
             )}
@@ -398,10 +416,14 @@ export default function ProductDetail({ product }: { product: Product }) {
             </div>
           </div>
 
-          {/* افزودن به سبد */}
+          {/* افزودن به سبد — به سبدِ سراسری اضافه می‌کند و کشوی سبد را باز می‌کند */}
           <button
             type="button"
-            className="mt-5 w-full bg-ink py-4 text-[13px] font-medium tracking-[0.06em] text-white transition-colors duration-300 hover:bg-[#2a2a2a]"
+            onClick={() => {
+              cart.addItem(product, color);
+              cart.setOpen(true);
+            }}
+            className="mt-5 w-full bg-ink py-4 text-[13px] font-medium tracking-[0.06em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
             style={{ transitionTimingFunction: EASE }}
           >
             افزودن به سبدِ خرید
@@ -510,6 +532,16 @@ export default function ProductDetail({ product }: { product: Product }) {
             />
           </div>
         </div>
+      )}
+
+      {/* ── کشوی انتخاب سایز ── */}
+      {hasSize(product) && (
+        <SizeGuide
+          open={sizeGuideOpen}
+          onClose={() => setSizeGuideOpen(false)}
+          selected={ringSize}
+          onSelect={setRingSize}
+        />
       )}
     </section>
   );

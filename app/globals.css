@@ -7,7 +7,7 @@
    ────────────────────────────────────────────── */
 @theme {
   --color-background: #ffffff;
-  --color-surface: #fafafa;        /* Alabaster */
+  --color-surface: #f5f5f5;        /* خاکستریِ پس‌زمینهٔ یکدستِ سایت */
   --color-surface-alt: #f4f4f4;    /* Wild Sand */
   --color-ink: #131313;            /* Cod Gray — متن اصلی */
   --color-ink-deep: #0c0c0c;       /* تیره‌ترین — بنرها/فوتر */
@@ -328,6 +328,21 @@
    استروکِ اضافه تا extra-bold دیده نشود. */
 .font-trajan {
   font-family: var(--font-trajan), var(--font-en), serif;
+}
+
+/* راهنمای سایز — خطِ جداکنندهٔ سطرهای جدولِ سایز، با فاصلهٔ ۴۰px از دو لبهٔ کشو
+   (نه تا انتهای لبه‌ها). از linear-gradient به‌جای border/pseudo استفاده می‌کنیم:
+   pseudo روی <tr> یک سلولِ ناشناسِ جدول می‌سازد و چینشِ ستون‌ها را به‌هم می‌ریزد.
+   خطْ هم‌زمان با background-colorِ هاور/انتخاب (bg-surface) نمایش داده می‌شود چون
+   روی background-image می‌نشیند. خارج از @layer تا Tailwind آن را tree-shake نکند. */
+.size-row-divider {
+  background-image: linear-gradient(var(--color-line), var(--color-line));
+  background-repeat: no-repeat;
+  /* خط در پایینِ هر ردیف — تا با خطِ زیرِ سرستون دوتایی نشود و آخرین ردیف هم بسته شود */
+  background-position: 50% 100%;
+  /* جدول خودش با mx-10 (۴۰px هر طرف) از لبه‌ها فاصله دارد، پس خطِ تمام‌عرضِ ردیف
+     دقیقاً ۴۰px از دو لبهٔ کشو فاصله می‌گیرد. */
+  background-size: 100% 1px;
 }
 
 /* ──────────────────────────────────────────────

@@ -4,7 +4,20 @@ import { PRODUCTS_PAGE } from "@/lib/site-data";
 import { Eyebrow } from "@/components/ui/SectionHeading";
 import { asset } from "@/lib/asset";
 
-export default function ProductsHero() {
+type HeroData = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  image: string;
+};
+
+export default function ProductsHero({
+  data = PRODUCTS_PAGE,
+  crumbLabel = "جواهرات",
+}: {
+  data?: HeroData;
+  crumbLabel?: string;
+}) {
   return (
     <section>
       {/* مسیرِ راهنما — فاصلهٔ بالا/پایینِ یکسان */}
@@ -13,7 +26,7 @@ export default function ProductsHero() {
           خانه
         </Link>
         <span>/</span>
-        <span className="text-muted">جواهرات</span>
+        <span className="text-muted">{crumbLabel}</span>
       </nav>
 
       {/* بنرِ دوتکه — در RTL: عکس سمتِ راست، متن سمتِ چپ؛ موبایل: عکس بالا، متن پایین.
@@ -21,8 +34,8 @@ export default function ProductsHero() {
       <div className="grid md:grid-cols-2">
         <div className="relative h-[240px] md:h-[400px]">
           <Image
-            src={asset(PRODUCTS_PAGE.image)}
-            alt={PRODUCTS_PAGE.title}
+            src={asset(data.image)}
+            alt={data.title}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"
@@ -32,12 +45,12 @@ export default function ProductsHero() {
 
         <div className="flex items-center bg-surface px-7 py-12 text-right md:h-[400px] md:px-14 md:py-8">
           <div className="flex w-full flex-col items-start">
-            <Eyebrow>{PRODUCTS_PAGE.eyebrow}</Eyebrow>
+            <Eyebrow>{data.eyebrow}</Eyebrow>
             <h1 className="text-[30px] font-semibold leading-snug text-ink md:text-[42px]">
-              {PRODUCTS_PAGE.title}
+              {data.title}
             </h1>
             <p className="mt-5 max-w-md text-[15px] leading-8 text-muted">
-              {PRODUCTS_PAGE.description}
+              {data.description}
             </p>
           </div>
         </div>

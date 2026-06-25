@@ -91,7 +91,7 @@ export default function SectionHeading({
             {eyebrow}
           </span>
         )}
-        <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{title}</h2>
+        <h2 className="text-[26px] font-semibold leading-snug text-ink md:text-[32px]">{title}</h2>
       </div>
       {/* مرحلهٔ ۲: لینک (با چند استپ اسکرولِ بیشتر، بعد از تیتر) */}
       {link && (

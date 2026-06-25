@@ -23,12 +23,15 @@ import {
   CaretDownIcon as PhCaretDown,
   PhoneIcon as PhPhone,
   CalendarBlankIcon as PhCalendar,
+  EyeIcon as PhEye,
+  EyeSlashIcon as PhEyeSlash,
   EnvelopeSimpleIcon as PhMail,
   FileTextIcon as PhDocument,
   InfoIcon as PhInfo,
   FadersHorizontalIcon as PhFilter,
   SquaresFourIcon as PhGridTwo,
   SquareIcon as PhGridOne,
+  GridFourIcon as PhGridFour,
   CheckIcon as PhCheck,
   InstagramLogoIcon as PhInstagram,
   TelegramLogoIcon as PhTelegram,
@@ -53,6 +56,8 @@ export const ChevronRightIcon = PhCaretRight;
 export const ChevronDownIcon = PhCaretDown;
 export const PhoneIcon = PhPhone;
 export const CalendarIcon = PhCalendar;
+export const EyeIcon = PhEye;
+export const EyeSlashIcon = PhEyeSlash;
 export const MailIcon = PhMail;
 export const DocumentIcon = PhDocument;
 export const InfoIcon = PhInfo;
@@ -61,6 +66,9 @@ export const InfoIcon = PhInfo;
 export const FilterIcon = PhFilter;
 export const GridTwoIcon = PhGridTwo;
 export const GridOneIcon = PhGridOne;
+// GridFour = مربعِ تقسیم‌شده به ۴ خانه؛ هم‌اندازهٔ SquareIcon (هر دو ۱۹۲ از ۲۵۶)
+// تا در سوییچِ صفحهٔ مجموعه‌ها دو آیکون دقیقاً یک‌سایز دیده شوند.
+export const GridFourIcon = PhGridFour;
 export const CheckIcon = PhCheck;
 
 // ── شبکه‌های اجتماعی ──

@@ -9,7 +9,7 @@ export default function ServicesSection() {
     <section className="container-lux py-8 md:py-[60px]">
       <div className="fx-reveal mb-10 flex flex-col items-center text-center">
         <span dir="ltr" className="eyebrow-en mb-3.5">Our Services</span>
-        <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">خدمات گنج‌ریز</h2>
+        <h2 className="text-[26px] font-semibold leading-snug text-ink md:text-[32px]">خدمات گنج‌ریز</h2>
       </div>
 
       <div className="grid gap-x-3 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">

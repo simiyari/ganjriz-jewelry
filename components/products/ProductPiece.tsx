@@ -12,7 +12,7 @@ export default function ProductPiece({ product }: { product: Product }) {
       <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
         <div className="fx-reveal flex flex-col items-center">
           <Eyebrow>{piece.eyebrow}</Eyebrow>
-          <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">
+          <h2 className="text-[26px] font-semibold leading-snug text-ink md:text-[32px]">
             {piece.title}
           </h2>
           <p className="mt-5 text-[15px] leading-8 text-muted">{piece.body}</p>

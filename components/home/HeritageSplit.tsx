@@ -9,7 +9,7 @@ export default function HeritageSplit() {
             ۲۵۰ms از RevealInit) بلوکِ متن + دکمه. */}
         <div className="fx-reveal flex w-full flex-col items-center">
           <Eyebrow onDark>{HERITAGE.eyebrow}</Eyebrow>
-          <h2 className="max-w-2xl text-[26px] font-semibold leading-snug text-white md:text-[34px]">
+          <h2 className="max-w-2xl text-[26px] font-semibold leading-snug text-white md:text-[32px]">
             {HERITAGE.title}
           </h2>
         </div>

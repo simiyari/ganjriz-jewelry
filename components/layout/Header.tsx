@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import GoldTicker from "./GoldTicker";
 import { NAV_LINKS, SITE, SOCIAL_LINKS } from "@/lib/site-data";
+import { faDigits } from "@/lib/format";
+import { useCart } from "@/components/cart/CartContext";
 import { SOCIAL_ICONS } from "@/components/ui/icons";
 import {
   BagIcon,
@@ -39,24 +41,35 @@ function IconButton({
   children,
   badge,
   className = "",
+  href,
+  onClick,
 }: {
   label: string;
   children: React.ReactNode;
   badge?: string;
   className?: string;
+  /** اگر داده شود، به‌جای دکمه یک لینک می‌سازد (مثلِ آیکونِ حساب کاربری → /login) */
+  href?: string;
+  onClick?: () => void;
 }) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      className={`relative grid h-9 w-9 place-items-center text-ink transition-colors duration-300 ease-out hover:text-accent-dark ${className}`}
-    >
+  const cls = `relative grid h-9 w-9 place-items-center text-ink transition-colors duration-300 ease-out hover:text-accent-dark ${className}`;
+  const inner = (
+    <>
       {children}
       {badge && (
         <span className="absolute -top-0.5 -right-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-ink px-1 pt-px text-[9px] font-bold leading-none text-white">
           {badge}
         </span>
       )}
+    </>
+  );
+  return href ? (
+    <Link href={href} aria-label={label} className={cls}>
+      {inner}
+    </Link>
+  ) : (
+    <button type="button" aria-label={label} onClick={onClick} className={cls}>
+      {inner}
     </button>
   );
 }
@@ -69,6 +82,9 @@ export default function Header() {
   const lastScrollY = useRef(0);
   const hideRef = useRef(false);
   const headerRef = useRef<HTMLElement>(null);
+
+  // سبد خرید — از استیتِ سراسری (CartProvider) تا نشانِ روی آیکون با محتوای سبد یکی بماند
+  const cart = useCart();
 
   // ارتفاعِ زندهٔ هدر را به‌صورتِ متغیرِ CSS (`--header-h`) منتشر می‌کند تا
   // عناصرِ استیکیِ صفحات (مثلِ نوارِ ابزار و فیلترِ صفحهٔ محصولات) درست زیرِ هدر
@@ -201,11 +217,16 @@ export default function Header() {
               </IconButton>
             </div>
             <div className="hidden sm:block">
-              <IconButton label="حساب کاربری">
+              <IconButton label="حساب کاربری" href="/login">
                 <UserIcon className="h-5 w-5" />
               </IconButton>
             </div>
-            <IconButton label="سبد خرید" badge="۲" className="-ml-2">
+            <IconButton
+              label="سبد خرید"
+              badge={cart.count > 0 ? faDigits(cart.count) : undefined}
+              className="-ml-2"
+              onClick={() => cart.setOpen(true)}
+            >
               <BagIcon className="h-5 w-5" />
             </IconButton>
           </div>

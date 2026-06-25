@@ -21,7 +21,7 @@ export default function ProductsPage() {
         <ProductsBrowser />
         <CategoryLinks />
       </main>
-      <Footer />
+      <Footer breadcrumb={[{ label: "خانه", href: "/" }, { label: "جواهرات" }]} />
       {/* انیمیشن اسکرولِ بخش‌های ثابت (سربرگ) — کارت‌ها رِویلِ مستقلِ خود را دارند */}
       <RevealInit />
     </>

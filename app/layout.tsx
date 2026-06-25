@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import IntroSplash from "@/components/ui/IntroSplash";
+import { CartProvider } from "@/components/cart/CartContext";
+import CartDrawer from "@/components/cart/CartDrawer";
 
 // فونت فارسی — ایران‌یکان (variable font، اعداد فارسی)
 const iranYekan = localFont({
@@ -59,10 +61,14 @@ export default function RootLayout({
         <noscript>
           <style>{"#intro-splash{display:none!important}"}</style>
         </noscript>
-        <SmoothScroll>
-          <div id="page-root">{children}</div>
-          <IntroSplash />
-        </SmoothScroll>
+        <CartProvider>
+          <SmoothScroll>
+            <div id="page-root">{children}</div>
+            <IntroSplash />
+          </SmoothScroll>
+          {/* کشوی سبد خرید — یک‌بار، سراسری (استیتش در CartProvider می‌ماند) */}
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   );

@@ -24,7 +24,7 @@ export default function StoresSection() {
             <MapPinIcon className="h-4 w-4" />
             {BOUTIQUE.eyebrow}
           </span>
-          <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{BOUTIQUE.title}</h2>
+          <h2 className="text-[26px] font-semibold leading-snug text-ink md:text-[32px]">{BOUTIQUE.title}</h2>
         </div>
         <div data-reveal-late className="fx-reveal flex w-full flex-col items-center">
           <p className="mt-4 max-w-lg text-[15px] leading-8 text-muted">{BOUTIQUE.description}</p>

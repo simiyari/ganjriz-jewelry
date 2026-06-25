@@ -10,7 +10,7 @@ export default function InstagramSection() {
       <div className="container-lux flex flex-col items-center text-center">
         <div className="fx-reveal flex w-full flex-col items-center">
           <span dir="ltr" className="eyebrow-en mb-3.5">Follow Us</span>
-          <h2 className="text-2xl font-semibold leading-snug text-ink sm:text-[28px]">{INSTAGRAM.title}</h2>
+          <h2 className="text-[26px] font-semibold leading-snug text-ink md:text-[32px]">{INSTAGRAM.title}</h2>
         </div>
         <div data-reveal-late className="fx-reveal flex w-full flex-col items-center">
           <p className="mt-4 max-w-md text-[15px] leading-8 text-muted">{INSTAGRAM.description}</p>
@@ -46,7 +46,7 @@ export default function InstagramSection() {
         <a
           href={INSTAGRAM.href}
           dir="ltr"
-          className="font-en inline-flex items-center gap-2 bg-ink px-9 py-3.5 text-[12px] font-medium uppercase tracking-wide text-white transition-colors hover:bg-[#2a2a2a]"
+          className="font-en inline-flex items-center gap-2 bg-ink px-9 py-3.5 text-[12px] font-medium uppercase tracking-wide text-white transition-colors hover:bg-[#2d2d2d]"
         >
           <InstagramIcon className="h-4 w-4" />
           <span>{INSTAGRAM.handle}</span>

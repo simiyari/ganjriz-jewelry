@@ -27,10 +27,13 @@ export default function ProductCarousel({
   eyebrow,
   title,
   products,
+  basePath = "/products",
 }: {
   eyebrow?: string;
   title: string;
   products: Product[];
+  /** ریشهٔ مسیرِ تک‌محصول برای کارت‌ها — «/products» یا «/high-jewelry» */
+  basePath?: string;
 }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
@@ -165,7 +168,7 @@ export default function ProductCarousel({
                 ref={i === 0 ? firstSlideRef : undefined}
                 className="min-w-0 ps-3 flex-[0_0_44.444%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%]"
               >
-                <ProductCard product={p} />
+                <ProductCard product={p} basePath={basePath} />
               </div>
             ))}
           </div>

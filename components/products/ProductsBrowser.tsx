@@ -9,6 +9,7 @@ import {
   SORT_OPTIONS,
   PRICE_RANGES,
   PRODUCTS_PROMO,
+  type Product,
 } from "@/lib/site-data";
 import { faNumber } from "@/lib/format";
 import { asset } from "@/lib/asset";
@@ -37,6 +38,21 @@ const FILTER_KEYS = ["category", "color", "karat", "price"] as const;
 type FilterKey = (typeof FILTER_KEYS)[number];
 type FilterState = Record<FilterKey, Set<string>>;
 
+// شکلِ عمومیِ داده‌ها — تا همین مرورگر هم برای صفحهٔ «محصولات» و هم «جواهر لوکس»
+// به‌کار رود؛ فقط محتوا (محصولات/فیلترها/کاشیِ تبلیغاتی) فرق می‌کند، نه ساختار.
+type FilterGroupDef = {
+  key: string;
+  title: string;
+  options: readonly { label: string; value: string }[];
+};
+type PriceRangeDef = {
+  label: string;
+  value: string;
+  min: number;
+  max: number;
+};
+type PromoDef = { title: string; cta: string; href: string; image: string };
+
 const emptyFilters = (): FilterState => ({
   category: new Set(),
   color: new Set(),
@@ -44,7 +60,20 @@ const emptyFilters = (): FilterState => ({
   price: new Set(),
 });
 
-export default function ProductsBrowser() {
+export default function ProductsBrowser({
+  products = PRODUCTS,
+  filterGroups = FILTER_GROUPS,
+  priceRanges = PRICE_RANGES,
+  promo = PRODUCTS_PROMO,
+  basePath = "/products",
+}: {
+  products?: readonly Product[];
+  filterGroups?: readonly FilterGroupDef[];
+  priceRanges?: readonly PriceRangeDef[];
+  promo?: PromoDef | null;
+  /** ریشهٔ مسیرِ تک‌محصول برای کارت‌ها — «/products» یا «/high-jewelry» */
+  basePath?: string;
+} = {}) {
   const [filters, setFilters] = useState<FilterState>(emptyFilters);
   const [sort, setSort] = useState<string>("newest");
   const [sortOpen, setSortOpen] = useState(false);
@@ -53,7 +82,7 @@ export default function ProductsBrowser() {
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false); // کشوی موبایل
   const [mobileCols, setMobileCols] = useState<1 | 2>(2); // نمای موبایل: ۱ یا ۲ ستون
   const [openGroups, setOpenGroups] = useState<Set<string>>(
-    () => new Set(FILTER_GROUPS.map((g) => g.key))
+    () => new Set(filterGroups.map((g) => g.key))
   );
   const toolbarRef = useRef<HTMLDivElement>(null);
 
@@ -98,13 +127,13 @@ export default function ProductsBrowser() {
   }, [mobileFilterOpen]);
 
   const filtered = useMemo(() => {
-    const list = PRODUCTS.filter((p) => {
+    const list = products.filter((p) => {
       if (filters.category.size && !filters.category.has(p.category)) return false;
       if (filters.color.size && !p.colors.some((c) => filters.color.has(c)))
         return false;
       if (filters.karat.size && !filters.karat.has(String(p.karat))) return false;
       if (filters.price.size) {
-        const inRange = PRICE_RANGES.some(
+        const inRange = priceRanges.some(
           (r) => filters.price.has(r.value) && p.price >= r.min && p.price < r.max
         );
         if (!inRange) return false;
@@ -115,10 +144,10 @@ export default function ProductsBrowser() {
     if (sort === "price-asc") sorted.sort((a, b) => a.price - b.price);
     else if (sort === "price-desc") sorted.sort((a, b) => b.price - a.price);
     return sorted;
-  }, [filters, sort]);
+  }, [filters, sort, products, priceRanges]);
 
   const activeCount = FILTER_KEYS.reduce((n, k) => n + filters[k].size, 0);
-  const promoVisible = activeCount === 0 && filtered.length >= PROMO_AFTER;
+  const promoVisible = !!promo && activeCount === 0 && filtered.length >= PROMO_AFTER;
   const visible = loadedCells - (promoVisible ? PROMO_CELLS : 0);
   const shown = filtered.slice(0, visible);
   const showPromo = promoVisible && shown.length >= PROMO_AFTER;
@@ -163,7 +192,7 @@ export default function ProductsBrowser() {
           </button>
         </div>
       )}
-      {FILTER_GROUPS.map((group) => {
+      {filterGroups.map((group) => {
         const open = openGroups.has(group.key);
         return (
           <div key={group.key} className="border-b border-line py-5 first:pt-0 last:border-b-0">
@@ -404,12 +433,12 @@ export default function ProductsBrowser() {
                     className="fx-card-in"
                     style={{ animationDelay: `${Math.min(i, 6) * 30}ms` }}
                   >
-                    <ProductCard product={product} />
+                    <ProductCard product={product} basePath={basePath} />
                   </div>
 
-                  {showPromo && i === PROMO_AFTER - 1 && (
+                  {showPromo && promo && i === PROMO_AFTER - 1 && (
                     <Link
-                      href={PRODUCTS_PROMO.href}
+                      href={promo.href}
                       // در نمای تک‌ستونهٔ موبایل باید یک ستون را بگیرد (نه ۲)؛
                       // وگرنه ستونِ دومِ ضمنی می‌سازد و چینش بهم می‌ریزد.
                       // موبایل: فول‌بلید (-mx-4 = پدینگِ ۱۶px کانتینر) تا کاشی به لبه‌ها بچسبد؛
@@ -420,18 +449,18 @@ export default function ProductsBrowser() {
                       style={{ animationDelay: `${Math.min(i, 6) * 30}ms` }}
                     >
                       <Image
-                        src={asset(PRODUCTS_PROMO.image)}
-                        alt={PRODUCTS_PROMO.title}
+                        src={asset(promo.image)}
+                        alt={promo.title}
                         fill
                         sizes="(max-width: 1024px) 100vw, 66vw"
                         className="object-cover"
                       />
                       <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-3 p-6 text-center text-white md:p-9">
-                        <h3 className="text-2xl font-semibold [text-shadow:0_1px_14px_rgba(0,0,0,0.35)] md:text-[30px]">
-                          {PRODUCTS_PROMO.title}
+                        <h3 className="text-[26px] font-semibold [text-shadow:0_1px_14px_rgba(0,0,0,0.35)] md:text-[32px]">
+                          {promo.title}
                         </h3>
-                        <span className="bg-white px-7 py-3 text-[12px] font-medium tracking-[0.04em] text-ink transition-colors duration-300 hover:bg-[#e8e8e8]">
-                          {PRODUCTS_PROMO.cta}
+                        <span className="bg-white px-7 py-3 text-[12px] font-medium tracking-[0.04em] text-ink transition-colors duration-300 hover:bg-[#f5f5f5]">
+                          {promo.cta}
                         </span>
                       </div>
                     </Link>
@@ -460,7 +489,7 @@ export default function ProductsBrowser() {
               <button
                 type="button"
                 onClick={() => setLoadedCells((c) => c + CELLS_STEP)}
-                className="bg-ink px-12 py-3.5 text-[13px] font-medium tracking-[0.04em] text-white transition-colors duration-300 hover:bg-[#2a2a2a]"
+                className="bg-ink px-12 py-3.5 text-[13px] font-medium tracking-[0.04em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
                 style={{ transitionTimingFunction: EASE }}
               >
                 نمایشِ بیشتر
@@ -496,7 +525,7 @@ export default function ProductsBrowser() {
           <button
             type="button"
             onClick={() => setMobileFilterOpen(false)}
-            className="w-full bg-ink py-3.5 text-[13px] font-medium tracking-[0.04em] text-white transition-colors duration-300 hover:bg-[#2a2a2a]"
+            className="w-full bg-ink py-3.5 text-[13px] font-medium tracking-[0.04em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
           >
             نمایشِ {faNumber(filtered.length)} محصول
           </button>

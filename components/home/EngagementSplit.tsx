@@ -11,7 +11,7 @@ export default function EngagementSplit() {
         <div className="order-2 flex flex-col items-center justify-center px-7 py-12 text-center md:order-1 md:px-14 md:py-16">
           <div className="fx-reveal flex w-full flex-col items-center">
             <Eyebrow onDark>{ENGAGEMENT.eyebrow}</Eyebrow>
-            <h2 className="text-[26px] font-semibold leading-snug text-white md:text-[34px]">{ENGAGEMENT.title}</h2>
+            <h2 className="text-[26px] font-semibold leading-snug text-white md:text-[32px]">{ENGAGEMENT.title}</h2>
           </div>
           <div data-reveal-late className="fx-reveal flex w-full flex-col items-center">
             <p className="mt-4 max-w-md text-[15px] leading-8 text-white/70">{ENGAGEMENT.body}</p>

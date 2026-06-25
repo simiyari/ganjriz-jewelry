@@ -1,30 +1,43 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { type Product, GOLD_COLORS } from "@/lib/site-data";
+import { productGallery } from "@/lib/product-detail";
 import { faNumber } from "@/lib/format";
-import { asset } from "@/lib/asset";
 import { HeartIcon } from "@/components/ui/icons";
+import CardGallery from "./CardGallery";
 
 const BADGE_LABEL: Record<string, string> = {
   new: "جدید",
   bestseller: "پرفروش",
 };
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  basePath = "/products",
+}: {
+  product: Product;
+  /** ریشهٔ مسیرِ صفحهٔ تک‌محصول — «/products» یا «/high-jewelry» */
+  basePath?: string;
+}) {
   const [liked, setLiked] = useState(false);
+  // گالریِ تصاویرِ همین محصول — برای سواپِ نرمِ تصاویر با موس/فلش روی کارت
+  const gallery = productGallery(product);
 
   return (
-    <div className="group relative flex flex-col">
+    <div
+      className="group relative flex flex-col"
+      // جلوگیری از کشیدنِ نیتیوِ عکس/لینک (ghostِ تصویر زیرِ موس) هنگامِ تلاش برای درگ
+      onDragStart={(e) => e.preventDefault()}
+    >
       {/* علاقه‌مندی — سمتِ پایانی (چپ در RTL)؛ روی هاور قرمز می‌شود */}
       <button
         type="button"
         aria-label="افزودن به علاقه‌مندی‌ها"
         aria-pressed={liked}
         onClick={() => setLiked((v) => !v)}
-        className={`absolute end-3 top-3 z-10 grid h-8 w-8 place-items-center transition-colors hover:text-danger ${
+        className={`absolute end-3 top-3 z-20 grid h-8 w-8 place-items-center transition-colors hover:text-danger ${
           liked ? "text-danger" : "text-ink/55"
         }`}
       >
@@ -33,22 +46,14 @@ export default function ProductCard({ product }: { product: Product }) {
 
       {/* نشانِ جدید/پرفروش — سمتِ آغازین (راست در RTL) */}
       {product.badge && (
-        <span className="absolute start-3 top-3 z-10 bg-white/90 px-2.5 py-1 text-[10px] font-medium tracking-[0.08em] text-ink backdrop-blur-sm">
+        <span className="absolute start-3 top-3 z-20 bg-white/90 px-2.5 py-1 text-[10px] font-medium tracking-[0.08em] text-ink backdrop-blur-sm">
           {BADGE_LABEL[product.badge]}
         </span>
       )}
 
-      <Link href={`/products/${product.slug}`} className="flex flex-col">
-        {/* تصویرِ مربعی */}
-        <div className="relative aspect-square overflow-hidden bg-surface">
-          <Image
-            src={asset(product.image)}
-            alt={product.title}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="img-zoom object-cover"
-          />
-        </div>
+      <Link href={`${basePath}/${product.slug}`} className="flex flex-col">
+        {/* گالریِ تصویرِ کارت — سواپِ نرم با موس/فلش + نوارِ پیشرفت روی درزِ بالای کادر */}
+        <CardGallery images={gallery} alt={product.title} />
 
         {/* کادرِ طوسیِ روشن — نوشته‌های محصول؛ فاصلهٔ کناره‌ها و پایین ۲۴px */}
         <div className="bg-[#eeeeee] px-6 pt-4 pb-6">
