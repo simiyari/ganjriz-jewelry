@@ -47,8 +47,10 @@ export default function CartDrawer() {
         role="dialog"
         aria-modal="true"
         aria-label="سبد خرید"
-        className={`absolute inset-y-0 left-0 flex w-full max-w-[650px] flex-col bg-background shadow-[0_0_80px_-20px_rgba(0,0,0,0.45)] transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-          open ? "translate-x-0" : "-translate-x-full"
+        className={`absolute inset-y-0 left-0 flex w-full max-w-[650px] flex-col bg-background transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+          open
+            ? "translate-x-0 shadow-[0_0_80px_-20px_rgba(0,0,0,0.45)]"
+            : "-translate-x-full"
         }`}
       >
         {/* سرتیتر */}

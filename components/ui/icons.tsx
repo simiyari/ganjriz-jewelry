@@ -36,6 +36,7 @@ import {
   InstagramLogoIcon as PhInstagram,
   TelegramLogoIcon as PhTelegram,
   WhatsappLogoIcon as PhWhatsapp,
+  GoogleLogoIcon as PhGoogle,
 } from "@phosphor-icons/react/ssr";
 
 // ── هدر / ناوبری ──
@@ -75,6 +76,9 @@ export const CheckIcon = PhCheck;
 export const InstagramIcon = PhInstagram;
 export const TelegramIcon = PhTelegram;
 export const WhatsappIcon = PhWhatsapp;
+
+// ── ورود/احراز هویت ──
+export const GoogleIcon = PhGoogle;
 
 export const SOCIAL_ICONS = {
   instagram: InstagramIcon,

@@ -5,6 +5,7 @@ import Link from "next/link";
 import GoldTicker from "./GoldTicker";
 import { NAV_LINKS, SITE, SOCIAL_LINKS } from "@/lib/site-data";
 import { faDigits } from "@/lib/format";
+import { useAuth } from "@/components/account/AuthContext";
 import { useCart } from "@/components/cart/CartContext";
 import { SOCIAL_ICONS } from "@/components/ui/icons";
 import {
@@ -85,6 +86,9 @@ export default function Header() {
 
   // سبد خرید — از استیتِ سراسری (CartProvider) تا نشانِ روی آیکون با محتوای سبد یکی بماند
   const cart = useCart();
+  // اگر کاربر وارد شده باشد، آیکونِ حساب به پنلِ کاربری می‌رود؛ وگرنه به صفحهٔ ورود.
+  const { user } = useAuth();
+  const accountHref = user ? "/account" : "/login";
 
   // ارتفاعِ زندهٔ هدر را به‌صورتِ متغیرِ CSS (`--header-h`) منتشر می‌کند تا
   // عناصرِ استیکیِ صفحات (مثلِ نوارِ ابزار و فیلترِ صفحهٔ محصولات) درست زیرِ هدر
@@ -212,12 +216,12 @@ export default function Header() {
               </IconButton>
             </div>
             <div className="hidden sm:block">
-              <IconButton label="علاقه‌مندی‌ها">
+              <IconButton label="علاقه‌مندی‌ها" href="/account/wishlist">
                 <HeartIcon className="h-5 w-5" />
               </IconButton>
             </div>
             <div className="hidden sm:block">
-              <IconButton label="حساب کاربری" href="/login">
+              <IconButton label="حساب کاربری" href={accountHref}>
                 <UserIcon className="h-5 w-5" />
               </IconButton>
             </div>
@@ -261,8 +265,8 @@ export default function Header() {
 
 // فهرستِ «امکانات» در بخشِ تیرهٔ منوی موبایل (مثل My Account / Wishlist مرجع)
 const DRAWER_ACCOUNT_LINKS = [
-  { label: "حساب کاربری", href: "/login", icon: UserIcon },
-  { label: "علاقه‌مندی‌ها", href: "/dashboard/favorites", icon: HeartIcon },
+  { label: "حساب کاربری", href: "/account", icon: UserIcon },
+  { label: "علاقه‌مندی‌ها", href: "/account/wishlist", icon: HeartIcon },
   { label: "یافتن شعبه", href: "/stores", icon: MapPinIcon },
   { label: "تماس با ما", href: "/contact", icon: PhoneIcon },
 ] as const;

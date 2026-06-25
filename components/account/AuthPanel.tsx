@@ -1,192 +1,194 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useId, useState, type ReactNode } from "react";
-import { EyeIcon, EyeSlashIcon, CalendarIcon, ChevronDownIcon } from "@/components/ui/icons";
+import { useRouter } from "next/navigation";
+import { useEffect, useId, useState, type ReactNode } from "react";
+import { asset } from "@/lib/asset";
+import { faDigits } from "@/lib/format";
+import { CalendarIcon, GoogleIcon } from "@/components/ui/icons";
+import {
+  Field,
+  PasswordField,
+  SelectField,
+  Consent,
+  PhoneField,
+  TitleRadios,
+  COUNTRIES,
+} from "@/components/account/fields";
+import { useAuth, normalizePhone, DEMO_PHONE, DEMO_OTP, DEMO_USER } from "@/components/account/AuthContext";
 
 /* ──────────────────────────────────────────────
    صفحهٔ ورود/ثبت‌نام — کلونِ RTLِ صفحهٔ حسابِ Carrera با توکن‌های گنج‌ریز.
    دو تب: «قبلاً ثبت‌نام کرده‌اید؟» (ورود) و «ساختِ حسابِ جدید» (ثبت‌نام).
-   فاز ۱ (UIِ فیک): فرم‌ها اعتبارسنجیِ مرورگری دارند ولی هنوز به سامانه وصل نیستند.
+   ورود: گوگل (یک‌کلیک)، موبایل + کُدِ یک‌بارمصرف (پیش‌فرض)، یا ایمیل/موبایل + رمز.
+   فاز ۱: تنها مسیرِ موبایل+OTP واقعاً وارد می‌کند (حسابِ نمایشی در AuthContext).
    ────────────────────────────────────────────── */
-
-/** اینپوتِ لیبل‌شناور — لیبل با خالی‌بودن پایین می‌نشیند و با فوکوس/پُرشدن بالا می‌رود */
-function Field({
-  id,
-  label,
-  type = "text",
-  required = false,
-  autoComplete,
-  trailing,
-}: {
-  id: string;
-  label: string;
-  type?: string;
-  required?: boolean;
-  autoComplete?: string;
-  trailing?: ReactNode;
-}) {
-  return (
-    <div className="relative">
-      <input
-        id={id}
-        name={id}
-        type={type}
-        required={required}
-        autoComplete={autoComplete}
-        placeholder=" "
-        className="peer h-12 w-full border-b border-line bg-transparent pt-5 pe-8 text-[15px] text-ink outline-none transition-colors duration-300 focus:border-ink"
-      />
-      <label
-        htmlFor={id}
-        className="pointer-events-none absolute start-0 top-1.5 text-[12px] text-muted transition-all duration-200 peer-placeholder-shown:top-[18px] peer-placeholder-shown:text-[15px] peer-focus:top-1.5 peer-focus:text-[12px] peer-focus:text-ink"
-      >
-        {label}
-        {required && <span className="text-danger"> *</span>}
-      </label>
-      {trailing}
-    </div>
-  );
-}
-
-/** اینپوتِ رمز با دکمهٔ نمایش/پنهان (چشم) — سمتِ پایان (چپ در RTL) */
-function PasswordField({
-  id,
-  label,
-  autoComplete,
-}: {
-  id: string;
-  label: string;
-  autoComplete?: string;
-}) {
-  const [show, setShow] = useState(false);
-  return (
-    <Field
-      id={id}
-      label={label}
-      type={show ? "text" : "password"}
-      required
-      autoComplete={autoComplete}
-      trailing={
-        <button
-          type="button"
-          onClick={() => setShow((s) => !s)}
-          aria-label={show ? "پنهان‌کردنِ رمز" : "نمایشِ رمز"}
-          className="absolute end-0 top-[18px] grid h-8 w-8 -translate-y-1/2 place-items-center text-muted transition-colors hover:text-ink"
-        >
-          {show ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
-        </button>
-      }
-    />
-  );
-}
-
-/** سلکتِ لیبل‌دار (کشور) — لیبل همیشه بالا، فلشِ سفارشی سمتِ پایان */
-function SelectField({
-  id,
-  label,
-  required = false,
-  defaultValue = "",
-  children,
-}: {
-  id: string;
-  label: string;
-  required?: boolean;
-  defaultValue?: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className="relative">
-      <select
-        id={id}
-        name={id}
-        required={required}
-        defaultValue={defaultValue}
-        className="peer h-12 w-full appearance-none border-b border-line bg-transparent pt-5 pe-7 text-[15px] text-ink outline-none transition-colors duration-300 focus:border-ink"
-      >
-        {children}
-      </select>
-      <label
-        htmlFor={id}
-        className="pointer-events-none absolute start-0 top-1.5 text-[12px] text-muted"
-      >
-        {label}
-        {required && <span className="text-danger"> *</span>}
-      </label>
-      <ChevronDownIcon className="pointer-events-none absolute end-0 top-[26px] h-4 w-4 -translate-y-1/2 text-muted" />
-    </div>
-  );
-}
-
-/** چک‌باکسِ رضایت — مربعِ کوچک با رنگِ برند (accent-color)، متن در کنار */
-function Consent({
-  required = false,
-  defaultChecked = false,
-  children,
-}: {
-  required?: boolean;
-  defaultChecked?: boolean;
-  children: ReactNode;
-}) {
-  return (
-    <label className="flex cursor-pointer items-start gap-3 text-[13px] leading-7 text-muted">
-      <input
-        type="checkbox"
-        required={required}
-        defaultChecked={defaultChecked}
-        className="mt-1.5 h-4 w-4 shrink-0 accent-ink"
-      />
-      <span>{children}</span>
-    </label>
-  );
-}
 
 const BTN =
   "mt-2 w-full bg-ink py-4 text-[13px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 ease-out hover:bg-[#2d2d2d]";
 
-const TITLES = ["خانم", "آقا", "ترجیح می‌دهم نگویم"] as const;
+/** دکمهٔ ورود با گوگل — دکمهٔ سفیدِ خط‌دار با لوگوی گوگل (فاز ۱: نمایشی). */
+function GoogleButton({ label, onClick }: { label: string; onClick?: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex w-full items-center justify-center gap-3 border border-line bg-white py-3.5 text-[14px] font-medium text-ink transition-colors duration-300 ease-out hover:bg-surface"
+    >
+      <GoogleIcon className="h-5 w-5" weight="bold" />
+      {label}
+    </button>
+  );
+}
 
-const COUNTRIES = ["ایران", "امارات متحده عربی", "ترکیه", "آلمان", "کانادا", "ایالات متحده"] as const;
+/** جداکنندهٔ «یا» — خطِ افقی با برچسبِ وسط. */
+function OrDivider({ label = "یا" }: { label?: string }) {
+  return (
+    <div className="flex items-center gap-4">
+      <span className="h-px flex-1 bg-line" />
+      <span className="shrink-0 text-[12px] text-muted">{label}</span>
+      <span className="h-px flex-1 bg-line" />
+    </div>
+  );
+}
 
-// کدِ کشورها — مقدارْ لاتین (برای ولیدیشن/ارسال)، نمایشْ فارسی
-const DIAL_CODES = [
-  { code: "+98", label: "+۹۸" },
-  { code: "+971", label: "+۹۷۱" },
-  { code: "+90", label: "+۹۰" },
-  { code: "+49", label: "+۴۹" },
-  { code: "+1", label: "+۱" },
-] as const;
+/** لینکِ سوییچِ روشِ ورود — متنِ خط‌دارِ وسط‌چین (هماهنگ با لینک‌های متنیِ سایت). */
+function SwitchLink({ onClick, children }: { onClick: () => void; children: ReactNode }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="mx-auto text-[13px] text-ink underline decoration-line decoration-1 underline-offset-4 transition-colors duration-300 hover:text-accent-dark hover:decoration-accent-dark"
+    >
+      {children}
+    </button>
+  );
+}
+
+/** اینپوتِ کُدِ یک‌بارمصرف — یک فیلدِ وسط‌چینِ LTR، هم‌سبکِ اینپوت‌های خط‌زیرِ صفحه. */
+function CodeInput({ id }: { id: string }) {
+  return (
+    <input
+      id={id}
+      name={id}
+      type="text"
+      inputMode="numeric"
+      autoComplete="one-time-code"
+      maxLength={5}
+      required
+      dir="ltr"
+      aria-label="کُدِ یک‌بارمصرف"
+      placeholder="·····"
+      className="h-14 w-full border-b border-line bg-transparent text-center text-[26px] tracking-[0.6em] text-ink outline-none transition-colors duration-300 placeholder:text-faint focus:border-ink"
+    />
+  );
+}
+
+/** شمارش معکوسِ ارسالِ دوبارهٔ کُد، به‌صورتِ m:ss با ارقامِ فارسی. */
+function formatTime(total: number): string {
+  const m = Math.floor(total / 60);
+  const s = total % 60;
+  return faDigits(`${m}:${String(s).padStart(2, "0")}`);
+}
 
 export default function AuthPanel() {
+  const router = useRouter();
+  const { user, login } = useAuth();
+
   const [tab, setTab] = useState<"login" | "register">("login");
+  // روشِ ورود: پیش‌فرض «موبایل + کُدِ یک‌بارمصرف»؛ با یک لینک به «رمزِ عبور» سوییچ می‌شود.
+  const [loginMode, setLoginMode] = useState<"otp" | "password">("otp");
+  const [otpStep, setOtpStep] = useState<"phone" | "code">("phone");
+  const [otpPhone, setOtpPhone] = useState("");
+  const [resendIn, setResendIn] = useState(0);
   const [notice, setNotice] = useState("");
+  const [error, setError] = useState("");
   const uid = useId();
 
-  const onLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    setNotice("ورودِ شما ثبت شد. اتصال به سامانهٔ کاربری در مرحلهٔ بعدِ توسعه انجام می‌شود.");
+  // اگر از قبل وارد شده‌اید، مستقیم به پنلِ کاربری بروید.
+  useEffect(() => {
+    if (user) router.replace("/account");
+  }, [user, router]);
+
+  // شمارش معکوسِ «ارسالِ دوبارهٔ کُد» در مرحلهٔ واردکردنِ کُد.
+  useEffect(() => {
+    if (otpStep !== "code" || resendIn <= 0) return;
+    const t = setTimeout(() => setResendIn((s) => s - 1), 1000);
+    return () => clearTimeout(t);
+  }, [otpStep, resendIn]);
+
+  const clearMsgs = () => {
+    setNotice("");
+    setError("");
   };
+
+  const onGoogle = () => setNotice("اتصال به حسابِ گوگل در مرحلهٔ بعدِ توسعه انجام می‌شود.");
+
+  // مرحلهٔ ۱ OTP: شماره را می‌گیرد و به مرحلهٔ واردکردنِ کُد می‌رود.
+  const onSendOtp = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const num = String(new FormData(e.currentTarget).get(`${uid}-otp-phone`) ?? "");
+    setOtpPhone(num);
+    setResendIn(120);
+    setOtpStep("code");
+    clearMsgs();
+  };
+
+  // مرحلهٔ ۲ OTP: کُد را با حسابِ نمایشی می‌سنجد و در صورتِ درستی وارد می‌کند.
+  const onVerifyOtp = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const code = String(new FormData(e.currentTarget).get(`${uid}-otp-code`) ?? "");
+    if (normalizePhone(otpPhone) === DEMO_PHONE && code === DEMO_OTP) {
+      login(DEMO_USER); // افکتِ بالا به /account می‌برد
+    } else {
+      setError("کُد یا شماره نادرست است. در این نسخهٔ نمایشی با موبایلِ ۰۹۱۲۲۴۰۳۶۶۲ و کُدِ ۱۲۳۴۵۶ وارد شوید.");
+    }
+  };
+
+  const onPasswordLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    setNotice("ورود با رمزِ عبور در مرحلهٔ بعدِ توسعه فعال می‌شود؛ فعلاً با موبایل و کُدِ یک‌بارمصرف وارد شوید.");
+  };
+
   const onRegister = (e: React.FormEvent) => {
     e.preventDefault();
     setNotice("اطلاعاتِ ثبت‌نام دریافت شد. اتصال به سامانهٔ کاربری در مرحلهٔ بعدِ توسعه انجام می‌شود.");
   };
 
+  const switchMode = (mode: "otp" | "password") => {
+    setLoginMode(mode);
+    setOtpStep("phone");
+    clearMsgs();
+  };
+  const resendOtp = () => setResendIn(120);
+
   const tabCls = (active: boolean) =>
     `flex-1 border-b-2 pb-4 text-center text-[15px] tracking-wide transition-colors duration-300 ${
-      active
-        ? "border-ink font-semibold text-ink"
-        : "border-line text-muted hover:text-ink"
+      active ? "border-ink font-semibold text-ink" : "border-line text-muted hover:text-ink"
     }`;
 
   return (
     <div className="mx-auto w-full max-w-xl">
+      {/* لوگوی برند — بالای پنلِ ورود/ثبت‌نام */}
+      <Link href="/" aria-label="گنج‌ریز" className="mb-9 flex justify-center md:mb-11">
+        <Image
+          src={asset("/logo.png")}
+          alt="گنج‌ریز"
+          width={1000}
+          height={842}
+          priority
+          className="h-16 w-auto md:h-20"
+        />
+      </Link>
+
       {/* تب‌ها */}
       <div className="flex">
         <button
           type="button"
           onClick={() => {
             setTab("login");
-            setNotice("");
+            clearMsgs();
           }}
           className={tabCls(tab === "login")}
         >
@@ -196,7 +198,7 @@ export default function AuthPanel() {
           type="button"
           onClick={() => {
             setTab("register");
-            setNotice("");
+            clearMsgs();
           }}
           className={tabCls(tab === "register")}
         >
@@ -204,42 +206,105 @@ export default function AuthPanel() {
         </button>
       </div>
 
+      {error && (
+        <p className="mt-7 border-s-2 border-danger bg-danger/5 px-4 py-3 text-[13px] leading-7 text-danger">
+          {error}
+        </p>
+      )}
       {notice && (
         <p className="mt-7 border-s-2 border-success bg-success/5 px-4 py-3 text-[13px] leading-7 text-success">
           {notice}
         </p>
       )}
 
-      {/* ── فرمِ ورود ── */}
+      {/* ── ورود ── گوگل + یک فرمِ ساده: «موبایل + کُدِ یک‌بارمصرف» (پیش‌فرض) یا
+          «ایمیل/موبایل + رمز». همیشه فقط یک فرم دیده می‌شود تا شلوغ نشود. */}
       {tab === "login" && (
-        <form onSubmit={onLogin} className="mt-7 flex flex-col gap-6">
-          <p className="text-[14px] leading-7 text-muted">
-            اگر حساب کاربری دارید، با ایمیلِ خود وارد شوید.
-          </p>
-          <p className="text-[12px] text-muted">
-            فیلدهای الزامی <span className="text-danger">*</span>
-          </p>
+        <div className="mt-7 flex flex-col gap-6">
+          <GoogleButton label="ورود با گوگل" onClick={onGoogle} />
+          <OrDivider />
 
-          <Field id={`${uid}-l-email`} label="ایمیل" type="email" required autoComplete="email" />
-          <PasswordField id={`${uid}-l-pass`} label="رمزِ عبور" autoComplete="current-password" />
+          {/* روشِ پیش‌فرض — مرحلهٔ ۱: گرفتنِ شماره */}
+          {loginMode === "otp" && otpStep === "phone" && (
+            <form onSubmit={onSendOtp} className="flex flex-col gap-6">
+              <p className="text-[14px] leading-7 text-muted">
+                شمارهٔ موبایلِ خود را وارد کنید؛ کُدِ ورود برایتان پیامک می‌شود.
+              </p>
+              <PhoneField idPrefix={`${uid}-otp`} label="شمارهٔ موبایل" />
+              <button type="submit" className={BTN}>
+                دریافتِ کُدِ ورود
+              </button>
+              <SwitchLink onClick={() => switchMode("password")}>ورود با رمزِ عبور</SwitchLink>
+            </form>
+          )}
 
-          <div className="flex items-center justify-between gap-3">
-            <label className="flex cursor-pointer items-center gap-2.5 text-[13px] text-muted">
-              <input type="checkbox" className="h-4 w-4 accent-ink" />
-              مرا به خاطر بسپار <span className="text-faint">(اختیاری)</span>
-            </label>
-            <Link
-              href="/forgot-password"
-              className="text-[13px] text-ink transition-colors duration-300 hover:text-accent-dark"
-            >
-              رمزِ عبور را فراموش کرده‌اید؟
-            </Link>
-          </div>
+          {/* روشِ پیش‌فرض — مرحلهٔ ۲: واردکردنِ کُد */}
+          {loginMode === "otp" && otpStep === "code" && (
+            <form onSubmit={onVerifyOtp} className="flex flex-col gap-6">
+              <p className="text-[14px] leading-7 text-muted">
+                کُدِ ۵ تا ۶ رقمیِ پیامک‌شده به شمارهٔ{" "}
+                <bdi dir="ltr" className="font-medium text-ink">
+                  {faDigits(otpPhone)}
+                </bdi>{" "}
+                را وارد کنید.
+              </p>
+              <CodeInput id={`${uid}-otp-code`} />
+              <p className="text-[12px] text-faint">
+                نسخهٔ نمایشی — کُد را <span className="font-medium text-muted">۱۲۳۴۵۶</span> وارد کنید.
+              </p>
+              <button type="submit" className={BTN}>
+                ورود
+              </button>
+              <div className="flex items-center justify-between text-[13px]">
+                <button
+                  type="button"
+                  onClick={() => setOtpStep("phone")}
+                  className="text-muted transition-colors duration-300 hover:text-ink"
+                >
+                  ویرایشِ شماره
+                </button>
+                {resendIn > 0 ? (
+                  <span className="text-faint">ارسالِ دوبارهٔ کُد تا {formatTime(resendIn)}</span>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={resendOtp}
+                    className="text-ink underline underline-offset-4 transition-colors duration-300 hover:text-accent-dark"
+                  >
+                    ارسالِ دوبارهٔ کُد
+                  </button>
+                )}
+              </div>
+            </form>
+          )}
 
-          <button type="submit" className={BTN}>
-            ورود
-          </button>
-        </form>
+          {/* روشِ دوم — ایمیل یا موبایل + رمزِ عبور */}
+          {loginMode === "password" && (
+            <form onSubmit={onPasswordLogin} className="flex flex-col gap-6">
+              <p className="text-[14px] leading-7 text-muted">
+                با ایمیل یا شمارهٔ موبایل و رمزِ عبورِ خود وارد شوید.
+              </p>
+              <Field id={`${uid}-id`} label="ایمیل یا شمارهٔ موبایل" required autoComplete="username" />
+              <PasswordField id={`${uid}-pass`} label="رمزِ عبور" autoComplete="current-password" />
+              <div className="flex items-center justify-between gap-3">
+                <label className="flex cursor-pointer items-center gap-2.5 text-[13px] text-muted">
+                  <input type="checkbox" className="h-4 w-4 accent-ink" />
+                  مرا به خاطر بسپار <span className="text-faint">(اختیاری)</span>
+                </label>
+                <Link
+                  href="/forgot-password"
+                  className="text-[13px] text-ink transition-colors duration-300 hover:text-accent-dark"
+                >
+                  رمزِ عبور را فراموش کرده‌اید؟
+                </Link>
+              </div>
+              <button type="submit" className={BTN}>
+                ورود
+              </button>
+              <SwitchLink onClick={() => switchMode("otp")}>ورود با کُدِ یک‌بارمصرف</SwitchLink>
+            </form>
+          )}
+        </div>
       )}
 
       {/* ── فرمِ ثبت‌نام ── */}
@@ -247,33 +312,14 @@ export default function AuthPanel() {
         <form onSubmit={onRegister} className="mt-7 flex flex-col gap-6">
           <p className="text-[14px] leading-7 text-muted">
             حساب کاربری بسازید و از خریدِ شخصی‌سازی‌شده، تسویهٔ سریع‌تر، ثبتِ چند نشانی و
-            پیگیریِ سفارش‌ها بهره‌مند شوید.
+            پیگیریِ سفارش‌ها بهره‌مند شوید. اگر ترجیح می‌دهید، می‌توانید از تبِ «ورود» با
+            حسابِ گوگل واردِ سایت شوید.
           </p>
           <p className="text-[12px] text-muted">
             فیلدهای الزامی <span className="text-danger">*</span>
           </p>
 
-          {/* عنوان */}
-          <fieldset>
-            <legend className="mb-3 text-[12px] text-muted">
-              عنوان <span className="text-danger">*</span>
-            </legend>
-            <div className="flex flex-wrap gap-x-7 gap-y-3">
-              {TITLES.map((t, i) => (
-                <label key={t} className="flex cursor-pointer items-center gap-2 text-[14px] text-ink">
-                  <input
-                    type="radio"
-                    name={`${uid}-title`}
-                    value={t}
-                    required
-                    defaultChecked={i === 0}
-                    className="h-4 w-4 accent-ink"
-                  />
-                  {t}
-                </label>
-              ))}
-            </div>
-          </fieldset>
+          <TitleRadios idPrefix={uid} />
 
           <Field id={`${uid}-fname`} label="نام" required autoComplete="given-name" />
           <Field id={`${uid}-lname`} label="نام خانوادگی" required autoComplete="family-name" />
@@ -298,26 +344,7 @@ export default function AuthPanel() {
           </SelectField>
 
           {/* شمارهٔ تماس — کدِ کشور + شماره */}
-          <div className="flex items-end gap-3">
-            <div className="relative w-24 shrink-0">
-              <select
-                name={`${uid}-dial`}
-                defaultValue="+98"
-                aria-label="کدِ کشور"
-                className="peer h-12 w-full appearance-none border-b border-line bg-transparent pt-5 pe-6 text-[15px] text-ink outline-none transition-colors duration-300 focus:border-ink"
-              >
-                {DIAL_CODES.map((d) => (
-                  <option key={d.code} value={d.code}>
-                    {d.label}
-                  </option>
-                ))}
-              </select>
-              <ChevronDownIcon className="pointer-events-none absolute end-0 top-[26px] h-4 w-4 -translate-y-1/2 text-muted" />
-            </div>
-            <div className="flex-1">
-              <Field id={`${uid}-phone`} label="شمارهٔ تماس" type="tel" required autoComplete="tel" />
-            </div>
-          </div>
+          <PhoneField idPrefix={uid} label="شمارهٔ تماس" />
 
           {/* رمز + الزامات */}
           <div className="flex flex-col gap-3">
