@@ -21,7 +21,7 @@ export default function ProductsHero({
   return (
     <section>
       {/* مسیرِ راهنما — فاصلهٔ بالا/پایینِ یکسان */}
-      <nav className="container-lux flex items-center justify-center gap-2 py-5 text-xs text-faint">
+      <nav className="container-lux flex items-center justify-center gap-2 py-5 text-xs text-muted">
         <Link href="/" className="transition-colors hover:text-ink">
           خانه
         </Link>

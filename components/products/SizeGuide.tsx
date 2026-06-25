@@ -97,6 +97,7 @@ export default function SizeGuide({
     <div
       className={`fixed inset-0 z-[90] ${open ? "" : "pointer-events-none"}`}
       aria-hidden={!open}
+      inert={!open}
     >
       {/* بک‌دراپِ تیره */}
       <div
@@ -157,7 +158,7 @@ export default function SizeGuide({
               <thead>
                 {/* هر عنوان دقیقاً با همان padding ستونِ خودش، تا عدد زیرِ عنوان بنشیند
                     (نه جلوتر از آن). خطِ نازکِ زیرِ سرستون هنگامِ اسکرول جدا می‌ماند. */}
-                <tr className="text-[11px] text-faint">
+                <tr className="text-[11px] text-muted">
                   <th className="sticky top-0 w-1/4 border-b border-line bg-background py-3 ps-3 text-start font-medium">
                     سایزِ گنج‌ریز
                   </th>
@@ -219,7 +220,7 @@ export default function SizeGuide({
                 </p>
                 <a
                   href="#"
-                  className="mt-5 inline-flex items-center justify-center bg-ink px-6 py-3 text-[12px] font-medium tracking-[0.04em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
+                  className="mt-5 inline-flex h-11 items-center justify-center bg-ink px-6 text-[12px] font-medium tracking-[0.04em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
                   style={{ transitionTimingFunction: EASE }}
                 >
                   {SIZE_GUIDE.downloadCta}

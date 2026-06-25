@@ -28,6 +28,16 @@ export const DIAL_CODES = [
   { code: "+1", label: "+۱" },
 ] as const;
 
+// نگاشتِ کشور → پیش‌شمارهٔ تلفن (برای تغییرِ خودکارِ کد با انتخابِ کشور)
+export const COUNTRY_DIAL: Record<string, string> = {
+  "ایران": "+98",
+  "امارات متحده عربی": "+971",
+  "ترکیه": "+90",
+  "آلمان": "+49",
+  "کانادا": "+1",
+  "ایالات متحده": "+1",
+};
+
 /** اینپوتِ لیبل‌شناور — لیبل با خالی‌بودن پایین می‌نشیند و با فوکوس/پُرشدن بالا می‌رود */
 export function Field({
   id,
@@ -108,21 +118,29 @@ export function SelectField({
   label,
   required = false,
   defaultValue = "",
+  value,
+  onChange,
   children,
 }: {
   id: string;
   label: string;
   required?: boolean;
   defaultValue?: string;
+  /** حالتِ کنترل‌شده — اگر داده شود، از value/onChange استفاده می‌شود نه defaultValue */
+  value?: string;
+  onChange?: (value: string) => void;
   children: ReactNode;
 }) {
+  const controlled = value !== undefined;
   return (
     <div className="relative">
       <select
         id={id}
         name={id}
         required={required}
-        defaultValue={defaultValue}
+        {...(controlled
+          ? { value, onChange: (e: React.ChangeEvent<HTMLSelectElement>) => onChange?.(e.target.value) }
+          : { defaultValue })}
         className="peer h-12 w-full appearance-none border-b border-line bg-transparent pt-5 pe-7 text-[15px] text-ink outline-none transition-colors duration-300 focus:border-ink"
       >
         {children}
@@ -193,17 +211,25 @@ export function PhoneField({
   idPrefix,
   label = "شمارهٔ موبایل",
   defaultValue,
+  dial,
+  onDialChange,
 }: {
   idPrefix: string;
   label?: string;
   defaultValue?: string;
+  /** حالتِ کنترل‌شدهٔ کدِ کشور — با انتخابِ کشور به‌صورتِ خودکار تغییر می‌کند */
+  dial?: string;
+  onDialChange?: (value: string) => void;
 }) {
+  const controlledDial = dial !== undefined;
   return (
     <div className="flex items-end gap-3">
       <div className="relative w-24 shrink-0">
         <select
           name={`${idPrefix}-dial`}
-          defaultValue="+98"
+          {...(controlledDial
+            ? { value: dial, onChange: (e: React.ChangeEvent<HTMLSelectElement>) => onDialChange?.(e.target.value) }
+            : { defaultValue: "+98" })}
           aria-label="کدِ کشور"
           className="peer h-12 w-full appearance-none border-b border-line bg-transparent pt-5 pe-6 text-[15px] text-ink outline-none transition-colors duration-300 focus:border-ink"
         >

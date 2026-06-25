@@ -179,13 +179,15 @@ export default function IntroSplash() {
           draggable={false}
         />
 
-        {/* وردمارک */}
-        <h1
+        {/* وردمارک — لوگوتایپِ تزئینیِ پردهٔ ورود، نه عنوانِ صفحه. عمداً <p> است (نه h1)
+            تا با h1ِ واقعیِ Hero رقابت نکند و صفحه دو h1 نداشته باشد؛ نامِ این دیالوگ را
+            aria-label («ورود به گنج‌ریز») می‌دهد. */}
+        <p
           className="intro-item font-trajan mt-7 whitespace-nowrap font-bold uppercase leading-none tracking-[0.1em] sm:tracking-[0.18em]"
           style={{ color: "#2c2c2c", fontSize: "clamp(20px, 5.5vw, 36px)" }}
         >
           GANJRIZ JEWELLERY
-        </h1>
+        </p>
 
         {/* شعار */}
         <p className="intro-item font-en mt-3.5 text-[clamp(9px,2.6vw,12px)] font-medium uppercase tracking-[0.32em] text-ink/55">

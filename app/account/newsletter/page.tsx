@@ -41,7 +41,7 @@ function NewsletterForm() {
       <div>
         <button
           type="submit"
-          className="inline-flex bg-ink px-10 py-3.5 text-[12px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 ease-out hover:bg-[#2d2d2d]"
+          className="inline-flex h-11 items-center justify-center bg-ink px-10 text-[12px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 ease-out hover:bg-[#2d2d2d]"
         >
           ذخیرهٔ تنظیمات
         </button>

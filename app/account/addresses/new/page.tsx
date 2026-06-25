@@ -83,7 +83,7 @@ function AddressForm() {
         </SelectField>
       </fieldset>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-end justify-between">
         <Link
           href="/account/addresses"
           className="text-[13px] text-ink underline decoration-line decoration-1 underline-offset-4 transition-colors duration-300 hover:text-accent-dark hover:decoration-accent-dark"
@@ -92,7 +92,7 @@ function AddressForm() {
         </Link>
         <button
           type="submit"
-          className="inline-flex bg-ink px-10 py-3.5 text-[12px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 ease-out hover:bg-[#2d2d2d]"
+          className="inline-flex h-11 items-center justify-center bg-ink px-10 text-[12px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 ease-out hover:bg-[#2d2d2d]"
         >
           ذخیرهٔ نشانی
         </button>

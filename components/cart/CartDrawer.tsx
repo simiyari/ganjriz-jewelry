@@ -33,7 +33,7 @@ export default function CartDrawer() {
   }, [open, setOpen]);
 
   return (
-    <div className={`fixed inset-0 z-[60] ${open ? "" : "pointer-events-none"}`} aria-hidden={!open}>
+    <div className={`fixed inset-0 z-[60] ${open ? "" : "pointer-events-none"}`} aria-hidden={!open} inert={!open}>
       {/* پوشش — کلیک برای بستن */}
       <div
         onClick={close}
@@ -73,7 +73,7 @@ export default function CartDrawer() {
             <button
               type="button"
               onClick={close}
-              className="border border-ink px-9 py-3.5 text-[13px] font-medium tracking-wide text-ink transition-colors duration-300 hover:bg-ink hover:text-white"
+              className="inline-flex h-11 items-center justify-center border border-[#d0d0d0] px-9 text-[13px] font-medium tracking-wide text-ink transition-colors duration-300 hover:border-[#2d2d2d]"
             >
               ادامهٔ خرید
             </button>
@@ -192,14 +192,14 @@ export default function CartDrawer() {
               <Link
                 href="/checkout"
                 onClick={close}
-                className="mt-5 block bg-ink py-4 text-center text-[13px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
+                className="mt-5 flex h-11 w-full items-center justify-center bg-ink text-[13px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
               >
                 تسویه حساب
               </Link>
               <Link
                 href="/cart"
                 onClick={close}
-                className="mt-3 block border border-ink py-4 text-center text-[13px] font-medium tracking-wide text-ink transition-colors duration-300 hover:bg-ink hover:text-white"
+                className="mt-3 flex h-11 w-full items-center justify-center border border-[#d0d0d0] text-[13px] font-medium tracking-wide text-ink transition-colors duration-300 hover:border-[#2d2d2d]"
               >
                 مشاهدهٔ سبد خرید
               </Link>

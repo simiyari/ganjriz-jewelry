@@ -46,7 +46,7 @@ export default function InstagramSection() {
         <a
           href={INSTAGRAM.href}
           dir="ltr"
-          className="font-en inline-flex items-center gap-2 bg-ink px-9 py-3.5 text-[12px] font-medium uppercase tracking-wide text-white transition-colors hover:bg-[#2d2d2d]"
+          className="font-en inline-flex h-11 items-center justify-center gap-2 bg-ink px-9 text-[12px] font-medium uppercase tracking-wide text-white transition-colors hover:bg-[#2d2d2d]"
         >
           <InstagramIcon className="h-4 w-4" />
           <span>{INSTAGRAM.handle}</span>

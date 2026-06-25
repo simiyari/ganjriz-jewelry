@@ -32,7 +32,7 @@ export const DEMO_USER: AccountUser = {
 /** شمارهٔ موبایلِ مجازِ حسابِ نمایشی (۱۰ رقمِ بدونِ صفر/پیش‌شماره). */
 export const DEMO_PHONE = "9122403662";
 /** کُدِ یک‌بارمصرفِ نمایشی. */
-export const DEMO_OTP = "123456";
+export const DEMO_OTP = "12345";
 
 /** هر ورودیِ شماره را به ۱۰ رقمِ خالص (بدونِ +۹۸/۰/فاصله) نرمال می‌کند. */
 export function normalizePhone(input: string): string {

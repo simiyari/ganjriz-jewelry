@@ -3,16 +3,17 @@ import { type ReactNode } from "react";
 
 /* ──────────────────────────────────────────────
    اجزای کوچکِ مشترکِ پنلِ کاربری — جعبهٔ خط‌دار، تیترِ بخش، دکمه‌ها و حالتِ خالی.
-   دکمه‌ها فقط مشکی/سفید (مطابقِ قانونِ رنگِ دکمه‌های سایت).
+   دکمه‌های پُر مشکی می‌مانند؛ دکمه‌های سفید پُر نمی‌شوند — فقط خطِ دورشان در هاور
+   تیره می‌شود (#d0d0d0 → #2d2d2d).
    ────────────────────────────────────────────── */
 
-/** دکمهٔ پُرِ مشکی (تمام‌عرض) */
+/** دکمهٔ پُرِ مشکی (تمام‌عرض) — ارتفاعِ استانداردِ ۴۴px (h-11) مثلِ همهٔ دکمه‌ها */
 export const ACC_BTN =
-  "block w-full bg-ink py-3.5 text-center text-[12px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 ease-out hover:bg-[#2d2d2d]";
+  "flex h-11 w-full items-center justify-center bg-ink text-[12px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 ease-out hover:bg-[#2d2d2d]";
 
-/** دکمهٔ خط‌دار (سفید → مشکی در هاور) */
+/** دکمهٔ خط‌دارِ سفید — پس‌زمینه ثابت؛ فقط خطِ دور در هاور تیره می‌شود؛ ارتفاعِ ۴۴px */
 export const ACC_BTN_OUTLINE =
-  "inline-flex items-center justify-center border border-ink px-7 py-3 text-[12px] font-semibold tracking-[0.08em] text-ink transition-colors duration-300 ease-out hover:bg-ink hover:text-white";
+  "inline-flex h-11 items-center justify-center border border-[#d0d0d0] px-7 text-[12px] font-semibold tracking-[0.08em] text-ink transition-colors duration-300 ease-out hover:border-[#2d2d2d]";
 
 /** تیترِ بخش (مثلِ «اطلاعاتِ حساب»، «دفترچهٔ نشانی») */
 export function SectionTitle({ children }: { children: ReactNode }) {
@@ -30,11 +31,11 @@ export function Panel({
   children: ReactNode;
 }) {
   return (
-    <div className="flex h-full flex-col border border-line">
-      <div className="border-b border-line px-6 py-4">
+    <div className="flex h-full flex-col border border-[#2d2d2d]">
+      <div className="border-b border-[#2d2d2d] px-6 py-4">
         <h3 className="text-[13px] font-semibold tracking-[0.06em] text-ink">{title}</h3>
       </div>
-      <div className="flex flex-1 flex-col px-6 py-5 text-[14px] leading-7 text-ink">{children}</div>
+      <div className="flex flex-1 flex-col px-6 py-6 text-[14px] leading-7 text-ink">{children}</div>
     </div>
   );
 }

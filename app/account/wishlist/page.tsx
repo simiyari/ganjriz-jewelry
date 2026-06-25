@@ -1,20 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import AccountShell from "@/components/account/AccountShell";
-import { PRODUCTS, type Product } from "@/lib/site-data";
-import { asset } from "@/lib/asset";
-import { faNumber, faDigits } from "@/lib/format";
+import { PRODUCTS, HIGH_JEWELRY, type Product } from "@/lib/site-data";
+import { faDigits } from "@/lib/format";
 import { useCart } from "@/components/cart/CartContext";
-import { CloseIcon, ChevronDownIcon } from "@/components/ui/icons";
+import { useWishlist } from "@/components/wishlist/WishlistContext";
+import ProductCard from "@/components/products/ProductCard";
+import { ChevronDownIcon } from "@/components/ui/icons";
 
-/* علاقه‌مندی‌ها — شبکهٔ محصولاتِ ذخیره‌شده با حذف و اقدام‌ها (مطابقِ my wish list.png). */
+/* علاقه‌مندی‌ها — لیستِ واقعی و ماندگار از WishlistContext (localStorage).
+   هر کارت همان کارتِ صفحهٔ محصولات است؛ قلبِ قرمزِ روی تصویر، آیتم را واقعاً حذف
+   می‌کند و حذف با ریلود برنمی‌گردد (مطابقِ my wish list.png). */
 
-// سه قلمِ نمونه برای لیستِ علاقه‌مندی (پلاک/آویزها).
-const WISHLIST_SLUGS = ["pendant-name", "pendant-heart", "pendant-verse"] as const;
-const INITIAL = PRODUCTS.filter((p) => (WISHLIST_SLUGS as readonly string[]).includes(p.slug));
+// نگاشتِ اسلاگ → {محصول، مسیرِ پایه} از هر دو مجموعه (محصولات + جواهرِ لوکس)
+const BY_SLUG = new Map<string, { product: Product; basePath: string }>();
+for (const p of HIGH_JEWELRY) BY_SLUG.set(p.slug, { product: p, basePath: "/high-jewelry" });
+for (const p of PRODUCTS) BY_SLUG.set(p.slug, { product: p, basePath: "/products" });
 
 export default function WishlistPage() {
   return (
@@ -26,15 +29,21 @@ export default function WishlistPage() {
 
 function WishlistContent() {
   const cart = useCart();
-  const [items, setItems] = useState<Product[]>(INITIAL);
+  const wishlist = useWishlist();
   const [note, setNote] = useState("");
 
-  const remove = (id: string) => setItems((prev) => prev.filter((p) => p.id !== id));
+  // اسلاگ‌های ذخیره‌شده را به محصولِ واقعی تبدیل می‌کنیم (ناشناخته‌ها نادیده)
+  const items = wishlist.slugs
+    .map((slug) => BY_SLUG.get(slug))
+    .filter((x): x is { product: Product; basePath: string } => Boolean(x));
 
   const addAll = () => {
-    items.forEach((p) => cart.addItem(p, p.colors[0], 1));
+    items.forEach(({ product }) => cart.addItem(product, product.colors[0], 1));
     cart.setOpen(true);
   };
+
+  // تا خوانده‌شدنِ localStorage چیزی نشان نده تا حالتِ خالی الکی فلش نزند
+  if (!wishlist.ready) return null;
 
   if (items.length === 0) {
     return (
@@ -47,7 +56,7 @@ function WishlistContent() {
         <div>
           <Link
             href="/products"
-            className="inline-flex border border-ink px-7 py-3 text-[12px] font-semibold tracking-[0.08em] text-ink transition-colors duration-300 ease-out hover:bg-ink hover:text-white"
+            className="inline-flex h-11 items-center justify-center border border-[#d0d0d0] px-7 text-[12px] font-semibold tracking-[0.08em] text-ink transition-colors duration-300 ease-out hover:border-[#2d2d2d]"
           >
             مشاهدهٔ محصولات
           </Link>
@@ -60,47 +69,15 @@ function WishlistContent() {
     <div className="flex flex-col gap-6">
       <ListBar count={items.length} />
 
-      <div className="grid grid-cols-2 gap-x-5 gap-y-9 lg:grid-cols-3">
-        {items.map((p) => (
-          <div key={p.id} className="group flex flex-col">
-            <div className="mb-3 flex justify-end">
-              <button
-                type="button"
-                onClick={() => remove(p.id)}
-                aria-label={`حذفِ ${p.title} از علاقه‌مندی‌ها`}
-                className="grid h-7 w-7 place-items-center text-muted transition-colors duration-300 hover:text-ink"
-              >
-                <CloseIcon className="h-4 w-4" />
-              </button>
-            </div>
-            <Link
-              href={`/products/${p.slug}`}
-              className="relative block aspect-square overflow-hidden bg-surface"
-            >
-              <Image
-                src={asset(p.image)}
-                alt={p.title}
-                fill
-                sizes="(max-width:1024px) 45vw, 280px"
-                className="img-zoom object-cover"
-              />
-            </Link>
-            <Link
-              href={`/products/${p.slug}`}
-              className="mt-4 text-[14px] font-medium leading-6 text-ink transition-colors duration-300 hover:text-accent-dark"
-            >
-              {p.title}
-            </Link>
-            <span className="mt-1 text-[14px] tabular-nums text-muted">
-              {faNumber(p.price)}
-              <span className="ms-1 text-[11px]">تومان</span>
-            </span>
-          </div>
+      {/* همان کارت و چینشِ صفحهٔ محصولات؛ قلبِ قرمز = حذفِ واقعی از علاقه‌مندی‌ها */}
+      <div className="grid grid-cols-2 items-start gap-3 lg:grid-cols-3">
+        {items.map(({ product, basePath }) => (
+          <ProductCard key={product.slug} product={product} basePath={basePath} />
         ))}
       </div>
 
       {/* اقدام‌ها */}
-      <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
+      <div className="mt-2 flex flex-wrap items-end justify-between gap-4">
         <Link
           href="/account"
           className="text-[13px] text-ink underline decoration-line decoration-1 underline-offset-4 transition-colors duration-300 hover:text-accent-dark hover:decoration-accent-dark"
@@ -110,22 +87,15 @@ function WishlistContent() {
         <div className="flex flex-wrap items-center gap-3">
           <button
             type="button"
-            onClick={() => setNote("لیستِ علاقه‌مندی‌ها به‌روز شد.")}
-            className="inline-flex border border-ink px-5 py-3 text-[12px] font-semibold tracking-[0.08em] text-ink transition-colors duration-300 ease-out hover:bg-ink hover:text-white"
-          >
-            به‌روزرسانی
-          </button>
-          <button
-            type="button"
             onClick={() => setNote("پیوندِ اشتراک‌گذاریِ علاقه‌مندی‌ها در نسخهٔ نمایشی فعال نیست.")}
-            className="inline-flex border border-ink px-5 py-3 text-[12px] font-semibold tracking-[0.08em] text-ink transition-colors duration-300 ease-out hover:bg-ink hover:text-white"
+            className="inline-flex h-11 items-center justify-center border border-[#d0d0d0] px-5 text-[12px] font-semibold tracking-[0.08em] text-ink transition-colors duration-300 ease-out hover:border-[#2d2d2d]"
           >
             اشتراک‌گذاری
           </button>
           <button
             type="button"
             onClick={addAll}
-            className="inline-flex bg-ink px-6 py-3 text-[12px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 ease-out hover:bg-[#2d2d2d]"
+            className="inline-flex h-11 items-center justify-center bg-ink px-6 text-[12px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 ease-out hover:bg-[#2d2d2d]"
           >
             افزودنِ همه به سبد
           </button>
@@ -133,8 +103,6 @@ function WishlistContent() {
       </div>
 
       {note && <p className="text-[13px] text-muted">{note}</p>}
-
-      <ListBar count={items.length} />
     </div>
   );
 }

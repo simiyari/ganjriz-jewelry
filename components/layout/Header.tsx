@@ -24,13 +24,16 @@ function Logo({ className = "" }: { className?: string }) {
   return (
     <Link
       href="/"
-      aria-label="GANJRIZ JEWELLERY"
+      aria-label="گنج‌ریز — صفحهٔ اصلی"
       className={`group inline-flex flex-col items-center ${className}`}
     >
-      <span className="font-trajan whitespace-nowrap text-[clamp(15px,4.2vw,22px)] font-bold uppercase leading-none tracking-[0.06em] text-[#b5a414] sm:tracking-[0.15em]">
+      {/* وردمارکِ لوگو = لوگوتایپِ برند (نه متنِ محتوایی). نامِ دسترس‌پذیر را aria-label روی
+          لینک می‌دهد و این دو span از درختِ a11y پنهان‌اند: لوگوتایپ از الزامِ کنتراستِ
+          WCAG مستثناست و این کار تکرارِ نام/عدم‌تطابقِ Label-in-Name را هم برطرف می‌کند. */}
+      <span aria-hidden="true" className="font-trajan whitespace-nowrap text-[clamp(15px,4.2vw,22px)] font-bold uppercase leading-none tracking-[0.06em] text-gold-dark sm:tracking-[0.15em]">
         GANJRIZ JEWELLERY
       </span>
-      <span className="font-en mt-1.5 whitespace-nowrap text-[clamp(8px,2.3vw,11px)] font-medium uppercase tracking-[0.2em] text-ink/60">
+      <span aria-hidden="true" className="font-en mt-1.5 whitespace-nowrap text-[clamp(8px,2.3vw,11px)] font-medium uppercase tracking-[0.2em] text-ink/60">
         THE LAST STEP OF LUXURY
       </span>
     </Link>

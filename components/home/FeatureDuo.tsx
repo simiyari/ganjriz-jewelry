@@ -39,7 +39,7 @@ export default function FeatureDuo() {
                 data-reveal-step={baseStep}
               >
                 <Eyebrow onDark>{item.eyebrow}</Eyebrow>
-                <h3 className="text-[26px] font-semibold md:text-[32px]">{item.title}</h3>
+                <h2 className="text-[26px] font-semibold md:text-[32px]">{item.title}</h2>
               </div>
               <div
                 data-reveal-step={baseStep + 1}

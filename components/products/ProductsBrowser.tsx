@@ -66,6 +66,7 @@ export default function ProductsBrowser({
   priceRanges = PRICE_RANGES,
   promo = PRODUCTS_PROMO,
   basePath = "/products",
+  gridHeading = "محصولات",
 }: {
   products?: readonly Product[];
   filterGroups?: readonly FilterGroupDef[];
@@ -73,6 +74,8 @@ export default function ProductsBrowser({
   promo?: PromoDef | null;
   /** ریشهٔ مسیرِ تک‌محصول برای کارت‌ها — «/products» یا «/high-jewelry» */
   basePath?: string;
+  /** عنوانِ پنهانِ بخشِ محصولات — فقط برای صفحه‌خوان‌ها؛ سلسله‌مراتبِ هدینگ را کامل می‌کند */
+  gridHeading?: string;
 } = {}) {
   const [filters, setFilters] = useState<FilterState>(emptyFilters);
   const [sort, setSort] = useState<string>("newest");
@@ -180,7 +183,7 @@ export default function ProductsBrowser({
     <>
       {activeCount > 0 && (
         <div className="mb-1 flex items-center justify-between pt-1">
-          <span className="text-xs text-faint">
+          <span className="text-xs text-muted">
             {faNumber(activeCount)} فیلترِ فعال
           </span>
           <button
@@ -328,7 +331,7 @@ export default function ProductsBrowser({
           </div>
         </div>
         <div className="flex items-center justify-between py-4 text-[13px]">
-          <span className="text-faint">{faNumber(filtered.length)} محصول</span>
+          <span className="text-muted">{faNumber(filtered.length)} محصول</span>
           <div className="flex items-center gap-2.5">
             <button
               type="button"
@@ -368,7 +371,7 @@ export default function ProductsBrowser({
             <FilterIcon className="h-[18px] w-[18px]" />
             {showFilters ? "پنهان‌کردنِ فیلترها" : "نمایشِ فیلترها"}
           </button>
-          <span className="text-faint">{faNumber(filtered.length)} محصول</span>
+          <span className="text-muted">{faNumber(filtered.length)} محصول</span>
         </div>
 
         <div data-sort className="relative">
@@ -415,11 +418,14 @@ export default function ProductsBrowser({
             top: "calc(var(--header-h, 86px) + var(--ptoolbar-h, 60px) + 8px)",
           }}
           aria-hidden={!showFilters}
+          inert={!showFilters}
         >
           <div className="w-full md:w-60">{filterGroupsUI}</div>
         </aside>
 
         <div className="flex-1">
+          {/* عنوانِ پنهان برای صفحه‌خوان — h1(هیرو) → h2 → h3(کارت‌ها) را پیوسته می‌کند */}
+          <h2 className="sr-only">{gridHeading}</h2>
           {shown.length > 0 ? (
             <div
               key={reflowKey}
@@ -459,7 +465,7 @@ export default function ProductsBrowser({
                         <h3 className="text-[26px] font-semibold [text-shadow:0_1px_14px_rgba(0,0,0,0.35)] md:text-[32px]">
                           {promo.title}
                         </h3>
-                        <span className="bg-white px-7 py-3 text-[12px] font-medium tracking-[0.04em] text-ink transition-colors duration-300 hover:bg-[#f5f5f5]">
+                        <span className="inline-flex h-11 items-center justify-center bg-white px-7 text-[12px] font-medium tracking-[0.04em] text-ink transition-colors duration-300 hover:bg-[#f5f5f5]">
                           {promo.cta}
                         </span>
                       </div>
@@ -483,13 +489,13 @@ export default function ProductsBrowser({
 
           {visible < filtered.length && (
             <div className="mt-14 flex flex-col items-center gap-3">
-              <span className="text-xs text-faint">
+              <span className="text-xs text-muted">
                 نمایشِ {faNumber(shown.length)} از {faNumber(filtered.length)} محصول
               </span>
               <button
                 type="button"
                 onClick={() => setLoadedCells((c) => c + CELLS_STEP)}
-                className="bg-ink px-12 py-3.5 text-[13px] font-medium tracking-[0.04em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
+                className="inline-flex h-11 items-center justify-center bg-ink px-12 text-[13px] font-medium tracking-[0.04em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
                 style={{ transitionTimingFunction: EASE }}
               >
                 نمایشِ بیشتر
@@ -506,6 +512,7 @@ export default function ProductsBrowser({
         }`}
         style={{ transitionTimingFunction: EASE }}
         aria-hidden={!mobileFilterOpen}
+        inert={!mobileFilterOpen}
       >
         <div className="flex h-16 shrink-0 items-center justify-between border-b border-line px-5">
           <span className="text-[15px] font-semibold text-ink">فیلترها</span>
@@ -525,7 +532,7 @@ export default function ProductsBrowser({
           <button
             type="button"
             onClick={() => setMobileFilterOpen(false)}
-            className="w-full bg-ink py-3.5 text-[13px] font-medium tracking-[0.04em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
+            className="flex h-11 w-full items-center justify-center bg-ink text-[13px] font-medium tracking-[0.04em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
           >
             نمایشِ {faNumber(filtered.length)} محصول
           </button>

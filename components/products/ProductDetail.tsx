@@ -24,6 +24,7 @@ import {
 } from "@/lib/product-detail";
 import { faNumber } from "@/lib/format";
 import { useCart } from "@/components/cart/CartContext";
+import { useWishlist } from "@/components/wishlist/WishlistContext";
 import { asset } from "@/lib/asset";
 import {
   HeartIcon,
@@ -234,7 +235,10 @@ export default function ProductDetail({
   const gallery = productGallery(product);
   const specs = productSpecs(product);
   const cart = useCart();
-  const [liked, setLiked] = useState(false);
+  // علاقه‌مندیِ سراسری و ماندگار — همان لیستِ کارت‌ها و صفحهٔ علاقه‌مندی‌ها
+  const wishlist = useWishlist();
+  const liked = wishlist.has(product.slug);
+  const toggleLike = () => wishlist.toggle(product.slug);
   const [color, setColor] = useState<GoldColor>(product.colors[0]);
   const [open, setOpen] = useState<Record<string, boolean>>({ details: true });
   const [lightbox, setLightbox] = useState<number | null>(null);
@@ -268,7 +272,7 @@ export default function ProductDetail({
             images={gallery}
             alt={product.title}
             liked={liked}
-            onToggleLike={() => setLiked((v) => !v)}
+            onToggleLike={toggleLike}
             onZoom={(i) => setLightbox(i)}
           />
 
@@ -295,7 +299,7 @@ export default function ProductDetail({
                 type="button"
                 aria-label="افزودن به علاقه‌مندی‌ها"
                 aria-pressed={liked}
-                onClick={() => setLiked((v) => !v)}
+                onClick={toggleLike}
                 className={`absolute end-4 top-4 z-10 grid h-9 w-9 place-items-center transition-colors duration-300 hover:text-danger ${
                   liked ? "text-danger" : "text-ink/55"
                 }`}
@@ -335,7 +339,7 @@ export default function ProductDetail({
           style={{ top: "calc(var(--header-h, 96px) + 16px)" }}
         >
           {/* مسیرِ راهنما — بالای نامِ محصول */}
-          <nav className="flex items-center gap-2 text-xs text-faint">
+          <nav className="flex items-center gap-2 text-xs text-muted">
             <Link href="/" className="transition-colors duration-300 hover:text-ink">
               خانه
             </Link>
@@ -353,7 +357,7 @@ export default function ProductDetail({
           <p className="mt-3 text-[13px] text-muted">
             {colorLabels(product)} · {karatLabel(product.karat)}
           </p>
-          <p className="mt-1 text-[11px] tracking-[0.12em] text-faint">
+          <p className="mt-1 text-[11px] tracking-[0.12em] text-muted">
             کد {productRef(product)}
           </p>
 
@@ -423,7 +427,7 @@ export default function ProductDetail({
               cart.addItem(product, color);
               cart.setOpen(true);
             }}
-            className="mt-5 w-full bg-ink py-4 text-[13px] font-medium tracking-[0.06em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
+            className="mt-5 flex h-11 w-full items-center justify-center bg-ink text-[13px] font-medium tracking-[0.06em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
             style={{ transitionTimingFunction: EASE }}
           >
             افزودن به سبدِ خرید

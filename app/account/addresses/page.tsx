@@ -14,22 +14,22 @@ export default function AddressBookPage() {
           <SectionTitle>نشانی‌های پیش‌فرض</SectionTitle>
           <Link
             href="/account/addresses/new"
-            className="inline-flex border border-ink px-6 py-2.5 text-[12px] font-semibold tracking-[0.08em] text-ink transition-colors duration-300 ease-out hover:bg-ink hover:text-white"
+            className="inline-flex h-11 items-center justify-center border border-[#d0d0d0] px-6 text-[12px] font-semibold tracking-[0.08em] text-ink transition-colors duration-300 ease-out hover:border-[#2d2d2d]"
           >
             افزودنِ نشانیِ جدید
           </Link>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-2">
           <Panel title="نشانیِ پیش‌فرضِ صورتحساب">
             <p className="text-muted">نشانیِ پیش‌فرضِ صورتحساب تنظیم نشده است.</p>
-            <Link href="/account/addresses/new" className={`${ACC_BTN} mt-auto`}>
+            <Link href="/account/addresses/new" className={`${ACC_BTN} mt-6`}>
               افزودنِ نشانی
             </Link>
           </Panel>
           <Panel title="نشانیِ پیش‌فرضِ ارسال">
             <p className="text-muted">نشانیِ پیش‌فرضِ ارسال تنظیم نشده است.</p>
-            <Link href="/account/addresses/new" className={`${ACC_BTN} mt-auto`}>
+            <Link href="/account/addresses/new" className={`${ACC_BTN} mt-6`}>
               افزودنِ نشانی
             </Link>
           </Panel>

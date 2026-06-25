@@ -75,25 +75,28 @@ export default function CardGallery({
         ))}
       </div>
 
-      {/* فلش‌ها — ساده و بدونِ دایرهٔ پس‌زمینه؛ روی هاور هم‌زمان و نرم از دو طرف
-          وارد تصویر می‌شوند (راست از راست، چپ از چپ) و سرِ جای خود می‌نشینند.
-          در حالتِ عادی بیرونِ لبه‌اند و با overflow-hidden کلیپ می‌شوند (بدونِ fade).
+      {/* فلش‌ها — دکمه «هدفِ لمسیِ ثابت» است: ۴۴px (h-11 w-11)، همیشه درونِ کادر و
+          بدونِ ترنزفورم، تا الزامِ اندازهٔ تارگتِ a11y (حداقل ۲۴×۲۴) پاس بماند و کلیپ نشود.
+          خودِ حرکتِ نرم روی آیکونِ داخل است: از بیرونِ لبه (translateX ۴۰px) با همان منحنیِ
+          easeOutExpo به جای خود سُر می‌خورد و با overflow-hidden کادر کلیپ می‌شود — فقط
+          transform (بدونِ opacity) تا کاملاً روان و بی‌تیک‌تیک بماند، مثلِ قبل.
+          در حالتِ عادی pointer-events-none؛ روی هاورِ کارت فعال می‌شود.
           در RTL: راست=قبلی، چپ=بعدی. */}
       <button
         type="button"
         aria-label="تصویرِ قبلی"
         onClick={(e) => go(e, -1)}
-        className="absolute start-2 inset-y-0 my-auto z-10 grid h-8 w-8 translate-x-10 place-items-center text-ink pointer-events-none transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0 group-hover:pointer-events-auto"
+        className="absolute start-2 inset-y-0 my-auto z-10 grid h-11 w-11 place-items-center text-ink pointer-events-none group-hover:pointer-events-auto"
       >
-        <ChevronRightIcon className="h-5 w-5" />
+        <ChevronRightIcon className="h-5 w-5 translate-x-10 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0" />
       </button>
       <button
         type="button"
         aria-label="تصویرِ بعدی"
         onClick={(e) => go(e, 1)}
-        className="absolute end-2 inset-y-0 my-auto z-10 grid h-8 w-8 -translate-x-10 place-items-center text-ink pointer-events-none transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0 group-hover:pointer-events-auto"
+        className="absolute end-2 inset-y-0 my-auto z-10 grid h-11 w-11 place-items-center text-ink pointer-events-none group-hover:pointer-events-auto"
       >
-        <ChevronLeftIcon className="h-5 w-5" />
+        <ChevronLeftIcon className="h-5 w-5 -translate-x-10 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0" />
       </button>
 
       {/* نوارِ پیشرفت — تنها بخشِ فعال (۲px مشکیِ #131313) که نرم و هم‌زمان با اسلایدِ

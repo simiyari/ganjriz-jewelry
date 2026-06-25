@@ -26,7 +26,7 @@ import { useAuth, normalizePhone, DEMO_PHONE, DEMO_OTP, DEMO_USER } from "@/comp
    ────────────────────────────────────────────── */
 
 const BTN =
-  "mt-2 w-full bg-ink py-4 text-[13px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 ease-out hover:bg-[#2d2d2d]";
+  "mt-2 flex h-11 w-full items-center justify-center bg-ink text-[13px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 ease-out hover:bg-[#2d2d2d]";
 
 /** دکمهٔ ورود با گوگل — دکمهٔ سفیدِ خط‌دار با لوگوی گوگل (فاز ۱: نمایشی). */
 function GoogleButton({ label, onClick }: { label: string; onClick?: () => void }) {
@@ -34,7 +34,7 @@ function GoogleButton({ label, onClick }: { label: string; onClick?: () => void 
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center justify-center gap-3 border border-line bg-white py-3.5 text-[14px] font-medium text-ink transition-colors duration-300 ease-out hover:bg-surface"
+      className="flex h-11 w-full items-center justify-center gap-3 border border-line bg-white text-[14px] font-medium text-ink transition-colors duration-300 ease-out hover:bg-surface"
     >
       <GoogleIcon className="h-5 w-5" weight="bold" />
       {label}
@@ -92,9 +92,30 @@ function formatTime(total: number): string {
   return faDigits(`${m}:${String(s).padStart(2, "0")}`);
 }
 
+/* اسکلتونِ پنلِ ورود — هم‌اندازهٔ پنلِ واقعی تا هنگامِ خواندنِ سشن یا ریدایرکتِ کاربرِ
+   واردشده، جابه‌جاییِ چیدمان و فلَشِ فرم رخ ندهد. aria-hidden + motion-safe طبق بقیهٔ سایت. */
+function AuthSkeleton() {
+  return (
+    <div className="mx-auto w-full max-w-xl" aria-hidden="true">
+      <div className="mb-9 flex justify-center md:mb-11">
+        <div className="h-16 w-16 bg-surface motion-safe:animate-pulse md:h-20 md:w-20" />
+      </div>
+      <div className="flex gap-6 border-b border-line pb-4">
+        <div className="h-5 flex-1 bg-surface motion-safe:animate-pulse" />
+        <div className="h-5 flex-1 bg-surface motion-safe:animate-pulse" />
+      </div>
+      <div className="mt-9 flex flex-col gap-5">
+        <div className="h-12 bg-surface motion-safe:animate-pulse" />
+        <div className="h-12 bg-surface motion-safe:animate-pulse" />
+        <div className="h-11 bg-surface motion-safe:animate-pulse" />
+      </div>
+    </div>
+  );
+}
+
 export default function AuthPanel() {
   const router = useRouter();
-  const { user, login } = useAuth();
+  const { user, login, ready } = useAuth();
 
   const [tab, setTab] = useState<"login" | "register">("login");
   // روشِ ورود: پیش‌فرض «موبایل + کُدِ یک‌بارمصرف»؛ با یک لینک به «رمزِ عبور» سوییچ می‌شود.
@@ -167,6 +188,11 @@ export default function AuthPanel() {
     `flex-1 border-b-2 pb-4 text-center text-[15px] tracking-wide transition-colors duration-300 ${
       active ? "border-ink font-semibold text-ink" : "border-line text-muted hover:text-ink"
     }`;
+
+  // تا وقتی سشن خوانده نشده (ready=false) یا کاربر از قبل وارد است، فرمِ ورود را نشان نده —
+  // وگرنه کاربرِ واردشده یک لحظه فرم را می‌بیند و سپس افکتِ بالا به /account می‌بَرَد. اسکلتون
+  // جای فرم را تا خواندنِ سشن/ریدایرکت پر می‌کند (بدونِ فلَش و بدونِ جابه‌جاییِ چیدمان).
+  if (!ready || user) return <AuthSkeleton />;
 
   return (
     <div className="mx-auto w-full max-w-xl">

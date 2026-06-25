@@ -52,7 +52,7 @@ export default function Footer({ breadcrumb }: { breadcrumb?: Crumb[] }) {
         <div className="container-lux flex flex-col items-center justify-between gap-4 py-6 text-center md:flex-row md:text-start">
           <div className="flex flex-col items-center gap-1 md:flex-row md:gap-4">
             <span className="text-lg font-medium text-white">{SITE.name}</span>
-            <span className="text-xs text-white/40">
+            <span className="text-xs text-white/60">
               © {new Date().getFullYear()} — تمامی حقوق محفوظ است.
             </span>
           </div>

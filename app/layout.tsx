@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import IntroSplash from "@/components/ui/IntroSplash";
 import { AuthProvider } from "@/components/account/AuthContext";
+import { WishlistProvider } from "@/components/wishlist/WishlistContext";
 import { CartProvider } from "@/components/cart/CartContext";
 import CartDrawer from "@/components/cart/CartDrawer";
 
@@ -63,14 +64,16 @@ export default function RootLayout({
           <style>{"#intro-splash{display:none!important}"}</style>
         </noscript>
         <AuthProvider>
-          <CartProvider>
-            <SmoothScroll>
-              <div id="page-root">{children}</div>
-              <IntroSplash />
-            </SmoothScroll>
-            {/* کشوی سبد خرید — یک‌بار، سراسری (استیتش در CartProvider می‌ماند) */}
-            <CartDrawer />
-          </CartProvider>
+          <WishlistProvider>
+            <CartProvider>
+              <SmoothScroll>
+                <div id="page-root">{children}</div>
+                <IntroSplash />
+              </SmoothScroll>
+              {/* کشوی سبد خرید — یک‌بار، سراسری (استیتش در CartProvider می‌ماند) */}
+              <CartDrawer />
+            </CartProvider>
+          </WishlistProvider>
         </AuthProvider>
       </body>
     </html>

@@ -22,11 +22,11 @@ function DashboardContent() {
   if (!user) return null;
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-12">
       {/* اطلاعاتِ حساب */}
-      <section className="flex flex-col gap-5">
+      <section className="flex flex-col gap-6">
         <SectionTitle>اطلاعاتِ حساب</SectionTitle>
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-2">
           <Panel title="اطلاعاتِ تماس">
             <p className="font-medium text-ink">
               {user.firstName} {user.lastName}
@@ -34,7 +34,7 @@ function DashboardContent() {
             <p dir="ltr" className="mt-1 text-start text-muted">
               {user.email}
             </p>
-            <Link href="/account/information" className={`${ACC_BTN} mt-auto`}>
+            <Link href="/account/information" className={`${ACC_BTN} mt-6`}>
               ویرایشِ پروفایل
             </Link>
             <div className="mt-3">
@@ -43,8 +43,9 @@ function DashboardContent() {
           </Panel>
 
           <Panel title="خبرنامه">
-            <p className="text-muted">شما هنوز مشترکِ خبرنامهٔ گنج‌ریز نیستید.</p>
-            <Link href="/account/newsletter" className={`${ACC_BTN} mt-auto`}>
+            <p className="font-medium text-ink">شما هنوز مشترکِ خبرنامهٔ گنج‌ریز نیستید.</p>
+            <p className="mt-1 text-muted">با عضویت، زودتر از همه باخبر شوید.</p>
+            <Link href="/account/newsletter" className={`${ACC_BTN} mt-6`}>
               ویرایشِ اشتراک
             </Link>
           </Panel>
@@ -52,7 +53,7 @@ function DashboardContent() {
       </section>
 
       {/* دفترچهٔ نشانی */}
-      <section className="flex flex-col gap-5">
+      <section className="flex flex-col gap-6">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <SectionTitle>دفترچهٔ نشانی</SectionTitle>
           <Link
@@ -62,16 +63,16 @@ function DashboardContent() {
             مدیریتِ نشانی‌ها
           </Link>
         </div>
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-2">
           <Panel title="نشانیِ پیش‌فرضِ صورتحساب">
             <p className="text-muted">نشانیِ پیش‌فرضِ صورتحساب تنظیم نشده است.</p>
-            <Link href="/account/addresses/new" className={`${ACC_BTN} mt-auto`}>
+            <Link href="/account/addresses/new" className={`${ACC_BTN} mt-6`}>
               افزودنِ نشانی
             </Link>
           </Panel>
           <Panel title="نشانیِ پیش‌فرضِ ارسال">
             <p className="text-muted">نشانیِ پیش‌فرضِ ارسال تنظیم نشده است.</p>
-            <Link href="/account/addresses/new" className={`${ACC_BTN} mt-auto`}>
+            <Link href="/account/addresses/new" className={`${ACC_BTN} mt-6`}>
               افزودنِ نشانی
             </Link>
           </Panel>

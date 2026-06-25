@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { type Product, GOLD_COLORS } from "@/lib/site-data";
 import { productGallery } from "@/lib/product-detail";
 import { faNumber } from "@/lib/format";
 import { HeartIcon } from "@/components/ui/icons";
+import { useWishlist } from "@/components/wishlist/WishlistContext";
 import CardGallery from "./CardGallery";
 
 const BADGE_LABEL: Record<string, string> = {
@@ -21,7 +21,10 @@ export default function ProductCard({
   /** ریشهٔ مسیرِ صفحهٔ تک‌محصول — «/products» یا «/high-jewelry» */
   basePath?: string;
 }) {
-  const [liked, setLiked] = useState(false);
+  // علاقه‌مندیِ سراسری و ماندگار — قلب همه‌جا همین لیست را می‌خواند و تغییر می‌دهد
+  const wishlist = useWishlist();
+  const liked = wishlist.has(product.slug);
+  const toggleLike = () => wishlist.toggle(product.slug);
   // گالریِ تصاویرِ همین محصول — برای سواپِ نرمِ تصاویر با موس/فلش روی کارت
   const gallery = productGallery(product);
 
@@ -34,9 +37,9 @@ export default function ProductCard({
       {/* علاقه‌مندی — سمتِ پایانی (چپ در RTL)؛ روی هاور قرمز می‌شود */}
       <button
         type="button"
-        aria-label="افزودن به علاقه‌مندی‌ها"
+        aria-label={liked ? "حذف از علاقه‌مندی‌ها" : "افزودن به علاقه‌مندی‌ها"}
         aria-pressed={liked}
-        onClick={() => setLiked((v) => !v)}
+        onClick={toggleLike}
         className={`absolute end-3 top-3 z-20 grid h-8 w-8 place-items-center transition-colors hover:text-danger ${
           liked ? "text-danger" : "text-ink/55"
         }`}

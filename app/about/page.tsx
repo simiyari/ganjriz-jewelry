@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 // دکمه‌ها — هم‌شکلِ مرجع: پُرِ تیره (مثلِ GET DIRECTIONS) / روشن روی پس‌زمینهٔ تیره
 const BTN_BASE =
-  "inline-flex items-center justify-center gap-2 px-9 py-3.5 text-[13px] font-medium tracking-wide transition-colors duration-300 ease-out";
+  "inline-flex h-11 items-center justify-center gap-2 px-9 text-[13px] font-medium tracking-wide transition-colors duration-300 ease-out";
 const BTN_SOLID = `${BTN_BASE} bg-ink text-white hover:bg-[#2d2d2d]`;
 const BTN_LIGHT = `${BTN_BASE} bg-white text-ink hover:bg-[#f5f5f5]`;
 

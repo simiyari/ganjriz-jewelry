@@ -26,7 +26,7 @@ export default function CollectionsBrowser() {
     <div className="container-lux pb-16 md:pb-24">
       {/* نوارِ شمارش + سوییچِ نما */}
       <div className="flex items-center justify-between gap-2 py-5 text-[13px]">
-        <span className="text-faint">{faNumber(COLLECTIONS.length)} مجموعه</span>
+        <span className="text-muted">{faNumber(COLLECTIONS.length)} مجموعه</span>
         <nav className="flex items-center gap-2.5 md:gap-5" aria-label="حالتِ نمایش">
           <button
             type="button"
