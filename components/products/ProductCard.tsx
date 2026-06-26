@@ -58,8 +58,9 @@ export default function ProductCard({
         {/* گالریِ تصویرِ کارت — سواپِ نرم با موس/فلش + نوارِ پیشرفت روی درزِ بالای کادر */}
         <CardGallery images={gallery} alt={product.title} />
 
-        {/* کادرِ طوسیِ روشن — نوشته‌های محصول؛ فاصلهٔ کناره‌ها و پایین ۲۴px */}
-        <div className="bg-[#eeeeee] px-6 pt-4 pb-6">
+        {/* کادرِ طوسیِ روشن — نوشته‌های محصول؛ فاصلهٔ کناره‌ها و پایین ۲۴px.
+            طوسیِ بک‌گراند = f5f5f5 (توکنِ surface) — تنها طوسیِ مجازِ سایت. */}
+        <div className="bg-surface px-6 pt-4 pb-6">
           <h3 className="text-[13px] font-medium leading-6 text-ink transition-colors duration-300 group-hover:text-gold-dark">
             {product.title}
           </h3>

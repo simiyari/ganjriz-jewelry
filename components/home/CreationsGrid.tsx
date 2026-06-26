@@ -16,7 +16,7 @@ export default function CreationsGrid() {
 
       <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-8 lg:grid-cols-4">
         {CATEGORIES.map((cat) => (
-          <Link key={cat.slug} href={`/category/${cat.slug}`} className="fx-reveal group flex flex-col">
+          <Link key={cat.slug} href={`/products?category=${cat.slug}`} className="fx-reveal group flex flex-col">
             <div className="relative aspect-square overflow-hidden bg-surface">
               <Image
                 src={asset(cat.image)}

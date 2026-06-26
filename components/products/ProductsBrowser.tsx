@@ -129,6 +129,33 @@ export default function ProductsBrowser({
     };
   }, [mobileFilterOpen]);
 
+  // مقداردهیِ اولیهٔ فیلترها از پارامترهای URL — مثلِ ورود از صفحهٔ اصلی با
+  // /products?category=ring. برای خروجیِ استاتیک، به‌جای useSearchParams (که
+  // مرزِ Suspense می‌خواهد) بعد از mount مستقیم از window.location می‌خوانیم.
+  // مقدارها می‌توانند با کاما چند‌تایی باشند (مثلِ ?color=yellow,white).
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const next = emptyFilters();
+    let any = false;
+    for (const key of FILTER_KEYS) {
+      const raw = params.get(key);
+      if (!raw) continue;
+      for (const v of raw.split(",")) {
+        const val = v.trim();
+        if (val) {
+          next[key].add(val);
+          any = true;
+        }
+      }
+    }
+    if (any) {
+      setFilters(next);
+      setLoadedCells(CELLS_PER_PAGE);
+    }
+    // فقط یک‌بار در mount اجرا می‌شود
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const filtered = useMemo(() => {
     const list = products.filter((p) => {
       if (filters.category.size && !filters.category.has(p.category)) return false;

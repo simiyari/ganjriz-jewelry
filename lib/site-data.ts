@@ -18,7 +18,7 @@ export const SITE = {
 export const NAV_LINKS = [
   { label: "خانه", href: "/" },
   { label: "مجموعه‌ها", href: "/collections" },
-  { label: "دسته‌بندی‌ها", href: "/category" },
+  { label: "دسته‌بندی‌ها", href: "/products" },
   { label: "محصولات", href: "/products" },
   { label: "جواهر لوکس", href: "/high-jewelry" },
   { label: "درباره گنج‌ریز", href: "/about" },
@@ -38,7 +38,7 @@ export const FEATURE_DUO = [
     eyebrow: "Complete Set",
     title: "سرویسِ کامل",
     description: "گردنبند، گوشواره، دستبند و انگشترِ هماهنگ در یک سرویسِ کاملِ طلای ۱۸ عیار",
-    href: "/collections/sets",
+    href: "/collections",
     image: "/pelak-nam.jpg",
     align: "center" as const,
   },
@@ -149,19 +149,19 @@ export const SORT_OPTIONS = [
 export const PRODUCTS_PROMO = {
   title: "حلقه‌های طلا",
   cta: "کشف کنید",
-  href: "/category/ring",
+  href: "/products?category=ring",
   image: "/collection-banner.jpg",
 } as const;
 
 /** لینک‌های سریعِ دسته‌بندی (ردیفِ پایینِ صفحه) */
 export const CATEGORY_LINKS = [
-  { label: "انگشتر", href: "/category/ring" },
-  { label: "گردنبند", href: "/category/necklace" },
-  { label: "دستبند", href: "/category/bracelet" },
-  { label: "النگو", href: "/category/bangle" },
-  { label: "گوشواره", href: "/category/earring" },
-  { label: "پلاک و آویز", href: "/category/pendant" },
-  { label: "سکه", href: "/category/coin" },
+  { label: "انگشتر", href: "/products?category=ring" },
+  { label: "گردنبند", href: "/products?category=necklace" },
+  { label: "دستبند", href: "/products?category=bracelet" },
+  { label: "النگو", href: "/products?category=bracelet" },
+  { label: "گوشواره", href: "/products?category=earring" },
+  { label: "پلاک و آویز", href: "/products?category=pendant" },
+  { label: "سکه", href: "/products?category=coin" },
 ] as const;
 
 export type ProductBadge = "new" | "bestseller" | null;
@@ -272,17 +272,17 @@ export const HIGH_JEWELRY_FILTER_GROUPS = [
 export const HIGH_JEWELRY_PROMO = {
   title: "مجموعهٔ پلنگ",
   cta: "کشف مجموعه",
-  href: "/collections/panther",
+  href: "/collections",
   image: "/shole-talayi.jpg",
 } as const;
 
 /** لینک‌های سریعِ پایینِ صفحهٔ جواهر لوکس */
 export const HIGH_JEWELRY_CATEGORY_LINKS = [
-  { label: "انگشترِ جواهر", href: "/category/ring" },
-  { label: "گردنبندِ جواهر", href: "/category/necklace" },
-  { label: "گوشوارهٔ جواهر", href: "/category/earring" },
-  { label: "دستبندِ جواهر", href: "/category/bracelet" },
-  { label: "آویزِ جواهر", href: "/category/pendant" },
+  { label: "انگشترِ جواهر", href: "/high-jewelry?category=ring" },
+  { label: "گردنبندِ جواهر", href: "/high-jewelry?category=necklace" },
+  { label: "گوشوارهٔ جواهر", href: "/high-jewelry?category=earring" },
+  { label: "دستبندِ جواهر", href: "/high-jewelry?category=bracelet" },
+  { label: "آویزِ جواهر", href: "/high-jewelry?category=pendant" },
 ] as const;
 
 /** قطعاتِ جواهرِ لوکس (فیک) — نگین‌دار و گران‌بها، مرتب از جدیدتر */
@@ -400,21 +400,21 @@ export const SERVICES = [
     title: "رزرو وقت حضوری",
     description: "در فضایی خصوصی و آرام، با مشاورهٔ کارشناسان ما قطعهٔ دلخواه خود را انتخاب کنید.",
     cta: "رزرو وقت",
-    href: "/appointment",
+    href: "/about",
     image: "/services/appointment.jpg",
   },
   {
     title: "بسته‌بندی لوکس",
     description: "هر سفارش در جعبهٔ نفیس گنج‌ریز و با روبان طلایی به دست شما می‌رسد.",
     cta: "دربارهٔ بسته‌بندی",
-    href: "/packaging",
+    href: "/about",
     image: "/services/packaging.jpg",
   },
   {
     title: "شخصی‌سازی",
     description: "حکاکی نام، انتخاب عیار و طراحی اختصاصی برای ساخت قطعه‌ای یکتا.",
     cta: "بیشتر بدانید",
-    href: "/personalization",
+    href: "/about",
     image: "/services/personalization.jpg",
   },
 ] as const;
@@ -425,7 +425,7 @@ export const BOUTIQUE = {
   title: "شعبه‌های گنج‌ریز",
   description: "دنیای گنج‌ریز را از نزدیک تجربه کنید؛ نشانی شعبه‌ها و نمایندگی‌های مجاز.",
   cta: "یافتن شعبه",
-  href: "/stores",
+  href: "/about",
   image: "/stores.jpg",
 } as const;
 
@@ -512,7 +512,7 @@ export const FOOTER_COLUMNS = [
     links: [
       { label: "دربارهٔ ما", href: "/about" },
       { label: "تاریخچه", href: "/about#history" },
-      { label: "شعبه‌ها", href: "/stores" },
+      { label: "شعبه‌ها", href: "/about" },
       { label: "وبلاگ", href: "/blog" },
       { label: "فرصت‌های شغلی", href: "/careers" },
     ],

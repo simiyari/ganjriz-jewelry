@@ -14,9 +14,12 @@ type HeroData = {
 export default function ProductsHero({
   data = PRODUCTS_PAGE,
   crumbLabel = "جواهرات",
+  parentCrumb,
 }: {
   data?: HeroData;
   crumbLabel?: string;
+  /** حلقهٔ میانیِ مسیرِ راهنما (مثلاً «مجموعه‌ها») — اگر داده شود، مسیر سه‌سطحی می‌شود */
+  parentCrumb?: { label: string; href: string };
 }) {
   return (
     <section>
@@ -26,6 +29,14 @@ export default function ProductsHero({
           خانه
         </Link>
         <span>/</span>
+        {parentCrumb && (
+          <>
+            <Link href={parentCrumb.href} className="transition-colors hover:text-ink">
+              {parentCrumb.label}
+            </Link>
+            <span>/</span>
+          </>
+        )}
         <span className="text-muted">{crumbLabel}</span>
       </nav>
 

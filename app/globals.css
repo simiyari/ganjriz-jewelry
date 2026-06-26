@@ -7,8 +7,8 @@
    ────────────────────────────────────────────── */
 @theme {
   --color-background: #ffffff;
-  --color-surface: #f5f5f5;        /* خاکستریِ پس‌زمینهٔ یکدستِ سایت */
-  --color-surface-alt: #f4f4f4;    /* Wild Sand */
+  --color-surface: #f5f5f5;        /* خاکستریِ پس‌زمینهٔ یکدستِ سایت — تنها طوسیِ بک‌گراند */
+  --color-surface-alt: #f5f5f5;    /* همان f5f5f5 — هر پس‌زمینهٔ طوسیِ سایت باید f5f5f5 باشد */
   --color-ink: #131313;            /* Cod Gray — متن اصلی */
   --color-ink-deep: #0c0c0c;       /* تیره‌ترین — بنرها/فوتر */
   --color-muted: #6e6e6e;          /* متن فرعی */

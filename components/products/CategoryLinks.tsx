@@ -12,7 +12,7 @@ export default function CategoryLinks({
     <nav className="container-lux border-t border-line py-7">
       <ul className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-[13px] text-muted">
         {links.map((cat, i) => (
-          <li key={cat.href} className="flex items-center gap-2">
+          <li key={cat.label} className="flex items-center gap-2">
             {i > 0 && <span className="text-line">·</span>}
             {/* هاور مثلِ کارت‌های دسته‌بندیِ صفحهٔ اصلی (CreationsGrid):
                 رنگ به طلایی + یک خطِ زیرین که با انیمیشن از راست به چپ کشیده می‌شود. */}

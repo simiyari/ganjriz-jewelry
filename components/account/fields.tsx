@@ -223,7 +223,10 @@ export function PhoneField({
 }) {
   const controlledDial = dial !== undefined;
   return (
-    <div className="flex items-end gap-3">
+    // شماره تلفن یک واحدِ چپ‌به‌راست است: کدِ کشور (+۹۸) ابتدای شماره و باید سمتِ چپ
+    // باشد و عددها به‌سمتِ راستِ آن ادامه یابند. پس کلِ ردیف dir="ltr" می‌شود تا کدِ کشور
+    // چپ و فیلدِ شماره راستِ آن، پیوسته و درست خوانده شود.
+    <div dir="ltr" className="flex items-end gap-3">
       <div className="relative w-24 shrink-0">
         <select
           name={`${idPrefix}-dial`}

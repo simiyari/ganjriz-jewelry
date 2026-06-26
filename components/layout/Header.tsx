@@ -162,7 +162,7 @@ export default function Header() {
           </div>
           <p className="text-center text-[11px] text-muted">ارسال امن و بیمه‌شده به سراسر کشور</p>
           <div className="flex items-center justify-end gap-4 text-[11px] text-muted">
-            <Link href="/stores" className="flex items-center gap-1.5 transition-colors duration-300 ease-out hover:text-ink">
+            <Link href="/about" className="flex items-center gap-1.5 transition-colors duration-300 ease-out hover:text-ink">
               <MapPinIcon className="h-3.5 w-3.5" />
               یافتن شعبه
             </Link>
@@ -247,7 +247,7 @@ export default function Header() {
         >
           <ul className="container-lux flex h-12 items-center justify-center gap-9">
             {NAV_LINKS.map((link) => (
-              <li key={link.href}>
+              <li key={link.label}>
                 <Link
                   href={link.href}
                   className="nav-link text-[13px] font-medium text-ink transition-colors duration-300 ease-out hover:text-accent"
@@ -270,7 +270,7 @@ export default function Header() {
 const DRAWER_ACCOUNT_LINKS = [
   { label: "حساب کاربری", href: "/account", icon: UserIcon },
   { label: "علاقه‌مندی‌ها", href: "/account/wishlist", icon: HeartIcon },
-  { label: "یافتن شعبه", href: "/stores", icon: MapPinIcon },
+  { label: "یافتن شعبه", href: "/about", icon: MapPinIcon },
   { label: "تماس با ما", href: "/contact", icon: PhoneIcon },
 ] as const;
 
@@ -305,7 +305,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
         <nav className="shrink-0 px-5">
           <ul className="flex flex-col">
             {NAV_LINKS.map((link) => (
-              <li key={link.href}>
+              <li key={link.label}>
                 <Link
                   href={link.href}
                   onClick={onClose}
