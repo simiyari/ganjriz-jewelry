@@ -26,7 +26,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # منبع واحد نسخهٔ Node: همان چیزی که .nvmrc روی ویندوز/مک می‌گوید
+          node-version-file: .nvmrc
           cache: npm
 
       - name: Install dependencies

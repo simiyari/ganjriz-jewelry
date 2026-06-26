@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+فروشگاه آنلاین طلا و جواهر **گنج‌ریز** — Next.js 16 (App Router) + TypeScript + Tailwind.
 
-## Getting Started
+## جابه‌جایی پروژه با هارد اکسترنال (ویندوز ⇄ مک)
 
-First, run the development server:
+پروژه را روی هارد اکسترنال کپی می‌کنیم، می‌بریم روی سیستم دیگر و کار را ادامه می‌دهیم.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### 🔑 تنها قانونی که باید رعایت کنی
+سه پوشه **هرگز نباید بین دو سیستم منتقل شوند**، چون باینریِ مخصوص همان سیستم‌عامل‌اند و روی سیستم دیگر خراب می‌شوند:
+
+```
+node_modules    ← وابستگی‌ها (باینری native مخصوص ویندوز/مک)
+.next           ← کش build
+out             ← خروجی export
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+این‌ها بازساختنی‌اند: روی سیستم مقصد با `npm ci` دوباره ساخته می‌شوند. بقیهٔ فایل‌ها (کد، `public/`، فونت‌ها، `package-lock.json`) بدون مشکل منتقل می‌شوند.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### روش پیشنهادی: این سه پوشه را اصلاً کپی نکن
+کپی هم سبک‌تر و سریع‌تر می‌شود، هم هیچ‌وقت خراب نمی‌شود.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**۱) روی سیستم مبدأ — قبل از ریختن روی هارد، این سه را پاک کن:**
 
-## Learn More
+ویندوز (PowerShell):
+```powershell
+Remove-Item -Recurse -Force node_modules, .next, out
+```
+مک (Terminal):
+```bash
+rm -rf node_modules .next out
+```
+بعد کل پوشهٔ پروژه را روی هارد کپی کن.
 
-To learn more about Next.js, take a look at the following resources:
+**۲) روی سیستم مقصد — بعد از کپی از هارد:**
+```bash
+npm ci          # نصب دقیقاً همان نسخه‌ها از package-lock.json
+npm run dev     # http://localhost:3000
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> اگر یادت رفت پاکشان کنی و کل پوشه را با `node_modules` کپی کردی: روی سیستم مقصد **اول همان سه پوشه را پاک کن** (دستور بالا)، بعد `npm ci`. اجرای مستقیم بدون پاک‌کردن، خطاهای گیج‌کنندهٔ باینری می‌دهد.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+اگر `nvm` نصب باشد، `nvm use` نسخهٔ Node نوشته‌شده در `.nvmrc` (نسخهٔ ۲۴) را فعال می‌کند — همان نسخهٔ هر دو سیستم و CI.
 
-## Deploy on Vercel
+### چه چیزی هماهنگیِ بین دو سیستم را تضمین می‌کند
+- `.gitattributes` → همهٔ فایل‌های متنی با `LF` ذخیره می‌شوند؛ دیگر diff الکی یا تعارض end-of-line بین ویندوز و مک نداریم.
+- `.nvmrc` + فیلد `engines` در `package.json` → نسخهٔ یکسان Node روی هر دو سیستم و CI.
+- `package-lock.json` + `npm ci` → نصب کاملاً یکسان وابستگی‌ها روی هر سیستم.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+> 💡 Claude Code روی سیستم مقصد هم کانتکست کامل دارد: `CLAUDE.md` و `AGENTS.md` همراه پروژه منتقل می‌شوند. (حافظهٔ پروژهٔ Claude در `~/.claude` ذخیره می‌شود و مخصوص هر سیستم است — همراه پوشهٔ پروژه نمی‌آید.)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### پشتیبان روی GitHub (اختیاری، توصیه‌شده)
+علاوه بر هارد، هر از گاهی هم push کن تا یک نسخهٔ امن آنلاین داشته باشی و دیپلوی GitHub Pages آپدیت شود:
+```bash
+git add -A && git commit -m "..." && git push
+```
+
+## اجرای محلی
+
+```bash
+npm ci          # بار اول روی هر سیستم
+npm run dev     # http://localhost:3000
+```
+
+سپس [http://localhost:3000](http://localhost:3000) را باز کن.

@@ -1,0 +1,48 @@
+# ─────────────────────────────────────────────────────────────
+# جابه‌جایی بدون دردسر بین ویندوز و مک (و Linux/CI)
+# همهٔ فایل‌های متنی داخل ریپو با LF ذخیره می‌شوند، فارغ از اینکه
+# روی هر سیستم core.autocrlf چه مقداری دارد. نتیجه: دیگر diff الکی
+# «کل فایل تغییر کرد» و تعارضِ end-of-line هنگام pull/push نخواهیم داشت.
+# ─────────────────────────────────────────────────────────────
+
+# پیش‌فرض: هر فایل متنی → LF در مخزن
+* text=auto eol=lf
+
+# تثبیت صریح انواع متنی پروژه
+*.ts    text eol=lf
+*.tsx   text eol=lf
+*.js    text eol=lf
+*.jsx   text eol=lf
+*.mjs   text eol=lf
+*.cjs   text eol=lf
+*.json  text eol=lf
+*.css   text eol=lf
+*.scss  text eol=lf
+*.md    text eol=lf
+*.mdx   text eol=lf
+*.html  text eol=lf
+*.svg   text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.txt   text eol=lf
+.gitignore      text eol=lf
+.gitattributes  text eol=lf
+.nvmrc          text eol=lf
+
+# باینری‌ها: هرگز line-ending عوض نشود و diff/merge متنی نگیرند
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.avif  binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.eot   binary
+*.pdf   binary
+*.mp4   binary
+*.webm  binary
+*.zip   binary
