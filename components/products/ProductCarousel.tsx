@@ -168,7 +168,7 @@ export default function ProductCarousel({
                 ref={i === 0 ? firstSlideRef : undefined}
                 className="min-w-0 ps-3 flex-[0_0_44.444%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%]"
               >
-                <ProductCard product={p} basePath={basePath} />
+                <ProductCard product={p} basePath={basePath} swapImages={false} />
               </div>
             ))}
           </div>

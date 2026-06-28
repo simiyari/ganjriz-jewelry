@@ -16,17 +16,21 @@ const BADGE_LABEL: Record<string, string> = {
 export default function ProductCard({
   product,
   basePath = "/products",
+  swapImages = true,
 }: {
   product: Product;
   /** ریشهٔ مسیرِ صفحهٔ تک‌محصول — «/products» یا «/high-jewelry» */
   basePath?: string;
+  /** سواپِ تصاویرِ کارت با فلش/موس. در کاروسل خاموش می‌شود تا فلشِ کارت با فلشِ کاروسل تداخل نکند. */
+  swapImages?: boolean;
 }) {
   // علاقه‌مندیِ سراسری و ماندگار — قلب همه‌جا همین لیست را می‌خواند و تغییر می‌دهد
   const wishlist = useWishlist();
   const liked = wishlist.has(product.slug);
   const toggleLike = () => wishlist.toggle(product.slug);
-  // گالریِ تصاویرِ همین محصول — برای سواپِ نرمِ تصاویر با موس/فلش روی کارت
-  const gallery = productGallery(product);
+  // گالریِ تصاویرِ همین محصول — برای سواپِ نرمِ تصاویر با موس/فلش روی کارت.
+  // در کاروسل تک‌تصویری می‌شود (فقط تصویرِ اول) تا فلشِ سواپ حذف شود.
+  const gallery = swapImages ? productGallery(product) : [productGallery(product)[0]];
 
   return (
     <div

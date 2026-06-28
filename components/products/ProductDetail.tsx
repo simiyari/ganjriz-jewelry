@@ -244,7 +244,20 @@ export default function ProductDetail({
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const [ringSize, setRingSize] = useState<number | null>(null);
+  // آیا کشوی سایز از مسیرِ «افزودن به سبد» باز شده؟ (اگر بله، پس از تأییدِ سایز به سبد افزوده می‌شود)
+  const [pendingAdd, setPendingAdd] = useState(false);
   const toggle = (k: string) => setOpen((o) => ({ ...o, [k]: !o[k] }));
+
+  // افزودن به سبد — اگر محصول سایزدار است و هنوز سایزی انتخاب نشده، اول کشوی سایز باز می‌شود
+  const addToCart = () => {
+    if (hasSize(product) && ringSize === null) {
+      setPendingAdd(true);
+      setSizeGuideOpen(true);
+      return;
+    }
+    cart.addItem(product, color, 1, ringSize ?? undefined);
+    cart.setOpen(true);
+  };
 
   // پاپ‌آپِ بزرگ‌نمایی — قفلِ اسکرول + بستن با Escape
   useEffect(() => {
@@ -420,13 +433,10 @@ export default function ProductDetail({
             </div>
           </div>
 
-          {/* افزودن به سبد — به سبدِ سراسری اضافه می‌کند و کشوی سبد را باز می‌کند */}
+          {/* افزودن به سبد — اگر سایز لازم باشد اول کشوی سایز باز می‌شود، سپس به سبد افزوده می‌شود */}
           <button
             type="button"
-            onClick={() => {
-              cart.addItem(product, color);
-              cart.setOpen(true);
-            }}
+            onClick={addToCart}
             className="mt-5 flex h-11 w-full items-center justify-center bg-ink text-[13px] font-medium tracking-[0.06em] text-white transition-colors duration-300 hover:bg-[#2d2d2d]"
             style={{ transitionTimingFunction: EASE }}
           >
@@ -542,9 +552,21 @@ export default function ProductDetail({
       {hasSize(product) && (
         <SizeGuide
           open={sizeGuideOpen}
-          onClose={() => setSizeGuideOpen(false)}
+          onClose={() => {
+            setSizeGuideOpen(false);
+            setPendingAdd(false);
+          }}
           selected={ringSize}
           onSelect={setRingSize}
+          confirmLabel={pendingAdd ? "افزودن به سبدِ خرید" : "تأیید سایز"}
+          onConfirm={() => {
+            setSizeGuideOpen(false);
+            if (pendingAdd) {
+              cart.addItem(product, color, 1, ringSize ?? undefined);
+              cart.setOpen(true);
+              setPendingAdd(false);
+            }
+          }}
         />
       )}
     </section>

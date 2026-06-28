@@ -9,7 +9,14 @@ import { type Product, type GoldColor } from "@/lib/site-data";
    بماند. پیش‌فرض: خالی. فقط با addItem پر می‌شود و تا حذف‌نشدن می‌ماند.
    ────────────────────────────────────────────── */
 
-export type CartLine = { id: string; product: Product; color: GoldColor; qty: number };
+export type CartLine = {
+  id: string;
+  product: Product;
+  color: GoldColor;
+  /** سایزِ انتخابی (فقط برای محصولاتِ سایزدار مثلِ انگشتر/دستبند) */
+  size?: number;
+  qty: number;
+};
 
 type CartContextValue = {
   items: CartLine[];
@@ -17,7 +24,7 @@ type CartContextValue = {
   subtotal: number;
   open: boolean;
   setOpen: (v: boolean) => void;
-  addItem: (product: Product, color: GoldColor, qty?: number) => void;
+  addItem: (product: Product, color: GoldColor, qty?: number, size?: number) => void;
   removeItem: (id: string) => void;
   changeQty: (id: string, delta: number) => void;
   clear: () => void;
@@ -53,12 +60,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [items, hydrated]);
 
-  const addItem = (product: Product, color: GoldColor, qty = 1) =>
+  const addItem = (product: Product, color: GoldColor, qty = 1, size?: number) =>
     setItems((prev) => {
-      const id = `${product.id}-${color}`;
+      // سایزِ متفاوت = خطِ جداگانه؛ پس id شاملِ سایز هم می‌شود
+      const id = `${product.id}-${color}${size != null ? `-s${size}` : ""}`;
       const found = prev.find((l) => l.id === id);
       if (found) return prev.map((l) => (l.id === id ? { ...l, qty: l.qty + qty } : l));
-      return [...prev, { id, product, color, qty }];
+      return [...prev, { id, product, color, size, qty }];
     });
 
   const removeItem = (id: string) => setItems((prev) => prev.filter((l) => l.id !== id));

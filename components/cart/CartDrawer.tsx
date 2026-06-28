@@ -132,6 +132,13 @@ export default function CartDrawer() {
                       {GOLD_COLORS[line.color].label}
                     </div>
 
+                    {/* سایزِ انتخابی — فقط برای محصولاتِ سایزدار */}
+                    {line.size != null && (
+                      <div className="mt-1 text-[12px] text-muted">
+                        سایز: <span className="text-ink">{faDigits(line.size)}</span>
+                      </div>
+                    )}
+
                     {/* استپرِ تعداد + قیمت */}
                     <div className="mt-auto flex items-end justify-between pt-4">
                       <div className="flex items-center border border-line bg-surface">

@@ -37,6 +37,10 @@ import {
   TelegramLogoIcon as PhTelegram,
   WhatsappLogoIcon as PhWhatsapp,
   GoogleLogoIcon as PhGoogle,
+  CreditCardIcon as PhCard,
+  LockSimpleIcon as PhLock,
+  StorefrontIcon as PhStore,
+  TruckIcon as PhTruck,
 } from "@phosphor-icons/react/ssr";
 
 // ── هدر / ناوبری ──
@@ -62,6 +66,10 @@ export const EyeSlashIcon = PhEyeSlash;
 export const MailIcon = PhMail;
 export const DocumentIcon = PhDocument;
 export const InfoIcon = PhInfo;
+export const CardIcon = PhCard;
+export const LockIcon = PhLock;
+export const StoreIcon = PhStore;
+export const TruckIcon = PhTruck;
 
 // ── صفحهٔ محصولات ──
 export const FilterIcon = PhFilter;

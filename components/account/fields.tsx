@@ -244,15 +244,28 @@ export function PhoneField({
         </select>
         <ChevronDownIcon className="pointer-events-none absolute end-0 top-[26px] h-4 w-4 -translate-y-1/2 text-muted" />
       </div>
-      <div className="flex-1">
-        <Field
+      {/* اینپوتِ شماره — ردیف dir="ltr" است تا کدِ کشور چپ و رقم‌ها از چپ شروع شوند،
+          اما لیبلِ «شمارهٔ موبایل» را فیزیکی سمتِ راست (right-0، با dir="rtl") می‌گذاریم
+          تا مثلِ بقیهٔ فیلدهای فارسی، نوشتهٔ لیبل سمتِ راست بنشیند ولی خودِ شماره چپ بماند. */}
+      <div className="relative flex-1">
+        <input
           id={`${idPrefix}-phone`}
-          label={label}
+          name={`${idPrefix}-phone`}
           type="tel"
           required
           autoComplete="tel"
           defaultValue={defaultValue}
+          placeholder=" "
+          className="peer h-12 w-full border-b border-line bg-transparent pt-5 text-[15px] text-ink outline-none transition-colors duration-300 focus:border-ink"
         />
+        <label
+          htmlFor={`${idPrefix}-phone`}
+          dir="rtl"
+          className="pointer-events-none absolute right-0 top-1.5 text-[12px] text-muted transition-all duration-200 peer-placeholder-shown:top-[18px] peer-placeholder-shown:text-[15px] peer-focus:top-1.5 peer-focus:text-[12px] peer-focus:text-ink"
+        >
+          {label}
+          <span className="text-danger"> *</span>
+        </label>
       </div>
     </div>
   );

@@ -71,13 +71,24 @@ export default function SizeGuide({
   onClose,
   selected,
   onSelect,
+  confirmLabel,
+  onConfirm,
 }: {
   open: boolean;
   onClose: () => void;
   selected: number | null;
   onSelect: (size: number) => void;
+  /** متنِ دکمهٔ تأییدِ پایین (اگر داده شود، نوارِ تأیید نمایش داده می‌شود) */
+  confirmLabel?: string;
+  /** کنشِ تأیید — مثلاً «افزودن به سبدِ خرید» پس از انتخابِ سایز */
+  onConfirm?: () => void;
 }) {
   const [tab, setTab] = useState<(typeof TABS)[number]["key"]>("select");
+
+  // هر بار که کشو باز می‌شود، روی تبِ «انتخاب سایز» شروع شود (نه تبِ راهنما)
+  useEffect(() => {
+    if (open) setTab("select");
+  }, [open]);
 
   // قفلِ اسکرولِ پس‌زمینه + بستن با Escape
   useEffect(() => {
@@ -263,6 +274,23 @@ export default function SizeGuide({
             </div>
           )}
         </div>
+
+        {/* نوارِ تأیید — وقتی از مسیرِ «افزودن به سبد» باز شده باشد؛ تا سایز انتخاب نشود غیرفعال است */}
+        {confirmLabel && onConfirm && (
+          <div className="shrink-0 border-t border-line bg-background px-10 py-5">
+            <button
+              type="button"
+              onClick={onConfirm}
+              disabled={selected === null}
+              className="flex h-12 w-full items-center justify-center bg-ink text-[13px] font-semibold tracking-[0.06em] text-white transition-colors duration-300 hover:bg-[#2d2d2d] disabled:bg-faint disabled:text-white"
+              style={{ transitionTimingFunction: EASE }}
+            >
+              {selected === null
+                ? "ابتدا سایز را انتخاب کنید"
+                : confirmLabel}
+            </button>
+          </div>
+        )}
       </aside>
     </div>
   );
