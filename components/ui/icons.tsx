@@ -41,6 +41,8 @@ import {
   LockSimpleIcon as PhLock,
   StorefrontIcon as PhStore,
   TruckIcon as PhTruck,
+  PathIcon as PhPath,
+  CrosshairSimpleIcon as PhCrosshair,
 } from "@phosphor-icons/react/ssr";
 
 // ── هدر / ناوبری ──
@@ -70,6 +72,9 @@ export const CardIcon = PhCard;
 export const LockIcon = PhLock;
 export const StoreIcon = PhStore;
 export const TruckIcon = PhTruck;
+export const DirectionsIcon = PhPath; // مسیریابی — مسیرِ پیچ‌دار با دو نشانگر
+export const LocateIcon = PhCrosshair; // موقعیتِ من — هدفِ نشانه‌رو
+export const ListIcon = PhMenu; // فهرست (هم‌گلیفِ منوی همبرگری Phosphor)
 
 // ── صفحهٔ محصولات ──
 export const FilterIcon = PhFilter;

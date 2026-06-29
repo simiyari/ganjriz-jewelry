@@ -199,7 +199,7 @@ export default function AuthPanel() {
       {/* لوگوی برند — بالای پنلِ ورود/ثبت‌نام */}
       <Link href="/" aria-label="گنج‌ریز" className="mb-9 flex justify-center md:mb-11">
         <Image
-          src={asset("/logo.png")}
+          src={asset("/brand/logo.png")}
           alt="گنج‌ریز"
           width={1000}
           height={842}

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import GoldTicker from "./GoldTicker";
+import SearchDrawer from "./SearchDrawer";
 import { NAV_LINKS, SITE, SOCIAL_LINKS } from "@/lib/site-data";
 import { faDigits } from "@/lib/format";
 import { useAuth } from "@/components/account/AuthContext";
@@ -81,6 +82,7 @@ function IconButton({
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   // فقط نوار لوگو/آیکون‌ها هنگام اسکرول به پایین جمع می‌شود و با اسکرول به بالا برمی‌گردد
   const [hideLogoBar, setHideLogoBar] = useState(false);
   const lastScrollY = useRef(0);
@@ -162,7 +164,7 @@ export default function Header() {
           </div>
           <p className="text-center text-[11px] text-muted">ارسال امن و بیمه‌شده به سراسر کشور</p>
           <div className="flex items-center justify-end gap-4 text-[11px] text-muted">
-            <Link href="/about" className="flex items-center gap-1.5 transition-colors duration-300 ease-out hover:text-ink">
+            <Link href="/stores" className="flex items-center gap-1.5 transition-colors duration-300 ease-out hover:text-ink">
               <MapPinIcon className="h-3.5 w-3.5" />
               یافتن شعبه
             </Link>
@@ -200,7 +202,7 @@ export default function Header() {
               <MenuIcon className="h-6 w-6" />
             </button>
             <div className="hidden md:block -mr-2">
-              <IconButton label="جستجو">
+              <IconButton label="جستجو" onClick={() => setSearchOpen(true)}>
                 <SearchIcon className="h-5 w-5" />
               </IconButton>
             </div>
@@ -214,7 +216,7 @@ export default function Header() {
           {/* چپ: آیکون‌های کاربری */}
           <div className="flex items-center justify-end gap-0.5 sm:gap-1">
             <div className="md:hidden">
-              <IconButton label="جستجو">
+              <IconButton label="جستجو" onClick={() => setSearchOpen(true)}>
                 <SearchIcon className="h-5 w-5" />
               </IconButton>
             </div>
@@ -260,6 +262,9 @@ export default function Header() {
         </nav>
       </div>
 
+      {/* کشوی جستجو */}
+      <SearchDrawer open={searchOpen} onClose={() => setSearchOpen(false)} />
+
       {/* کشوی موبایل */}
       <MobileDrawer open={menuOpen} onClose={() => setMenuOpen(false)} />
     </header>
@@ -270,7 +275,7 @@ export default function Header() {
 const DRAWER_ACCOUNT_LINKS = [
   { label: "حساب کاربری", href: "/account", icon: UserIcon },
   { label: "علاقه‌مندی‌ها", href: "/account/wishlist", icon: HeartIcon },
-  { label: "یافتن شعبه", href: "/about", icon: MapPinIcon },
+  { label: "یافتن شعبه", href: "/stores", icon: MapPinIcon },
   { label: "تماس با ما", href: "/contact", icon: PhoneIcon },
 ] as const;
 

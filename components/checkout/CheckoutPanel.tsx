@@ -8,6 +8,7 @@ import { useAuth } from "@/components/account/AuthContext";
 import { GOLD_COLORS } from "@/lib/site-data";
 import { faNumber, faDigits } from "@/lib/format";
 import { asset } from "@/lib/asset";
+import GoldColorDot from "@/components/ui/GoldColorDot";
 import {
   Field,
   SelectField,
@@ -518,7 +519,7 @@ export default function CheckoutPanel() {
             {/* ثبتِ سفارش */}
             <button
               type="submit"
-              className="mt-8 flex h-12 w-full items-center justify-center gap-2 bg-ink text-[13px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 hover:bg-[#2d2d2d] md:w-auto md:px-16"
+              className="mt-8 flex h-11 w-full items-center justify-center gap-2 bg-ink text-[13px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 hover:bg-[#2d2d2d] md:w-auto md:px-16"
             >
               <LockIcon className="h-4 w-4" />
               ثبتِ سفارش
@@ -566,11 +567,7 @@ export default function CheckoutPanel() {
                     </span>
                     <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-muted">
                       <span className="flex items-center gap-1.5">
-                        <span
-                          className="h-3 w-3 rounded-full ring-1 ring-black/10"
-                          style={{ background: GOLD_COLORS[line.color].metal }}
-                          aria-hidden
-                        />
+                        <GoldColorDot color={line.color} size={20} decorative />
                         {GOLD_COLORS[line.color].label}
                       </span>
                       {line.size != null && <span>سایز: {faDigits(line.size)}</span>}

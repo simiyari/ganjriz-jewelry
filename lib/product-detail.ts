@@ -97,10 +97,10 @@ export const SIZE_GUIDE = {
 
 // تصاویرِ سبک‌زندگی/مدل — فاز ۱: از تصاویرِ موجودِ سایت استفاده می‌شود.
 const LIFESTYLE = [
-  "/shole-talayi.jpg",
-  "/pelak-nam.jpg",
-  "/engagement.jpg",
-  "/heritage.jpg",
+  "/content/shole-talayi.jpg",
+  "/content/pelak-nam.jpg",
+  "/content/engagement.jpg",
+  "/content/heritage.jpg",
 ];
 
 /**

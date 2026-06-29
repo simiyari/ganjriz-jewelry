@@ -248,6 +248,14 @@ export default function ProductDetail({
   const [pendingAdd, setPendingAdd] = useState(false);
   const toggle = (k: string) => setOpen((o) => ({ ...o, [k]: !o[k] }));
 
+  // اگر از کارت روی یک رنگِ خاص کلیک شده باشد (?color=...)، همان رنگ از ابتدا انتخاب شود
+  useEffect(() => {
+    const c = new URLSearchParams(window.location.search).get("color");
+    if (c && (product.colors as readonly string[]).includes(c)) {
+      setColor(c as GoldColor);
+    }
+  }, [product.colors]);
+
   // افزودن به سبد — اگر محصول سایزدار است و هنوز سایزی انتخاب نشده، اول کشوی سایز باز می‌شود
   const addToCart = () => {
     if (hasSize(product) && ringSize === null) {
@@ -257,6 +265,8 @@ export default function ProductDetail({
     }
     cart.addItem(product, color, 1, ringSize ?? undefined);
     cart.setOpen(true);
+    // پس از افزودن، سایز ریست می‌شود تا دفعهٔ بعد دوباره از کاربر پرسیده شود
+    if (hasSize(product)) setRingSize(null);
   };
 
   // پاپ‌آپِ بزرگ‌نمایی — قفلِ اسکرول + بستن با Escape
@@ -565,6 +575,8 @@ export default function ProductDetail({
               cart.addItem(product, color, 1, ringSize ?? undefined);
               cart.setOpen(true);
               setPendingAdd(false);
+              // ریست سایز برای افزودنِ بعدی — دفعهٔ بعد دوباره کشوی سایز باز می‌شود
+              setRingSize(null);
             }
           }}
         />

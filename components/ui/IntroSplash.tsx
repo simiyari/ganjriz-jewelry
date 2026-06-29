@@ -171,7 +171,7 @@ export default function IntroSplash() {
       <div ref={contentRef} className="flex flex-col items-center px-6 text-center">
         {/* لوگو */}
         <img
-          src={asset("/logo.png")}
+          src={asset("/brand/logo.png")}
           alt="گنج‌ریز"
           width={96}
           height={96}

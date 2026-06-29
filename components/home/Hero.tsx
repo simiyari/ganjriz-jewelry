@@ -20,8 +20,8 @@ import { asset } from "@/lib/asset";
  * با مقادیرِ یکسان با بقیهٔ سایت. با prefers-reduced-motion خط‌ها از طریقِ CSS
  * همیشه نمایان‌اند و هیچ تایمری اجرا نمی‌شود.
  */
-const HERO_VIDEO = "/hero.mp4";
-const HERO_POSTER = "/hero.jpg";
+const HERO_VIDEO = "/home/hero.mp4";
+const HERO_POSTER = "/home/hero.jpg";
 
 // هیرو در دو مرحله بالا می‌آید: مرحلهٔ ۰ (eyebrow + تیترِ «زیبایی، برای همیشه») اول،
 // سپس مرحلهٔ ۱ (متنِ زیر + دکمهٔ «مشاهدهٔ مجموعه») با این فاصله. داخلِ هر مرحله

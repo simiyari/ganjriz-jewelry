@@ -31,7 +31,7 @@ export const FEATURE_DUO = [
     title: "شعلهٔ طلایی",
     description: "درخششی از طلای ناب، الهام‌گرفته از رقص نور و آتش",
     href: "/collections/flame",
-    image: "/shole-talayi.jpg",
+    image: "/content/shole-talayi.jpg",
     align: "end" as const,
   },
   {
@@ -39,7 +39,7 @@ export const FEATURE_DUO = [
     title: "سرویسِ کامل",
     description: "گردنبند، گوشواره، دستبند و انگشترِ هماهنگ در یک سرویسِ کاملِ طلای ۱۸ عیار",
     href: "/collections",
-    image: "/pelak-nam.jpg",
+    image: "/content/pelak-nam.jpg",
     align: "center" as const,
   },
 ] as const;
@@ -64,28 +64,36 @@ export const PRODUCTS_PAGE = {
   title: "جواهرات گنج‌ریز",
   description:
     "جواهراتِ شاخص و هنرِ ساختِ بی‌نظیر، گنج‌ریز را به نامی معتبر در دنیای طلا و جواهرِ ایران بدل کرده است؛ هر قطعه با عیارِ تضمین‌شده و وسواسِ کامل ساخته می‌شود.",
-  image: "/shole-talayi.jpg",
+  image: "/content/shole-talayi.jpg",
 } as const;
 
-/** رنگ‌های طلا — برچسب، رنگِ پایه و گرادیانِ فلزی (سواچِ براقِ روی کارت).
- *  `metal` یک گرادیانِ شعاعی است که با هایلایتِ گوشهٔ بالا-چپ، حسِ فلزِ واقعی
- *  (نه یک دایرهٔ تخت) می‌دهد — مطابقِ سواچ‌های نمونهٔ خارجی. */
+/** رنگ‌های طلا — برچسب، رنگِ پایه، آیکونِ سواچ و گرادیانِ فلزیِ پشتیبان.
+ *  `icon` سواچِ تصویریِ بافت‌دارِ فلز است (SVG در public/icons/gold-color) که
+ *  روی کارت/سبد به‌جای دایرهٔ گرادیانی نشان داده می‌شود.
+ *  `iconHover` همان سواچ با حلقهٔ تیره (#131313) — حالتِ هاورِ سواچِ کارت.
+ *  `metal` گرادیانِ شعاعیِ پشتیبان است (هایلایتِ گوشهٔ بالا-چپ، حسِ فلزِ واقعی). */
 export const GOLD_COLORS = {
   yellow: {
     label: "طلای زرد",
     swatch: "#C9A227",
+    icon: "/icons/gold-color/yellow-gold.svg",
+    iconHover: "/icons/gold-color/yellow-gold-hover.svg",
     metal:
       "radial-gradient(circle at 34% 28%, #f7e9ad 0%, #e0c25a 32%, #c39a2c 64%, #8f6e1c 100%)",
   },
   white: {
     label: "طلای سفید",
     swatch: "#D9D9D9",
+    icon: "/icons/gold-color/white-gold.svg",
+    iconHover: "/icons/gold-color/white-gold-hover.svg",
     metal:
       "radial-gradient(circle at 34% 28%, #ffffff 0%, #ececec 34%, #cfcfcf 66%, #a9a9a9 100%)",
   },
   rose: {
     label: "طلای رُز",
     swatch: "#E2A38F",
+    icon: "/icons/gold-color/rose-gold.svg",
+    iconHover: "/icons/gold-color/rose-gold-hover.svg",
     metal:
       "radial-gradient(circle at 34% 28%, #f8ddd1 0%, #e7b29c 34%, #d28d72 66%, #ab6953 100%)",
   },
@@ -150,7 +158,7 @@ export const PRODUCTS_PROMO = {
   title: "حلقه‌های طلا",
   cta: "کشف کنید",
   href: "/products?category=ring",
-  image: "/collection-banner.jpg",
+  image: "/content/collection-banner.jpg",
 } as const;
 
 /** لینک‌های سریعِ دسته‌بندی (ردیفِ پایینِ صفحه) */
@@ -187,7 +195,7 @@ export type Product = {
 /** محصولاتِ فیک — مرتب از جدیدترین به قدیمی‌تر */
 export const PRODUCTS: readonly Product[] = [
   { id: "p1", title: "انگشتر آرامیس", slug: "ring-aramis", category: "ring", categoryLabel: "انگشتر", weight: 4.2, karat: 18, price: 18_400_000, image: "/categories/ring.jpg", colors: ["yellow"], badge: "new" },
-  { id: "p2", title: "پلاکِ اسمِ سفارشی", slug: "pendant-name", category: "pendant", categoryLabel: "پلاک و آویز", weight: 2.4, karat: 18, price: 11_900_000, image: "/pelak-nam.jpg", colors: ["yellow", "rose"], badge: "new" },
+  { id: "p2", title: "پلاکِ اسمِ سفارشی", slug: "pendant-name", category: "pendant", categoryLabel: "پلاک و آویز", weight: 2.4, karat: 18, price: 11_900_000, image: "/content/pelak-nam.jpg", colors: ["yellow", "rose"], badge: "new" },
   { id: "p3", title: "گردنبندِ زنجیرِ ایتالیایی", slug: "necklace-italian", category: "necklace", categoryLabel: "گردنبند", weight: 6.8, karat: 18, price: 27_500_000, image: "/categories/necklace.jpg", colors: ["yellow"], badge: "bestseller" },
   { id: "p4", title: "النگوی طلای ساده", slug: "bangle-classic", category: "bracelet", categoryLabel: "دستبند و النگو", weight: 8.1, karat: 18, price: 36_700_000, image: "/categories/bangle.jpg", colors: ["yellow"], badge: "new" },
   { id: "p5", title: "گوشوارهٔ آویزِ مروارید", slug: "earring-pearl", category: "earring", categoryLabel: "گوشواره", weight: 5.1, karat: 18, price: 24_700_000, image: "/categories/earring.jpg", colors: ["white"], badge: "bestseller" },
@@ -222,7 +230,7 @@ export const HIGH_JEWELRY_PAGE = {
   title: "جواهرات لوکس گنج‌ریز",
   description:
     "گزیده‌ای از نفیس‌ترین قطعاتِ گنج‌ریز؛ جواهراتِ نگین‌دارِ دست‌ساز با سنگ‌های گران‌بها و طراحیِ اختصاصی، برای لحظه‌هایی که برای همیشه ماندگار می‌شوند.",
-  image: "/collection-banner.jpg",
+  image: "/content/collection-banner.jpg",
 } as const;
 
 /** بازه‌های قیمتِ متناسب با جواهرِ لوکس (تومان) */
@@ -273,7 +281,7 @@ export const HIGH_JEWELRY_PROMO = {
   title: "مجموعهٔ پلنگ",
   cta: "کشف مجموعه",
   href: "/collections",
-  image: "/shole-talayi.jpg",
+  image: "/content/shole-talayi.jpg",
 } as const;
 
 /** لینک‌های سریعِ پایینِ صفحهٔ جواهر لوکس */
@@ -291,11 +299,11 @@ export const HIGH_JEWELRY: readonly Product[] = [
   { id: "h2", title: "گردنبندِ یاقوتِ سرخ", slug: "hj-ruby-necklace", category: "necklace", categoryLabel: "گردنبند", weight: 14.2, karat: 18, price: 540_000_000, image: "/categories/necklace.jpg", colors: ["yellow"], badge: "bestseller" },
   { id: "h3", title: "گوشوارهٔ برلیانِ آویز", slug: "hj-diamond-earring", category: "earring", categoryLabel: "گوشواره", weight: 9.1, karat: 18, price: 320_000_000, image: "/categories/earring.jpg", colors: ["white"], badge: null },
   { id: "h4", title: "دستبندِ جواهرنشانِ ریور", slug: "hj-river-bracelet", category: "bracelet", categoryLabel: "دستبند و النگو", weight: 16.8, karat: 18, price: 410_000_000, image: "/categories/bracelet.jpg", colors: ["white", "yellow"], badge: null },
-  { id: "h5", title: "انگشترِ سولیترِ برلیان", slug: "hj-solitaire-ring", category: "ring", categoryLabel: "انگشتر", weight: 6.2, karat: 18, price: 670_000_000, image: "/engagement.jpg", colors: ["white"], badge: "bestseller" },
+  { id: "h5", title: "انگشترِ سولیترِ برلیان", slug: "hj-solitaire-ring", category: "ring", categoryLabel: "انگشتر", weight: 6.2, karat: 18, price: 670_000_000, image: "/content/engagement.jpg", colors: ["white"], badge: "bestseller" },
   { id: "h6", title: "آویزِ الماسِ قطره‌ای", slug: "hj-drop-pendant", category: "pendant", categoryLabel: "پلاک و آویز", weight: 5.3, karat: 18, price: 198_000_000, image: "/categories/pendant.jpg", colors: ["white", "rose"], badge: null },
   { id: "h7", title: "گردنبندِ مرواریدِ جنوب", slug: "hj-pearl-necklace", category: "necklace", categoryLabel: "گردنبند", weight: 11.5, karat: 18, price: 245_000_000, image: "/categories/necklace.jpg", colors: ["white"], badge: null },
   { id: "h8", title: "گوشوارهٔ یاقوتِ کبود", slug: "hj-sapphire-earring", category: "earring", categoryLabel: "گوشواره", weight: 8.0, karat: 18, price: 460_000_000, image: "/categories/earring.jpg", colors: ["white", "yellow"], badge: null },
-  { id: "h9", title: "دستبندِ پلنگِ جواهر", slug: "hj-panther-bracelet", category: "bracelet", categoryLabel: "دستبند و النگو", weight: 22.4, karat: 18, price: 880_000_000, image: "/collection-banner.jpg", colors: ["yellow"], badge: "new" },
+  { id: "h9", title: "دستبندِ پلنگِ جواهر", slug: "hj-panther-bracelet", category: "bracelet", categoryLabel: "دستبند و النگو", weight: 22.4, karat: 18, price: 880_000_000, image: "/content/collection-banner.jpg", colors: ["yellow"], badge: "new" },
   { id: "h10", title: "انگشترِ نگینِ آبیِ سلطنتی", slug: "hj-royal-ring", category: "ring", categoryLabel: "انگشتر", weight: 5.9, karat: 18, price: 150_000_000, image: "/categories/ring.jpg", colors: ["white"], badge: null },
   { id: "h11", title: "سرویسِ کاملِ عروسِ جواهر", slug: "hj-bridal-set", category: "necklace", categoryLabel: "گردنبند", weight: 38.6, karat: 18, price: 1_200_000_000, image: "/categories/necklace.jpg", colors: ["yellow", "white"], badge: "bestseller" },
   { id: "h12", title: "گوشوارهٔ آویزِ زمرد", slug: "hj-emerald-earring", category: "earring", categoryLabel: "گوشواره", weight: 7.7, karat: 18, price: 390_000_000, image: "/categories/earring.jpg", colors: ["white", "rose"], badge: null },
@@ -314,7 +322,7 @@ export const COLLECTIONS_PAGE = {
   title: "مجموعه‌ها",
   description:
     "زیبایی و اصالت در ناب‌ترین شکل؛ مجموعه‌هایی که از ظرافت، شکوه و هنرِ زرگری الهام گرفته‌اند. هر قطعه سرشار از زندگی و حرکت است و با وسواسِ کامل، برای دوست‌دارانِ لوکس و هنرِ ناب آفریده شده است.",
-  image: "/engagement.jpg",
+  image: "/content/engagement.jpg",
 } as const;
 
 export type Collection = {
@@ -354,7 +362,7 @@ export const HERITAGE = {
   body: "از کارگاه‌های سنتی بازار تا جواهری مدرن امروز؛ گنج‌ریز با تکیه بر هنر زرگران ایرانی و استانداردهای روز، هر قطعه را با وسواس می‌سازد. کیفیت بی‌نقص، عیار تضمین‌شده و طراحی ماندگار، امضای ماست.",
   href: "/about",
   cta: "آشنایی با تاریخچه",
-  image: "/heritage.jpg",
+  image: "/content/heritage.jpg",
 } as const;
 
 /** بنر تمام‌عرض مجموعه (مشابه Orquideas) */
@@ -364,7 +372,7 @@ export const COLLECTION_BANNER = {
   description: "الهام‌گرفته از وقار و چابکیِ پلنگ؛ خطوطی جسور و درخششی بی‌باک در طلای ۱۸ عیار",
   href: "/collections/panther",
   cta: "کشف مجموعه",
-  image: "/collection-banner.jpg",
+  image: "/content/collection-banner.jpg",
 } as const;
 
 /** حلقه‌های نامزدی + جعبهٔ هدیه */
@@ -374,7 +382,7 @@ export const ENGAGEMENT = {
   body: "بله‌ی شما شایستهٔ درخششی ابدی است. حلقه‌های نامزدی گنج‌ریز با نگین‌های دست‌چین و طراحی اختصاصی، روایت‌گر آغاز یک زندگی تازه‌اند. امکان ساخت سفارشی و حکاکی نام فراهم است.",
   href: "/collections/engagement",
   cta: "مشاهدهٔ حلقه‌ها",
-  image: "/engagement.jpg",
+  image: "/content/engagement.jpg",
 } as const;
 
 /** بخش اینستاگرام / دنیای برند */
@@ -425,8 +433,8 @@ export const BOUTIQUE = {
   title: "شعبه‌های گنج‌ریز",
   description: "دنیای گنج‌ریز را از نزدیک تجربه کنید؛ نشانی شعبه‌ها و نمایندگی‌های مجاز.",
   cta: "یافتن شعبه",
-  href: "/about",
-  image: "/stores.jpg",
+  href: "/stores",
+  image: "/content/stores.jpg",
 } as const;
 
 /* ──────────────────────────────────────────────
@@ -438,7 +446,7 @@ export const ABOUT_PAGE = {
   eyebrow: "About Ganjriz",
   title: "درباره گنج‌ریز",
   subtitle: "بیش از چهار دهه اعتماد و درخشش در کرج",
-  heroImage: "/stores.jpg",
+  heroImage: "/content/stores.jpg",
   intro:
     "گنج‌ریز نامی آشنا در دنیای طلا و جواهرِ کرج است؛ خانواده‌ای که بیش از چهل سال با عشق به هنرِ زرگری، زیبایی را به دستانِ شما سپرده است. از نخستین کارگاهِ کوچک تا دو شعبهٔ امروز در کرج، اصلِ ما تغییر نکرده است: عیارِ تضمین‌شده، ساختِ بی‌نقص و احترام به اعتمادی که سال‌ها میانِ ما و مشتریان‌مان ساخته شده است.",
   // بلوکِ میراث — متنِ وسط‌چینِ بدونِ عکس (کادرِ روشن)
@@ -459,7 +467,7 @@ export const ABOUT_PAGE = {
   branches: [
     {
       name: "شعبهٔ گوهردشت",
-      image: "/hero/stores.jpg",
+      image: "/hero/content/stores.jpg",
       address: "کرج، گوهردشت، بلوار انقلاب، نبشِ خیابانِ دهم — طلا و جواهرِ گنج‌ریز",
       phone: "۰۲۶ ۳۴۲۲ ۳۳۴۴",
       hours: [
@@ -471,7 +479,7 @@ export const ABOUT_PAGE = {
     },
     {
       name: "شعبهٔ مرکزی (میدان شهدا)",
-      image: "/stores.jpg",
+      image: "/content/stores.jpg",
       address: "کرج، میدان شهدا، خیابانِ شهید بهشتی، پاساژِ طلا، طبقهٔ همکف",
       phone: "۰۲۶ ۳۲۲۱ ۵۵۶۶",
       hours: [
@@ -493,6 +501,91 @@ export const ABOUT_PAGE = {
   // نقشهٔ کرج (OpenStreetMap — بدون نیاز به کلید و در دسترسِ شبکهٔ داخل ایران)
   mapEmbed:
     "https://www.openstreetmap.org/export/embed.html?bbox=50.9000%2C35.7900%2C51.0600%2C35.8700&layer=mapnik&marker=35.8327%2C50.9916",
+} as const;
+
+/* ──────────────────────────────────────────────
+   صفحهٔ «یافتن شعبه» (/stores)
+   چیدمان الهام‌گرفته از Store Locator مرجع، RTL-آینه‌شده:
+   فهرستِ شعبه‌ها سمتِ راست، پنلِ جزئیات وسط، نقشه سمتِ چپ.
+   همان دو شعبهٔ ABOUT_PAGE.branches‌اند، با میدان‌های بیشتر (ایمیل، مختصات،
+   ساعاتِ هفتگی، امبدِ نقشهٔ اختصاصی) که این صفحه به آن‌ها نیاز دارد.
+   نقشه = امبدِ OpenStreetMap (بدون کلید، در دسترسِ شبکهٔ داخل ایران).
+   ────────────────────────────────────────────── */
+export type StoreType = "boutique" | "retailer";
+
+export type Store = {
+  id: string;
+  name: string;
+  type: StoreType;
+  city: string;
+  address: string;
+  /** نمایش با ارقامِ فارسی */
+  phone: string;
+  /** برای لینکِ tel: — قالبِ بین‌المللیِ لاتین */
+  phoneLink: string;
+  email: string;
+  /** مختصاتِ واقعیِ شعبه — برای پینِ نقشهٔ Leaflet */
+  coords: { lat: number; lng: number };
+  /** لینکِ مسیریابیِ بیرونی (گوگل‌مپ) */
+  directionsUrl: string;
+  /** ساعاتِ کاری — هفت روزِ هفته (شنبه تا جمعه) */
+  hoursWeek: readonly { day: string; time: string }[];
+};
+
+const WORK_WEEK: readonly { day: string; time: string }[] = [
+  { day: "شنبه", time: "۱۰:۰۰ تا ۲۰:۳۰" },
+  { day: "یک‌شنبه", time: "۱۰:۰۰ تا ۲۰:۳۰" },
+  { day: "دوشنبه", time: "۱۰:۰۰ تا ۲۰:۳۰" },
+  { day: "سه‌شنبه", time: "۱۰:۰۰ تا ۲۰:۳۰" },
+  { day: "چهارشنبه", time: "۱۰:۰۰ تا ۲۰:۳۰" },
+  { day: "پنج‌شنبه", time: "۱۰:۰۰ تا ۱۸:۰۰" },
+  { day: "جمعه", time: "تعطیل" },
+];
+
+export const STORES: readonly Store[] = [
+  {
+    id: "gohardasht",
+    name: "شعبهٔ گوهردشت",
+    type: "boutique",
+    city: "کرج",
+    address: "کرج، گوهردشت، بلوار انقلاب، نبشِ خیابانِ دهم — طلا و جواهرِ گنج‌ریز",
+    phone: "۰۲۶ ۳۴۲۲ ۳۳۴۴",
+    phoneLink: "+982634223344",
+    email: "gohardasht@ganjriz.ir",
+    // نبشِ بلوار انقلاب × خیابانِ دهمِ گوهردشت (مختصاتِ واقعی از OpenStreetMap)
+    coords: { lat: 35.8624, lng: 50.967 },
+    directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=35.8624,50.967",
+    hoursWeek: WORK_WEEK,
+  },
+  {
+    id: "chahardahom",
+    name: "شعبهٔ چهاردهمِ گوهردشت",
+    type: "boutique",
+    city: "کرج",
+    address: "کرج، گوهردشت، بلوار انقلاب، نبشِ خیابانِ چهاردهم — طلا و جواهرِ گنج‌ریز",
+    phone: "۰۲۶ ۳۲۲۱ ۵۵۶۶",
+    phoneLink: "+982632215566",
+    email: "chahardahom@ganjriz.ir",
+    // نبشِ بلوار انقلاب × خیابانِ چهاردهمِ گوهردشت (مختصاتِ واقعی از OpenStreetMap)
+    coords: { lat: 35.8657, lng: 50.9691 },
+    directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=35.8657,50.9691",
+    hoursWeek: WORK_WEEK,
+  },
+];
+
+export const STORE_LOCATOR = {
+  title: "یافتن شعبه",
+  searchPlaceholder: "جستجوی شهر یا نشانی…",
+  filters: [
+    { value: "all", label: "همه" },
+    { value: "boutique", label: "جواهری" },
+    { value: "retailer", label: "نمایندگی" },
+  ],
+  typeLabels: { boutique: "جواهری", retailer: "نمایندگی" },
+  appointmentHref: "/appointment",
+  appointmentCta: "رزرو وقت حضوری",
+  directionsCta: "مسیریابی",
+  hoursTitle: "ساعاتِ کاری",
 } as const;
 
 /** ستون‌های فوتر */

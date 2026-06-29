@@ -282,7 +282,7 @@ export default function SizeGuide({
               type="button"
               onClick={onConfirm}
               disabled={selected === null}
-              className="flex h-12 w-full items-center justify-center bg-ink text-[13px] font-semibold tracking-[0.06em] text-white transition-colors duration-300 hover:bg-[#2d2d2d] disabled:bg-faint disabled:text-white"
+              className="flex h-11 w-full items-center justify-center bg-ink text-[13px] font-semibold tracking-[0.06em] text-white transition-colors duration-300 hover:bg-[#2d2d2d] disabled:bg-faint disabled:text-white"
               style={{ transitionTimingFunction: EASE }}
             >
               {selected === null

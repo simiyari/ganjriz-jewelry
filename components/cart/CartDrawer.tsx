@@ -7,6 +7,7 @@ import { GOLD_COLORS } from "@/lib/site-data";
 import { faNumber, faDigits } from "@/lib/format";
 import { asset } from "@/lib/asset";
 import { CloseIcon, InfoIcon } from "@/components/ui/icons";
+import GoldColorDot from "@/components/ui/GoldColorDot";
 import { useCart } from "./CartContext";
 
 /* ──────────────────────────────────────────────
@@ -124,11 +125,7 @@ export default function CartDrawer() {
 
                     {/* رنگِ طلا */}
                     <div className="mt-2 flex items-center gap-2 text-[12px] text-muted">
-                      <span
-                        className="h-3.5 w-3.5 rounded-full ring-1 ring-black/10"
-                        style={{ background: GOLD_COLORS[line.color].metal }}
-                        aria-hidden
-                      />
+                      <GoldColorDot color={line.color} size={20} decorative />
                       {GOLD_COLORS[line.color].label}
                     </div>
 
