@@ -45,6 +45,13 @@ export default function LegalHub({ activeId }: { activeId: string }) {
             );
           })}
         </nav>
+
+        <Link
+          href="/contact"
+          className="inline-flex h-11 w-fit items-center justify-center bg-ink px-8 text-[12px] font-semibold tracking-[0.08em] text-white transition-colors duration-300 ease-out hover:bg-[#2d2d2d]"
+        >
+          تماس با ما
+        </Link>
       </HubSidebar>
 
       {/* محتوا */}
@@ -53,7 +60,7 @@ export default function LegalHub({ activeId }: { activeId: string }) {
           {data.title}
         </h2>
         {data.intro && (
-          <p className="mt-4 max-w-3xl text-[15px] leading-8 text-muted">{data.intro}</p>
+          <p className="mt-4 text-[15px] leading-8 text-muted">{data.intro}</p>
         )}
         {data.updated && (
           <p className="mt-3 text-[12px] tracking-wide text-muted">
@@ -62,21 +69,21 @@ export default function LegalHub({ activeId }: { activeId: string }) {
         )}
 
         {/* بخش‌ها — آکاردئونِ شماره‌دار */}
-        <div className="mt-7 max-w-3xl md:mt-9">
+        <div className="mt-8">
           {data.sections.map((s, i) => {
             const isOpen = open.includes(i);
             return (
               <div
                 key={s.heading}
-                className="border-b border-line transition-colors duration-300 hover:border-ink"
+                className={`group/acc border-b border-line transition-colors duration-300 ${isOpen ? "" : "hover:border-ink"}`}
               >
                 <button
                   type="button"
                   onClick={() => toggle(i)}
                   aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-5 py-4 text-start"
+                  className={`flex w-full items-center justify-between gap-5 py-4 text-start ${isOpen ? "border-b border-line transition-colors duration-300 group-hover/acc:border-ink" : ""}`}
                 >
-                  <h3 className="text-[13px] font-semibold leading-7 text-ink md:text-[14px]">
+                  <h3 className="text-[16px] font-semibold leading-snug text-ink">
                     {faDigits(i + 1)}. {s.heading}
                   </h3>
                   <ChevronDownIcon
@@ -96,19 +103,17 @@ export default function LegalHub({ activeId }: { activeId: string }) {
                   style={{ transitionTimingFunction: EASE }}
                 >
                   <div className="overflow-hidden">
-                    <div className="max-w-2xl pb-6 text-[14px] leading-7 text-muted">
+                    <div className="space-y-4 pb-6 pt-5 text-[15px] leading-8 text-muted">
                       {s.paragraphs?.map((p, j) => (
-                        <p key={j} className={j === 0 ? "" : "mt-3"}>
-                          {p}
-                        </p>
+                        <p key={j}>{p}</p>
                       ))}
                       {s.bullets && (
-                        <ul className={`space-y-2 ${s.paragraphs?.length ? "mt-3" : ""}`}>
+                        <ul className="space-y-2.5">
                           {s.bullets.map((b, j) => (
                             <li key={j} className="relative ps-5">
                               <span
                                 aria-hidden
-                                className="absolute start-0 top-[13px] h-1.5 w-1.5 rounded-full bg-gold"
+                                className="absolute start-0 top-[14px] h-1.5 w-1.5 rounded-full bg-gold"
                               />
                               {b}
                             </li>

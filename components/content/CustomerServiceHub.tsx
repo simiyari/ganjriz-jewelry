@@ -1,5 +1,7 @@
 import Link from "next/link";
 import HubSidebar from "./HubSidebar";
+import SizeGuideAccordion from "./SizeGuideAccordion";
+import { SectionImages, SectionTableView } from "./ContentBlocks";
 import { CS_SECTIONS, getCSSection } from "@/lib/customer-service";
 
 /**
@@ -48,35 +50,75 @@ export default function CustomerServiceHub({ activeId }: { activeId: string }) {
           {active.title}
         </h2>
         {active.intro && (
-          <p className="mt-4 max-w-3xl text-[15px] leading-8 text-muted">{active.intro}</p>
+          <p className="mt-4 text-[15px] leading-8 text-muted">{active.intro}</p>
         )}
 
-        <div className="mt-8 max-w-3xl md:mt-10">
-          {active.sections.map((s, i) => (
-            <div key={s.heading} className={i === 0 ? "" : "mt-10 md:mt-12"}>
-              <h3 className="text-[18px] font-semibold leading-snug text-ink md:text-[20px]">
-                {s.heading}
-              </h3>
-              {s.paragraphs?.map((p, j) => (
-                <p key={j} className="mt-3 text-[15px] leading-8 text-muted">
-                  {p}
-                </p>
-              ))}
-              {s.bullets && (
-                <ul className="mt-3 space-y-2.5">
-                  {s.bullets.map((b, j) => (
-                    <li key={j} className="relative ps-5 text-[15px] leading-8 text-muted">
-                      <span
-                        aria-hidden
-                        className="absolute start-0 top-[14px] h-1.5 w-1.5 rounded-full bg-gold"
-                      />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          ))}
+        <div className="mt-8">
+          {active.groups ? (
+            // راهنمای سایز — آکاردئونی (انگشترها / دستبندها / گردنبندها)
+            <SizeGuideAccordion groups={active.groups} />
+          ) : (
+            (active.sections ?? []).map((s, i) => {
+              // بریکِ بین‌بخشی = ۳۲ (mt-8)؛ ولی اگر بخشِ قبلی با عکس تمام شده،
+              // یک پله بیشتر (۴۸/mt-12) تا تیتر از تصویرِ سنگینِ بالا جدا بماند.
+              const prev = (active.sections ?? [])[i - 1];
+              const afterImage = !!prev?.images?.length && !prev?.table;
+              const gap = i === 0 ? "" : afterImage ? "mt-12" : "mt-8";
+              return (
+              <div key={s.heading} className={gap}>
+                {/*
+                  فاصله‌ها صریح‌اند چون انواعِ عنصر هوا/leading متفاوت دارند:
+                  · متن/لیست با mt-2.5 (۱۰px) — با ~۶px هوای leading-8 بصری ~۱۶px می‌شود
+                  · عکس/جدول با mt-4 (۱۶px) — هوای leading ندارند، پس باکس باید کامل ۱۶px باشد
+                */}
+                <h3 className="text-[16px] font-semibold leading-snug text-ink">{s.heading}</h3>
+                {s.paragraphs?.map((p, j) => (
+                  <p key={j} className="mt-2.5 text-[15px] leading-8 text-muted">
+                    {p}
+                  </p>
+                ))}
+                {s.bullets && (
+                  <ul className="mt-2.5 space-y-2.5">
+                    {s.bullets.map((b, j) => (
+                      <li key={j} className="relative ps-5 text-[15px] leading-8 text-muted">
+                        <span
+                          aria-hidden
+                          className="absolute start-0 top-[14px] h-1.5 w-1.5 rounded-full bg-gold"
+                        />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {s.images && s.images.length > 0 && (
+                  <div className="mt-4">
+                    <SectionImages images={s.images} />
+                  </div>
+                )}
+                {s.table && (
+                  <div className="mt-4">
+                    <SectionTableView table={s.table} />
+                  </div>
+                )}
+              </div>
+              );
+            })
+          )}
+
+          {/* ── به کمک نیاز دارید؟ (مثلِ رفرنس، در پایانِ هر صفحه) ── */}
+          <div className="mt-12">
+            <h3 className="text-[16px] font-semibold leading-snug text-ink">به کمک نیاز دارید؟</h3>
+            <p className="mt-4 text-[15px] leading-8 text-muted">
+              پاسخِ پرسش‌های پرتکرار را در صفحهٔ{" "}
+              <Link
+                href="/faq"
+                className="text-ink underline decoration-line underline-offset-4 transition-colors duration-300 hover:text-accent-dark hover:decoration-accent-dark"
+              >
+                سوالات متداول
+              </Link>{" "}
+              بیابید، یا با ما تماس بگیرید.
+            </p>
+          </div>
         </div>
       </div>
     </div>

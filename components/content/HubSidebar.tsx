@@ -44,7 +44,7 @@ export default function HubSidebar({
         aria-expanded={open}
         className="relative z-40 -mx-4 flex items-center justify-between border-b border-line bg-background px-4 py-5 text-start md:-mx-6 md:px-6 lg:z-auto lg:mx-0 lg:border-0 lg:bg-transparent lg:p-0 lg:pointer-events-none"
       >
-        <h1 className="text-[17px] font-semibold tracking-tight text-ink">{title}</h1>
+        <h1 className="text-[18px] font-semibold tracking-tight text-ink">{title}</h1>
         <ChevronDownIcon
           aria-hidden
           className={`h-4 w-4 shrink-0 text-muted transition-transform duration-500 lg:hidden ${

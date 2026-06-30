@@ -5,10 +5,60 @@
  * حقوقی بازبینی شوند. همهٔ این صفحه‌ها با کامپوننتِ مشترکِ ProsePage رندر می‌شوند.
  */
 
+/** تصویرِ یک سکشن (مسیرِ محلیِ public/). چند تصویر = گرید. */
+export type SectionImage = {
+  src: string;
+  alt: string;
+};
+
+/** جدولِ داده‌ایِ یک سکشن (مثلِ جدولِ سایز). همهٔ خانه‌ها رشته‌اند (اعداد فارسی). */
+export type SectionTable = {
+  caption?: string;
+  /** سرستون‌ها به ترتیبِ RTL (اولین = راست‌ترین) */
+  columns: string[];
+  rows: string[][];
+};
+
 export type ProseSection = {
   heading: string;
   paragraphs?: string[];
   bullets?: string[];
+  /** تصویر(ها)ی سکشن — یک، دو یا سه‌تایی به‌صورتِ گرید رندر می‌شوند */
+  images?: SectionImage[];
+  /** جدولِ داده (مثلِ جدولِ سایز) */
+  table?: SectionTable;
+};
+
+/** نامِ دیاگرام‌های ازپیش‌ساختهٔ راهنمای سایز */
+export type DiagramName =
+  | "ring-finger"
+  | "ring-existing"
+  | "bracelet-measure"
+  | "necklace-length";
+
+/**
+ * بلوکِ محتوا داخلِ یک آکاردئونِ راهنمای سایز — می‌تواند زیرعنوان، متن،
+ * مراحلِ شماره‌دار، نکات، دیاگرام، تصویر، جدول یا دکمه باشد.
+ */
+export type ContentBlock = {
+  heading?: string;
+  paragraphs?: string[];
+  /** فهرستِ شماره‌دار (۱، ۲، ۳ …) */
+  steps?: string[];
+  /** نکات — فهرستِ نقطه‌ایِ طلایی */
+  bullets?: string[];
+  diagram?: DiagramName;
+  images?: SectionImage[];
+  table?: SectionTable;
+  /** دکمهٔ سیاهِ رفرنس (مثلِ «دانلودِ جدول») — بدونِ href نسخهٔ چاپی می‌گیرد */
+  button?: { label: string; href?: string };
+};
+
+/** گروهِ آکاردئونیِ راهنمای سایز (انگشترها / دستبندها / گردنبندها) */
+export type SizeGroup = {
+  id: string;
+  label: string;
+  blocks: ContentBlock[];
 };
 
 export type ProsePageData = {

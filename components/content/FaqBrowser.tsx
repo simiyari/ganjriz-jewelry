@@ -72,21 +72,21 @@ export default function FaqBrowser({
           {active.label}
         </h2>
 
-        <div className="mt-7">
+        <div className="mt-8">
           {active.items.map((item, i) => {
             const isOpen = open.includes(i);
             return (
               <div
                 key={item.q}
-                className="border-b border-line transition-colors duration-300 hover:border-ink"
+                className={`group/acc border-b border-line transition-colors duration-300 ${isOpen ? "" : "hover:border-ink"}`}
               >
                 <button
                   type="button"
                   onClick={() => toggle(i)}
                   aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-5 py-4 text-start"
+                  className={`flex w-full items-center justify-between gap-5 py-4 text-start ${isOpen ? "border-b border-line transition-colors duration-300 group-hover/acc:border-ink" : ""}`}
                 >
-                  <h3 className="text-[13px] font-semibold leading-7 text-ink">{item.q}</h3>
+                  <h3 className="text-[16px] font-semibold leading-snug text-ink">{item.q}</h3>
                   <ChevronDownIcon
                     aria-hidden
                     className={`h-4 w-4 shrink-0 text-muted transition-transform duration-500 ${
@@ -105,12 +105,12 @@ export default function FaqBrowser({
                   style={{ transitionTimingFunction: EASE }}
                 >
                   <div className="overflow-hidden">
-                    <div className="max-w-2xl pb-5 text-[13px] leading-7 text-muted">
+                    <div className="pb-6 pt-5 text-[15px] leading-8 text-muted">
                       {item.a}
                       {item.link && (
                         <Link
                           href={item.link.href}
-                          className="mt-2 inline-block text-ink underline decoration-line underline-offset-4 transition-colors duration-300 hover:text-accent-dark hover:decoration-accent-dark"
+                          className="mt-3 inline-block text-ink underline decoration-line underline-offset-4 transition-colors duration-300 hover:text-accent-dark hover:decoration-accent-dark"
                         >
                           {item.link.label}
                         </Link>
