@@ -98,10 +98,10 @@ export default function FooterColumns() {
           })}
         </div>
         <p className="text-[13px] leading-7 text-white/55">
-          تهران، خیابان جواهری، پلاک ۱۸
+          کرج، گوهردشت، بلوار انقلاب، نبشِ خیابانِ دهم
           <br />
           <span dir="ltr" className="inline-block">
-            ۰۲۱ ۱۲۳ ۴۵۶۷
+            ۰۲۶ ۳۴۲۲ ۳۳۴۴
           </span>
         </p>
       </div>

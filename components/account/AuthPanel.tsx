@@ -403,11 +403,11 @@ export default function AuthPanel() {
               تماس دریافت کنم. هر زمان می‌توانم از بخشِ حساب کاربری این رضایت را لغو کنم.
             </Consent>
             <Consent required>
-              ​<Link href="/sales-terms" className="text-ink underline underline-offset-2 hover:text-accent-dark">
+              ​<Link href="/legal/sales-terms" className="text-ink underline underline-offset-2 hover:text-accent-dark">
                 شرایطِ فروش
               </Link>{" "}
               و{" "}
-              <Link href="/privacy" className="text-ink underline underline-offset-2 hover:text-accent-dark">
+              <Link href="/legal/privacy" className="text-ink underline underline-offset-2 hover:text-accent-dark">
                 حریمِ خصوصی
               </Link>{" "}
               گنج‌ریز را خوانده‌ام و می‌پذیرم.

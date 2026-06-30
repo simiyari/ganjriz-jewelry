@@ -588,6 +588,64 @@ export const STORE_LOCATOR = {
   hoursTitle: "ساعاتِ کاری",
 } as const;
 
+/** صفحهٔ «تماس با ما» (/contact) — هیرو + شبکهٔ روش‌های ارتباط */
+export const CONTACT_PAGE = {
+  hero: {
+    eyebrow: "Contact Us",
+    title: "تماس با ما",
+    description:
+      "به خدماتِ مشتریانِ گنج‌ریز خوش آمدید؛ از راهنماییِ انتخاب و خرید تا پیگیریِ سفارش، رزرو وقتِ حضوری و خدماتِ پس از فروش. برای هر پرسشی، با کمالِ میل همراهِ شما هستیم.",
+    image: "/content/stores.jpg",
+  },
+  introLead:
+    "روشِ دلخواهِ خود را برای ارتباط با تیمِ پشتیبانیِ ما انتخاب کنید، یا پاسخِ پرسش‌های پرتکرار را در ",
+  introFaqLabel: "پرسش‌های متداول",
+  introTail: " ببینید.",
+  faqHref: "/faq",
+  // کارتِ تماسِ تلفنی (شماره‌ها از STORES خوانده می‌شود)
+  callTitle: "تماسِ تلفنی",
+  callHoursLabel: "ساعاتِ پاسخگویی، به وقتِ ایران",
+  callHours: ["شنبه تا پنج‌شنبه: ۱۰:۰۰ تا ۲۰:۳۰", "جمعه: تعطیل"],
+  // کارتِ ایمیل
+  email: "info@ganjriz.ir",
+  emailTitle: "ایمیل",
+  emailBody:
+    "کارشناسانِ ما حداکثر ظرفِ دو روزِ کاری به پیامِ شما پاسخ می‌دهند.",
+  emailCta: "ارسالِ ایمیل",
+  // چهار کارتِ دیگر — به‌ترتیبِ چیدمانِ شبکه پس از «تماس» و «ایمیل»
+  cards: [
+    {
+      icon: "calendar",
+      title: "رزرو وقتِ حضوری",
+      body: "برای دیدنِ نزدیکِ مجموعه‌ها و دریافتِ مشاورهٔ تخصصی، وقتِ حضوری در شعبه رزرو کنید.",
+      ctaLabel: "رزرو وقت",
+      href: "/appointment",
+    },
+    {
+      icon: "store",
+      title: "شعبه‌های ما",
+      body: "در فضایی آرام و لوکس، از خدماتِ اختصاصی و مشاورهٔ کارشناسانِ ما بهره‌مند شوید.",
+      ctaLabel: "یافتنِ شعبه",
+      href: "/stores",
+    },
+    {
+      icon: "care",
+      title: "خدماتِ پس از فروش",
+      body: "همراهیِ ما پس از خرید هم ادامه دارد؛ از مراقبت و تعمیرِ قطعه تا گارانتیِ اصالت.",
+      ctaLabel: "بیشتر بدانید",
+      href: "/customer-service/warranty",
+    },
+    {
+      icon: "faq",
+      title: "سوالاتِ متداول",
+      body: "پاسخِ پرسش‌های پرتکرار دربارهٔ جواهرات، مجموعه‌ها و خدمات را اینجا بیابید.",
+      ctaLabel: "مشاهدهٔ پرسش‌ها",
+      href: "/faq",
+    },
+  ],
+  socialTitle: "ما را در شبکه‌های اجتماعی دنبال کنید",
+} as const;
+
 /** ستون‌های فوتر */
 export const FOOTER_COLUMNS = [
   {
@@ -595,8 +653,8 @@ export const FOOTER_COLUMNS = [
     links: [
       { label: "تماس با ما", href: "/contact" },
       { label: "سوالات متداول", href: "/faq" },
-      { label: "شیوه‌های ارسال", href: "/shipping" },
-      { label: "بازگشت و تعویض کالا", href: "/returns" },
+      { label: "شیوه‌های ارسال", href: "/customer-service/shipping" },
+      { label: "بازگشت و تعویض کالا", href: "/customer-service/returns" },
       { label: "پیگیری سفارش", href: "/track" },
     ],
   },
@@ -614,9 +672,9 @@ export const FOOTER_COLUMNS = [
     title: "خدمات جواهری",
     links: [
       { label: "رزرو وقت حضوری", href: "/appointment" },
-      { label: "بسته‌بندی هدیه", href: "/packaging" },
+      { label: "بسته‌بندی هدیه", href: "/customer-service/packaging" },
       { label: "شخصی‌سازی", href: "/personalization" },
-      { label: "گارانتی و اصالت", href: "/warranty" },
+      { label: "گارانتی و اصالت", href: "/customer-service/warranty" },
     ],
   },
 ] as const;
@@ -630,8 +688,8 @@ export const SOCIAL_LINKS = [
 
 /** لینک‌های حقوقی پایین فوتر */
 export const LEGAL_LINKS = [
-  { label: "حریم خصوصی", href: "/privacy" },
-  { label: "شرایط استفاده", href: "/terms" },
-  { label: "شرایط فروش", href: "/sales-terms" },
-  { label: "سیاست کوکی", href: "/cookies" },
+  { label: "حریم خصوصی", href: "/legal/privacy" },
+  { label: "شرایط استفاده", href: "/legal/terms" },
+  { label: "شرایط فروش", href: "/legal/sales-terms" },
+  { label: "سیاست کوکی", href: "/legal/cookies" },
 ] as const;

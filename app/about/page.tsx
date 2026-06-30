@@ -40,7 +40,7 @@ export default function AboutPage() {
           <div className="flex flex-col items-center text-center">
             <div className="fx-reveal flex w-full flex-col items-center">
               <Eyebrow>{a.eyebrow}</Eyebrow>
-              <h1 className="max-w-3xl text-[30px] font-semibold leading-snug text-ink md:text-[42px]">
+              <h1 className="max-w-3xl text-[26px] font-semibold leading-snug text-ink md:text-[32px]">
                 {a.title}
               </h1>
             </div>

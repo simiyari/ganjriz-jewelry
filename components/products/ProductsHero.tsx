@@ -57,7 +57,7 @@ export default function ProductsHero({
         <div className="flex items-center bg-surface px-7 py-12 text-right md:h-[400px] md:px-14 md:py-8">
           <div className="flex w-full flex-col items-start">
             <Eyebrow>{data.eyebrow}</Eyebrow>
-            <h1 className="text-[30px] font-semibold leading-snug text-ink md:text-[42px]">
+            <h1 className="text-[26px] font-semibold leading-snug text-ink md:text-[32px]">
               {data.title}
             </h1>
             <p className="mt-5 max-w-md text-[15px] leading-8 text-muted">

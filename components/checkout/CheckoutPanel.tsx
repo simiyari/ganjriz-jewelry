@@ -499,14 +499,14 @@ export default function CheckoutPanel() {
                 />
                 <span>
                   <Link
-                    href="/sales-terms"
+                    href="/legal/sales-terms"
                     className="text-ink underline decoration-line underline-offset-4 hover:text-accent-dark hover:decoration-accent-dark"
                   >
                     شرایطِ فروش
                   </Link>{" "}
                   و{" "}
                   <Link
-                    href="/privacy"
+                    href="/legal/privacy"
                     className="text-ink underline decoration-line underline-offset-4 hover:text-accent-dark hover:decoration-accent-dark"
                   >
                     حریمِ خصوصی
